@@ -35,20 +35,6 @@ export default function App() {
   </div>
 </main>
 
-<section id="pricing" className="px-8 py-16 bg-black">
-        <h2 className="text-3xl font-bold mb-4 text-purple-500">Pricing</h2>
-        <p className="max-w-2xl mx-auto">
-          Free forever for students. Pro plan for professionals at $9/mo.
-        </p>
-      </section>
-
-      <section id="contact" className="px-8 py-16 bg-gray-900">
-        <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
-        <p className="max-w-2xl mx-auto">
-          Questions? Email us at <a href="mailto:support@applypilot.com" className="underline">support@applypilot.com</a>.
-        </p>
-      </section>
-
 
       {showLogin && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90">

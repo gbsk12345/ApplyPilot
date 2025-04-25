@@ -1,0 +1,23 @@
+python
+java
+c++
+aws
+docker
+kubernetes
+react
+sql
+mongodb
+git
+linux
+tensorflow
+pandas
+django
+flask
+node.js
+machine learning
+data science
+nlp
+graphql
+typescript
+gcp
+azure

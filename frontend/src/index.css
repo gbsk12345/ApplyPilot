@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Cal Sans', sans-serif; }
+}

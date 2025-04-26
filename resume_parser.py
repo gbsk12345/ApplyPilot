@@ -37,7 +37,7 @@ def parse_skills(text, tech_skills):
 if __name__ == "__main__":
     # pdf_path = "JobResume2.pdf"
     # pdf_path = "Aditya_Resume_Ml.pdf"
-    pdf_path = "Devanshu_Resume.pdf"
+    pdf_path = "Devanshu_Resumeclear.pdf"
     raw_text = extract_text(pdf_path)
     skills = parse_skills(raw_text, TECH_SKILLS)
 

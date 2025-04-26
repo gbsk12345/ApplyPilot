@@ -1,0 +1,31 @@
+Repo Name,Description,Language,Stars,Topics
+microsoft/BitNet,Official inference framework for 1-bit LLMs,C++,"17.3k
+          stars",
+Anduin2017/HowToCook,程序员在家做饭方法指南。Programmer's guide about how to cook at home (Simplified Chinese only).,Dockerfile,"80.7k
+          stars","recipes, cooking, cookbook, chinese, dishes"
+microsoft/markitdown,Python tool for converting files and office documents to Markdown.,Python,"54.2k
+          stars","markdown, pdf, openai, microsoft-office, autogen, langchain, autogen-extension"
+kamranahmedse/developer-roadmap,"Interactive roadmaps, guides and other educational content to help developers grow in their careers.",TypeScript,"316k
+          stars","computer-science, roadmap, python-roadmap, developer-roadmap, devops-roadmap, react-roadmap, frontend-roadmap, java-roadmap, backend-roadmap, go-roadmap, angular-roadmap, nodejs-roadmap, dba-roadmap, javascript-roadmap, vue-roadmap, blockchain-roadmap, qa-roadmap, software-architect-roadmap"
+Byaidu/PDFMathTranslate,PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/MCP/Docker/Zotero,Python,"21.9k
+          stars","python, pdf, latex, translation, math, mcp, japanese, english, openai, translate, document, chinese, edit, modify, russian, korean, zotero, obsidian, pdf2zh"
+jujumilk3/leaked-system-prompts,Collection of leaked system prompts,,"3.7k
+          stars","prompt, llm"
+jwasham/coding-interview-university,A complete computer science study plan to become a software engineer.,,"316k
+          stars","computer-science, algorithm, algorithms, interview, data-structures, software-engineering, coding-interviews, study-plan, interview-prep, interview-preparation, coding-interview, programming-interviews"
+jlowin/fastmcp,"🚀 The fast, Pythonic way to build MCP servers and clients",Python,"7.6k
+          stars","python, api, server, mcp, claude, llm, anthropic, model-context-protocol, mcp-server, mcp-client, fastmcp"
+bytedance/UI-TARS,,Python,"5.2k
+          stars",research
+plandex-ai/plandex,Open source AI coding agent. Designed for large projects and real world tasks.,Go,"12.7k
+          stars","git, cli, golang, terminal, ai, command-line, openai, developer-tools, terminal-based, ai-agents, terminal-ui, polyglot-programming, ai-tools, gpt-4, llm, ai-developer-tools"
+allenai/olmocr,Toolkit for linearizing PDFs for LLM datasets/training,Python,"12k
+          stars",
+hydralauncher/hydra,Hydra is a game launcher with its own embedded bittorrent client,TypeScript,"13k
+          stars",
+elie222/inbox-zero,AI personal assistant for email. Open source app to help you reach inbox zero fast.,TypeScript,"7k
+          stars","productivity, typescript, ai, email, nextjs, postgresql, gmail, loops, openai, resend, prisma, tailwind, posthog, turborepo, upstash, tinybird, shadcn-ui"
+nocobase/nocobase,"NocoBase is an extensibility-first, open-source no-code/low-code platform for building business applications and enterprise solutions.",TypeScript,"15.4k
+          stars","internal-tools, crud, crm, admin-dashboard, self-hosted, salesforce, developer-tools, airtable, workflows, low-code, no-code, app-builder, internal-tool, nocode, low-code-development-platform, lowcode, no-code-platform, low-code-platform, no-code-framework, low-code-framework"
+pocketbase/pocketbase,Open Source realtime backend in 1 file,Go,"46.5k
+          stars","golang, authentication, backend, realtime"

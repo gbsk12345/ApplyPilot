@@ -1,3 +1,6 @@
 Linkedin Skills:
 
 https://learn.microsoft.com/en-us/linkedin/shared/references/v2/standardized-data/skills
+
+
+https://lightcast.io/open-skills/skills/KSEG3KJGMF7B82GRDH5U/linkedin-api#skills-categories

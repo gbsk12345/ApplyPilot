@@ -12,6 +12,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "path": "^0.12.7",
+    "playwright": "^1.52.0"
   }
 }

@@ -1,105 +1,104 @@
-const { chromium } = require('playwright');
-const path = require('path');
-const fs = require('fs');
+const { chromium } = require('playwright')
+const path = require('path')
+const fs = require('fs')
+const { compareTwoStrings } = require('string-similarity')
 
-// Normalize string keys for matching
 function normalize(str) {
   return typeof str === 'string'
     ? str.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
-    : '';
+    : ''
 }
 
 async function applyToJob(url, userData) {
-  const browser = await chromium.launch({ headless: false });
-  const page = await browser.newPage();
-  await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+  const browser = await chromium.launch({ headless: false })
+  const page = await browser.newPage()
+  await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 })
 
-  // Build normalized map of user data
-  const userMap = {};
+  const userMap = {}
   for (const key in userData) {
-    const norm = normalize(key);
-    if (norm) userMap[norm] = userData[key];
+    const norm = normalize(key)
+    if (norm) userMap[norm] = userData[key]
   }
 
-  // --- 1) Resume Upload ---
-  const resumeSelector = 'input#resume[type="file"]';
-  const resumeInput = await page.$(resumeSelector);
+  const resumeInput = await page.$('input#resume[type="file"]')
   if (resumeInput) {
-    const resumePath = path.resolve(__dirname, 'resume.pdf');
-    if (!fs.existsSync(resumePath)) {
-      throw new Error(`Resume file not found at ${resumePath}`);
-    }
-    await resumeInput.setInputFiles(resumePath);
-    // Dispatch events so the site picks up the new file
-    await resumeInput.dispatchEvent('change');
-    await resumeInput.dispatchEvent('input');
-    // Wait for UI to update
-    await page.waitForTimeout(1500);
-    console.log('Resume uploaded');
+    const resumePath = path.resolve(__dirname, 'resume.pdf')
+    if (!fs.existsSync(resumePath)) throw new Error(`Resume not found`)
+    await resumeInput.setInputFiles(resumePath)
+    await resumeInput.dispatchEvent('change')
+    await resumeInput.dispatchEvent('input')
+    await page.waitForTimeout(1500)
+    console.log('Resume uploaded')
   }
 
-  // --- 2) Fill Other Fields by Label → ID ---
-  const labels = await page.$$('form#application-form label');
-  for (const lbl of labels) {
-    const raw = await lbl.innerText();
-    const label = raw.replace('*', '').trim();
-    const normLabel = normalize(label);
-    if (!normLabel) continue;
+  const form = await page.$('form')
+  if (!form) return
 
-    const forId = await lbl.getAttribute('for');
-    if (!forId) continue;
+  const controls = await form.$$('input, select, textarea')
+  for (const field of controls) {
+    const typeAttr = (await field.getAttribute('type') || '').toLowerCase()
+    if (typeAttr === 'file') continue
 
-    const field = await page.$(`#${forId}`);
-    if (!field) continue;
-
-    // Determine value from userMap (exact or partial match)
-    let value = userMap[normLabel] || '';
-    if (!value) {
-      const match = Object.keys(userMap).find(k => normLabel.includes(k) || k.includes(normLabel));
-      if (match) value = userMap[match];
+    let labelEl = null
+    const id = await field.getAttribute('id')
+    if (id) labelEl = await form.$(`label[for="${id}"]`)
+    if (!labelEl) {
+      const handle = await field.evaluateHandle(el => el.closest('label'))
+      labelEl = handle.asElement() || null
     }
-    if (!value) continue;
+    if (!labelEl) continue
 
-    const tag = await field.evaluate(e => e.tagName.toLowerCase());
-    const type = (await field.getAttribute('type') || '').toLowerCase();
-    const role = await field.getAttribute('role');
+    const rawLabel = await labelEl.evaluate(el => el.innerText)
+    const normLabel = normalize(rawLabel.replace('*', '').trim())
+    if (!normLabel) continue
 
-    console.log(`Filling "${label}" (${tag}/${type}/${role}) with "${value}"`);
-
-    if (tag === 'textarea') {
-      await field.fill(value);
-
-    } else if (tag === 'input') {
-      if (['text','email','tel','number','url','search','password','date'].includes(type)) {
-        if (role === 'combobox') {
-          await field.click({ force: true });
-          await field.type(value);
-          await page.waitForTimeout(1500);
-          await page.keyboard.press('ArrowDown');
-          await page.keyboard.press('Enter');
-        } else {
-          await field.fill(value);
-        }
-      } else if (type === 'checkbox') {
-        const truthy = ['true','yes','1','on'];
-        if (truthy.includes(String(value).toLowerCase())) {
-          await field.check({ force: true });
-        }
+    let bestKey = null
+    let bestScore = 0
+    for (const k of Object.keys(userMap)) {
+      const score = compareTwoStrings(normLabel, k)
+      if (score > bestScore) {
+        bestScore = score
+        bestKey = k
       }
+    }
+    if (!bestKey || bestScore < 0.85) {
+      const partial = Object.keys(userMap).find(k => normLabel.includes(k) || k.includes(normLabel))
+      if (partial) bestKey = partial
+      else continue
+    }
+    const value = userMap[bestKey]
 
+    const tag = await field.evaluate(el => el.tagName.toLowerCase())
+    const role = await field.getAttribute('role')
+
+    if (tag === 'input') {
+      if (['text','email','tel','number','url','search','password','date'].includes(typeAttr)) {
+        if (role === 'combobox') {
+          await field.click({ force: true })
+          await field.type(value)
+          await page.waitForTimeout(1500)
+          await page.keyboard.press('ArrowDown')
+          await page.keyboard.press('Enter')
+        } else {
+          await field.fill(value)
+        }
+      } else if (typeAttr === 'checkbox') {
+        const v = String(value).toLowerCase()
+        if (['true','yes','1','on'].includes(v)) await field.check({ force: true })
+      }
+    } else if (tag === 'textarea') {
+      await field.fill(value)
     } else if (tag === 'select') {
       try {
-        await field.selectOption({ label: value });
+        await field.selectOption({ label: value })
       } catch {
-        await field.click();
-        await page.keyboard.press('ArrowDown');
-        await page.keyboard.press('Enter');
+        await field.click()
+        await page.waitForTimeout(1500)
+        await page.keyboard.press('ArrowDown')
+        await page.keyboard.press('Enter')
       }
     }
   }
-
-  // console.log('Form fill complete. Closing browser.');
-  // await browser.close();
 }
 
-module.exports = { applyToJob };
+module.exports = { applyToJob }

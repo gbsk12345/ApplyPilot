@@ -10,10 +10,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hyperbrowser/agent": "^0.3.0",
+    "@img/sharp-libvips-darwin-arm64": "^1.1.0",
+    "@langchain/openai": "^0.5.7",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "path": "^0.12.7",
-    "playwright": "^1.52.0"
+    "playwright": "^1.52.0",
+    "sharp": "^0.34.1",
+    "string-similarity": "^4.0.4",
+    "ts-node": "^10.9.2"
   }
 }

@@ -233,26 +233,26 @@ Fields to fill:\n`;
   const submitBtnSelector = 'button[data-qa="btn-submit"]';
   const submitBtn = await page.$(submitBtnSelector);
 
-  if (submitBtn) {
-    console.log("⚠️ Found submit button. Clicking it will likely trigger an hCaptcha challenge which this script CANNOT solve automatically.");
-    console.log("⚠️ If running interactively, be prepared to solve the CAPTCHA in the browser window shortly after clicking.");
+//   if (submitBtn) {
+//     console.log("⚠️ Found submit button. Clicking it will likely trigger an hCaptcha challenge which this script CANNOT solve automatically.");
+//     console.log("⚠️ If running interactively, be prepared to solve the CAPTCHA in the browser window shortly after clicking.");
 
-    await submitBtn.click();
-    console.log("✅ Submit button clicked. Waiting for potential CAPTCHA or confirmation...");
-    await page.waitForTimeout(15000);
-    const successIndicator = await page.$('text=/Application submitted|Thank you for applying/i'); // Example
-     if (successIndicator) {
-         console.log("✅✅ Possible submission success detected!");
-     } else {
-         console.warn("⚠️ Submission status unclear after 15 seconds. Manual check recommended. CAPTCHA likely interfered.");
-     }
+//     await submitBtn.click();
+//     console.log("✅ Submit button clicked. Waiting for potential CAPTCHA or confirmation...");
+//     await page.waitForTimeout(15000);
+//     const successIndicator = await page.$('text=/Application submitted|Thank you for applying/i'); // Example
+//      if (successIndicator) {
+//          console.log("✅✅ Possible submission success detected!");
+//      } else {
+//          console.warn("⚠️ Submission status unclear after 15 seconds. Manual check recommended. CAPTCHA likely interfered.");
+//      }
 
-  } else {
-    console.error("❌ Submit button not found with selector:", submitBtnSelector);
-  }
+//   } else {
+//     console.error("❌ Submit button not found with selector:", submitBtnSelector);
+//   }
 
-  console.log("Closing agent.");
-  await agent.closeAgent();
+//   console.log("Closing agent.");
+//   await agent.closeAgent();
 }
 
 module.exports = { applyToLeverJob };

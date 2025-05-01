@@ -1,154 +1,175 @@
-// services/autoApply.js
-// Load Apple Silicon libvips for Sharp (used by HyperAgent for screenshots)
+// services/autoApply.js -------------------------------------------------------
 try { require('@img/sharp-libvips-darwin-arm64'); } catch {}
-// Load environment variables
 require('dotenv').config();
-
+const fs             = require('fs');
+const path           = require('path');
+const sim            = require('string-similarity');
 const { ChatOpenAI } = require('@langchain/openai');
 const { HyperAgent } = require('@hyperbrowser/agent');
-const path = require('path');
-const fs = require('fs');
 
-// Normalize labels and keys to simple strings for matching
-function normalize(str) {
-  return typeof str === 'string'
-    ? str.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
-    : '';
+const LOG  = m => console.log(`[▶] ${m}`);
+const STEP = s => { console.log(`\n====== STEP ${s.idx} ======`); console.dir(s, {depth:null}); };
+
+const norm = s => typeof s === 'string'
+  ? s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+  : '';
+
+// ───────────────────────────────── helpers ───────────────────────────────────
+async function waitFrame(page, ms = 30_000) {
+  const t0 = Date.now();
+  while (Date.now() - t0 < ms) {
+    const fr = page.frames().find(f => f.url().includes('boards.greenhouse.io'));
+    if (fr) return fr;
+    await page.waitForTimeout(200);
+  }
+  return null;
 }
 
-/**
- * applyToJob
- * @param {string} url - the job application URL
- * @param {Object} userData - map of label → value for filling
- */
-async function applyToJob(url, userData) {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error('Missing OPENAI_API_KEY');
+async function visibleControl(label) {
+  return (await label.evaluateHandle(el => {
+    const root = el.closest('.field');
+    if (!root) return null;
+    return root.querySelector(
+      'span.select2-container, ' +
+      'input:not([type=hidden]):not([style*="display:none"]), ' +
+      'textarea:not([style*="display:none"]), ' +
+      'select:not([style*="display:none"])'
+    );
+  })).asElement();
+}
+
+// improved Select2 helper (v3 & v4)
+async function fillSelect2(wrapper, frame, value) {
+  // open
+  const opener = await wrapper.$('a.select2-choice, span.select2-selection') || wrapper;
+  await opener.click({ force: true });
+  await frame.waitForTimeout(250);
+
+  // searchable?
+  const search = await frame.$('div.select2-drop:visible input.select2-input');
+  if (search) {
+    await search.type(String(value), { delay: 50 });
+    await frame.waitForTimeout(1500);
+
+    // try clicking exact match
+    const exactLi = await frame.$(
+      `//div[contains(@class,"select2-drop") and contains(@style,"display: block")]` +
+      `//li[normalize-space() = "${value}"]`
+    );
+    if (exactLi) {
+      await exactLi.click({ force: true });
+      return;
+    }
+    // fallback – keyboard
+    await frame.keyboard.press('ArrowDown').catch(() => {});
+    await frame.keyboard.press('Enter').catch(() => {});
+    return;
   }
 
-  // Initialize LLM + HyperAgent
-  const llm = new ChatOpenAI({
-    openAIApiKey: process.env.OPENAI_API_KEY,
-    modelName: 'gpt-4o-mini'
-  });
-  const agent = new HyperAgent({ llm });
+  // non-searchable: click first li that matches
+  const li = await frame.$(
+    `//div[contains(@class,"select2-drop") and contains(@style,"display: block")]` +
+    `//li[normalize-space() = "${value}"]`
+  );
+  if (li) { await li.click(); return; }
 
-  // Open a new Playwright page via HyperAgent
+  // otherwise click first option
+  const first = await frame.$('div.select2-drop:visible li');
+  if (first) await first.click();
+}
+
+// ───────────────────────────────── main ──────────────────────────────────────
+async function applyToJob(url, userData) {
+  if (!process.env.OPENAI_API_KEY) throw new Error('Missing OPENAI_API_KEY');
+
+  const agent = new HyperAgent({
+    llm: new ChatOpenAI({ modelName: 'gpt-4o-mini', openAIApiKey: process.env.OPENAI_API_KEY })
+  });
   const page = await agent.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
 
-  // Build a normalized map of userData
-  const userMap = {};
-  for (const key in userData) {
-    const norm = normalize(key);
-    if (norm) userMap[norm] = userData[key];
+  const frame = await waitFrame(page);
+  if (!frame) throw new Error('❌ cannot find Greenhouse iframe');
+  LOG('iframe ready');
+
+  // upload resume
+  const resume = path.resolve(__dirname, 'resume.pdf');
+  if (fs.existsSync(resume)) {
+    try {
+      const btn  = await frame.$('fieldset#resume_fieldset button[data-source="attach"]');
+      if (btn) {
+        const [chooser] = await Promise.all([ page.waitForEvent('filechooser'), btn.click() ]);
+        await chooser.setFiles(resume);
+        await frame.waitForTimeout(5000);
+        LOG('Resume uploaded ✅');
+      }
+    } catch (e) { console.warn('resume upload failed ->', e.message); }
   }
 
-  // 1) Resume upload via hidden file input
-  const resumeSelector = 'input[type="file"][id="resume"]';
-  const resumeInput = await page.$(resumeSelector);
-  if (resumeInput) {
-    const resumePath = path.resolve(__dirname, 'resume.pdf');
-    if (!fs.existsSync(resumePath)) {
-      throw new Error(`Resume file not found: ${resumePath}`);
-    }
-    await resumeInput.setInputFiles(resumePath);
-    await resumeInput.dispatchEvent('change');
-    await resumeInput.dispatchEvent('input');
-    await page.waitForTimeout(1500);
-    console.log('✅ Resume uploaded');
-  }
+  // build lookup
+  const store = {};
+  Object.entries(userData).forEach(([k,v]) => store[norm(k)] = v);
+  const keys = Object.keys(store);
+  const lookup = label => {
+    const direct = store[norm(label)];
+    if (direct !== undefined) return direct;
+    const { bestMatch } = sim.findBestMatch(norm(label), keys);
+    return bestMatch.rating >= .55 ? store[bestMatch.target] : undefined;
+  };
 
-  // 2) Playwright-first field filling
-  const labels = await page.$$('form#application-form label');
-  const unfilled = [];
-
+  // loop labels
+  const labels = await frame.$$('form#application_form label');
+  const miss   = [];
   for (const lbl of labels) {
-    const raw = await lbl.innerText();
-    const labelText = raw.replace('*', '').trim();
-    const normLabel = normalize(labelText);
-    if (!normLabel) continue;
+    const raw = (await lbl.innerText()).replace('*','').trim();
+    if (!raw) continue;
+    if (['resume/cv','cover letter'].includes(norm(raw))) continue;
 
-    // Find field by `for` attribute
+    let ctl = null;
     const forId = await lbl.getAttribute('for');
-    let field = forId ? await page.$(`[id="${forId}"]`) : null;
-    if (!field) {
-      const handle = await lbl.evaluateHandle(el => el.closest('div')?.querySelector('input,textarea,select,[role="combobox"]'));
-      field = handle && handle.asElement();
-    }
-    if (!field) {
-      unfilled.push({ labelText, normLabel });
-      continue;
-    }
+    if (forId) ctl = await frame.$(`#${forId}:not([type=hidden])`);
+    if (!ctl) ctl = await visibleControl(lbl);
+    if (!ctl) { miss.push(raw); continue; }
 
-    // Determine fill value
-    let value = userMap[normLabel] || '';
-    if (!value) {
-      const key = Object.keys(userMap).find(k => normLabel.includes(k) || k.includes(normLabel));
-      if (key) value = userMap[key];
-    }
-    if (!value) {
-      unfilled.push({ labelText, normLabel });
-      continue;
-    }
+    const val = lookup(raw);
+    if (val === undefined) { miss.push(raw); continue; }
 
-    // Inspect field type
-    const tag = await field.evaluate(el => el.tagName.toLowerCase());
-    const type = (await field.getAttribute('type') || '').toLowerCase();
-    const role = await field.getAttribute('role');
+    const tag  = await ctl.evaluate(e=>e.tagName.toLowerCase());
+    const type = (await ctl.getAttribute('type')||'').toLowerCase();
+    const cls  = await ctl.getAttribute('class')||'';
+    const isS2 = cls.includes('select2-container');
 
-    console.log(`Filling ${labelText} → ${value}`);
+    LOG(`fill ${raw} → "${val}" [${tag}${isS2?',select2':''}]`);
+    try {
+      if (isS2 || tag==='span' && cls.includes('select2-container')) {
+        await fillSelect2(ctl, frame, val);
+      } else if (tag==='select') {
+        await ctl.selectOption({ label: val }).catch(()=>ctl.selectOption({ value: val }));
+      } else if (tag==='textarea' || (tag==='input' && ['text','email','tel','url','search','number','date'].includes(type))) {
+        await ctl.fill(String(val));
+      } else if (tag==='input' && type==='checkbox') {
+        const truthy = ['yes','true','1','on'].includes(String(val).toLowerCase());
+        await (truthy ? ctl.check({force:true}) : ctl.uncheck({force:true}));
+      } else miss.push(raw);
+    } catch(e){ miss.push(raw); LOG(`  ⚠ ${e.message}`); }
 
-    // Fill standard controls
-    if (tag === 'textarea' || (tag === 'input' && ['text','email','tel','number','url','search','password','date'].includes(type))) {
-      if (role === 'combobox') {
-        await field.click({ force: true });
-        await field.fill(value);
-        await page.waitForTimeout(1500);
-        await page.keyboard.press('ArrowDown');
-        await page.keyboard.press('Enter');
-      } else {
-        await field.fill(value);
-      }
-    } else if (tag === 'select') {
-      try {
-        await field.selectOption({ label: value });
-      } catch {
-        await field.click();
-        await page.waitForTimeout(1500);
-        await page.keyboard.press('ArrowDown');
-        await page.keyboard.press('Enter');
-      }
-    } else if (tag === 'input' && type === 'checkbox') {
-      if (['true','yes','1','on'].includes(String(value).toLowerCase())) {
-        await field.check({ force: true });
-      }
-    } else {
-      unfilled.push({ labelText, normLabel });
-    }
-
-    await page.waitForTimeout(200);
+    await frame.waitForTimeout(150);
   }
 
-  // 3) LLM fallback for unfilled fields
-  if (unfilled.length) {
-    console.log('LLM fallback for:', unfilled.map(u => u.labelText));
-    let prompt = 'Please fill the following remaining fields on this form with the given values. For dropdown/combobox, have a timeout for 1.5 second after typing in query, after typing press down arrow and select first suggestion:\n';
-    for (const { labelText, normLabel } of unfilled) {
-      prompt += `- ${labelText}: ${userMap[normLabel] || ''}\n`;
-    }
-    await page.ai(prompt);
+  // LLM fallback
+  if (miss.length) {
+    LOG(`LLM fallback (${miss.length})`);
+    const prompt = ['Fill these fields:\n', ...miss.map(m=>`- ${m}: ${lookup(m)||''}`)].join('');
+    await page.ai(prompt, { onStep: STEP });
   }
 
-  // 4) Submit the form
-  const submitBtn = await page.$('button[type="submit"]');
-  if (submitBtn) {
-    await submitBtn.click();
-    console.log('✅ Form submitted');
-  }
+  // submit
+  const submit = await frame.$('#submit_app, button[type=submit], input[type=submit]');
+  if (submit) { await submit.click(); LOG('submitted ✅'); }
+  else LOG('⚠ submit button not found');
 
-  // Clean up
   await agent.closeAgent();
+  LOG('done');
 }
 
 module.exports = { applyToJob };

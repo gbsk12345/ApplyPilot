@@ -84,7 +84,7 @@ async function fillSelect2 (wrapper, frame, value) {
 }
 
 // ──────────────────────── main ──────────────────────────
-async function applyToJob (url, userData) {
+async function applyToJobEmbed (url, userData) {
   if (!process.env.OPENAI_API_KEY) throw new Error('Missing OPENAI_API_KEY');
 
   const agent = new HyperAgent({
@@ -196,5 +196,5 @@ async function applyToJob (url, userData) {
   LOG('done');
 }
 
-module.exports = { applyToJob };
+module.exports = { applyToJobEmbed };
 

@@ -152,4 +152,3 @@ const labels = await page.$$('form[id*="application"] label');
 }
 
 module.exports = { applyToJob };
-

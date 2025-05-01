@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "express": "^5.1.0",
+    "linkedin-jobs-api": "^1.0.6",
+    "requests": "^0.3.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "applypilot",
+  "description": "🚀 A smart job application assistant that automatically applies to relevant job postings **only if** your profile matches the technical requirements.   ✅ Built-in ATS scoring system focused purely on **technical skill alignment** using keyword extraction, semantic similarity, and machine learning.",
+  "version": "1.0.0",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

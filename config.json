@@ -1,0 +1,22 @@
+{
+  "companies": [
+    {
+      "name": "RemoteOK",
+      "career_page": "https://remoteok.com/remote-dev-jobs",
+      "job_link_pattern": "/remote-jobs/",
+      "description_div_class": "description"
+    },
+    {
+      "name": "WeWorkRemotely",
+      "career_page": "https://weworkremotely.com/categories/remote-programming-jobs",
+      "job_link_pattern": "/remote-jobs/",
+      "description_div_class": "listing-container"
+    },
+    {
+      "name": "AngelList",
+      "career_page": "https://angel.co/jobs",
+      "job_link_pattern": "/jobs/",
+      "description_div_class": "component_3f0e0"
+    }
+  ]
+}

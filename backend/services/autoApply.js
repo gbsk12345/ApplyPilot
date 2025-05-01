@@ -60,7 +60,7 @@ async function applyToJob(url, userData) {
   }
 
   // 2) Playwright-first field filling
-  const labels = await page.$$('form#application-form label');
+const labels = await page.$$('form[id*="application"] label');
   const unfilled = [];
 
   for (const lbl of labels) {
@@ -141,14 +141,15 @@ async function applyToJob(url, userData) {
   }
 
   // 4) Submit the form
-  const submitBtn = await page.$('button[type="submit"]');
-  if (submitBtn) {
-    await submitBtn.click();
-    console.log('✅ Form submitted');
-  }
+  // const submitBtn = await page.$('button[type="submit"]');
+  // if (submitBtn) {
+  //   await submitBtn.click();
+  //   console.log('✅ Form submitted');
+  // }
 
-  // Clean up
-  await agent.closeAgent();
+  // // Clean up
+  // await agent.closeAgent();
 }
 
 module.exports = { applyToJob };
+

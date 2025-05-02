@@ -11,11 +11,12 @@ require('dotenv').config();
 const express = require('express');
 const { applyToJob } = require('./services/autoApply');
 const {applyToLeverJob} = require('./services/leverApply');
+const {applyToSmartRecruiters} = require('./services/autoApplySmartRecruiters');
 
 
 
 const app = express();
-app.use(express.json()); // built-in JSON parser
+app.use(express.json());
 
 app.post('/api/apply', async (req, res) => {
   const { jobUrl, userData } = req.body;
@@ -30,6 +31,24 @@ app.post('/api/apply', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+
+app.post('/api/applyToSmartRecruiter', async (req, res) => {
+  const { jobUrl, userData } = req.body;
+  if (!jobUrl || !userData) {
+    return res.status(400).json({ error: 'Missing jobUrl or userData' });
+  }
+  try {
+    await applyToSmartRecruiters(jobUrl, userData);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('applyToJob error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
 
 
 app.post('/api/leverApply', async (req, res) => {

@@ -1,183 +1,193 @@
+/* eslint-disable */
 try { require('@img/sharp-libvips-darwin-arm64'); } catch {}
 require('dotenv').config();
 const { ChatOpenAI } = require('@langchain/openai');
-const { HyperAgent } = require('@hyperbrowser/agent');
-const path = require('path');
-const fs = require('fs');
+const { HyperAgent }  = require('@hyperbrowser/agent');
+const path            = require('path');
+const fs              = require('fs');
 
-function normalize(str) {
-  return typeof str === 'string'
-    ? str.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+function normalize(s){
+  return typeof s==='string'
+    ? s.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()
     : '';
 }
+const rnd = (min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+const delay=(page,min,max)=>page.waitForTimeout(rnd(min,max));
 
-const randomDelay = (page, min, max) =>
-  page.waitForTimeout(Math.floor(Math.random() * (max - min + 1)) + min);
+function overlapScore(a,b){
+  const A=new Set(a.split(' ').filter(w=>w.length>1));
+  const B=new Set(b.split(' ').filter(w=>w.length>1));
+  if(!A.size||!B.size) return 0;
+  let common=0; for(const w of B) if(A.has(w)) common++;
+  return common/A.size;
+}
 
-async function applyToSmartRecruiters(url, userData) {
-  if (!process.env.OPENAI_API_KEY) throw new Error('Missing OPENAI_API_KEY');
+async function getNativeField(handle){
+  if(!handle) return null;
+  const tag = await handle.evaluate(el=>el.tagName);
+  if(tag && tag.startsWith('SPL-')){
+    const inner = await handle.evaluateHandle(el=>{
+      return el.shadowRoot && el.shadowRoot.querySelector('input,textarea');
+    });
+    return inner.asElement();
+  }
+  return handle;
+}
 
-  const llm = new ChatOpenAI({
-    openAIApiKey: process.env.OPENAI_API_KEY,
-    modelName: 'gpt-4o-mini'
+async function applyToSmartRecruiters(url,userData){
+  if(!process.env.OPENAI_API_KEY) throw new Error('Missing OPENAI_API_KEY');
+
+  const agent = new HyperAgent({
+    llm: new ChatOpenAI({
+      modelName:    'gpt-4o-mini',
+      openAIApiKey: process.env.OPENAI_API_KEY
+    })
   });
-  const agent = new HyperAgent({ llm });
-  const page = await agent.newPage();
 
-  // 1) load
-  await page.goto(url, { waitUntil: 'load', timeout: 60000 });
+  const page  = await agent.newPage();
+  console.log(`[INFO] Navigating to ${url}`);
+  await page.goto(url,{waitUntil:'load',timeout:60_000});
+
+  // handle embedded iframe
   let frame = page;
   const iframe = await page.$('iframe[src*="smartrecruiters.com"]');
-  if (iframe) {
-    const cf = await iframe.contentFrame();
-    if (cf) frame = cf;
+  if(iframe){
+    const f = await iframe.contentFrame();
+    if(f) frame = f;
   }
 
-  // 2) wait for page 1
+  // wait for the form to load
   await frame.waitForSelector(
     'spl-typography-title[data-test="section-title"]',
-    { state: 'visible', timeout: 30000 }
+    { state:'visible', timeout:30_000 }
   );
-  await randomDelay(frame, 500, 1000);
+  await delay(frame,500,1000);
 
-  // 3) upload resume if provided
-  if (userData.resume) {
-    const resumePath =
-      typeof userData.resume === 'string' &&
-      fs.existsSync(path.resolve(__dirname, userData.resume))
-        ? path.resolve(__dirname, userData.resume)
-        : path.resolve(__dirname, 'resume.pdf');
-    const fileInput = await frame.$(
-      'spl-dropzone[data-test="resume-upload"] input[type="file"], oc-apply-with-resume input[type="file"]'
+  // optional resume upload
+  if(userData.resume){
+    const p = fs.existsSync(path.resolve(__dirname,userData.resume))
+             ? path.resolve(__dirname,userData.resume)
+             : path.resolve(__dirname,'resume.pdf');
+    const input = await frame.$(
+      'spl-dropzone[data-test="resume-upload"] input[type=file]'
     );
-    if (fileInput) {
-      await fileInput.setInputFiles(resumePath);
-      await randomDelay(frame, 500, 1000);
+    if(input){
+      console.log('[INFO] Uploading resume');
+      await input.setInputFiles(p);
+      await delay(frame,400,800);
     }
   }
 
-  // 4) fill out page 1 fields
-  const page1Map = {
-    firstName: '#first-name-input',
-    lastName: '#last-name-input',
-    email: '#email-input',
-    emailConfirmation: '#confirm-email-input',
-    location: '#spl-form-element_10',        // City
-    phone: '#spl-form-element_5',            // Phone number
-    linkedIn: '#linkedin-input',
-    facebook: '#facebook-input',
-    twitter: '#twitter-input',
-    website: '#website-input',
-    message: '#hiring-manager-message-input' // Message to the Hiring Team
+  // mapping of your userData fields to selectors
+  const fields = {
+    firstName          :'spl-input#first-name-input',
+    lastName           :'spl-input#last-name-input',
+    email              :'spl-input#email-input',
+    emailConfirmation  :'spl-input#confirm-email-input',
+    location           :'spl-autocomplete#spl-form-element_10',
+    phone              :'spl-phone-field#spl-form-element_5',
+    linkedIn           :'spl-input#linkedin-input',
+    facebook           :'spl-input#facebook-input',
+    twitter            :'spl-input#twitter-input',
+    website            :'spl-input#website-input',
+    message            :'spl-textarea#hiring-manager-message-input'
   };
 
-  for (const key of Object.keys(page1Map)) {
-    // try both normalized labels and direct key
-    const rawVal =
-      userData[key] ||
-      userData[normalize(key)] ||
-      userData[normalize(frame.locator(page1Map[key]).getAttribute('label') || '')];
-    if (!rawVal) continue;
-    const el = await frame.$(page1Map[key]);
-    if (el) {
-      await el.fill(String(rawVal));
-      await randomDelay(frame, 200, 400);
-    }
-  }
-
-  // 5) click Next → page 2
-  await frame.click('oc-button[data-test="footer-next"] spl-button');
-  await frame.waitForSelector('sr-screening-questions-form', {
-    state: 'visible',
-    timeout: 30000
-  });
-  await randomDelay(frame, 500, 1000);
-
-  // 6) fill all screening questions
-  const questions = await frame.$$(
-    'sr-screening-questions-form .form-section--clean > *:not(h2)'
-  );
-  const unfilled = [];
-
-  for (const q of questions) {
-    // get question label
-    const labEl = await q.$('h3, h4, label, .form-label');
-    const label = labEl ? (await labEl.innerText()).trim() : '';
-    const norm = normalize(label);
-
-    // pick up answer from either userData.screening or top‐level
-    let answer;
-    if (userData.screening) {
-      answer = userData.screening[norm] || userData.screening[label];
-    }
-    if (answer == null) {
-      answer = userData[norm] || userData[label];
-    }
-    if (answer == null) {
-      unfilled.push(label);
-      continue;
-    }
-
-    // text / number / textarea
-    const textInput = await q.$('input[type="text"], input[type="number"], textarea');
-    if (textInput) {
-      await textInput.fill(String(answer));
-      continue;
-    }
-
-    // dropdown
-    const sel = await q.$('select');
-    if (sel) {
-      await sel
-        .selectOption({ label: String(answer) })
-        .catch(() => sel.selectOption({ value: String(answer) }));
-      continue;
-    }
-
-    // radios
-    const radios = await q.$$('input[type="radio"]');
-    if (radios.length) {
-      for (const r of radios) {
-        const val = await r.getAttribute('value');
-        if (String(answer).toLowerCase() === String(val).toLowerCase()) {
-          await r.check({ force: true });
-          break;
-        }
-        // fallback match on radio label text
-        const id = await r.getAttribute('id');
-        if (id) {
-          const lab = await q.$(`label[for="${id}"]`);
-          if (lab) {
-            const txt = await lab.innerText();
-            if (normalize(txt) === normalize(String(answer))) {
-              await r.check({ force: true });
-              break;
-            }
-          }
-        }
+  // ────────── PHONE ──────────
+  if(userData.phone){
+    const phoneRaw = String(userData.phone).trim();
+    console.log(`[INFO] Filling phone field with "${phoneRaw}"`);
+    const phoneHost = await frame.$('spl-phone-field#spl-form-element_5');
+    if(phoneHost){
+      // try our normal helper first
+      let telInput = await getNativeField(
+        await phoneHost.$('spl-input[type="tel"]')
+      );
+      if(!telInput){
+        // fallback deep into shadow DOM
+        const handle = await phoneHost.evaluateHandle(el => {
+          const comp = el.shadowRoot?.querySelector('spl-input');
+          return comp?.shadowRoot?.querySelector('input') || null;
+        });
+        telInput = handle?.asElement() || null;
       }
-      continue;
-    }
-
-    // checkbox
-    const cb = await q.$('input[type="checkbox"]');
-    if (cb) {
-      if (['true', 'yes', '1', 'on'].includes(String(answer).toLowerCase())) {
-        await cb.check({ force: true });
+      if(telInput){
+        await telInput.click({clickCount:2});
+        await delay(frame,100,200);
+        await telInput.fill('');
+        await telInput.type(phoneRaw, {delay:50});
+        await frame.keyboard.press('Tab');
       } else {
-        await cb.uncheck({ force: true });
+        console.warn('[WARN] Couldn’t find inner <input> for phone');
       }
-      continue;
+    } else {
+      console.warn('[WARN] spl-phone-field host not found');
     }
   }
 
-  if (unfilled.length) {
-    console.warn('Unfilled screening questions:', unfilled);
+  // ────────── OTHER FIELDS ──────────
+  const missing = [];
+  console.log('[INFO] Starting to fill mapped fields');
+  for(const [key,sel] of Object.entries(fields)){
+    if(!userData[key]) continue;
+    console.log(`  → "${key}" via selector "${sel}"`);
+    const host = await frame.$(sel);
+    const field = await getNativeField(host);
+    if(!field){
+      console.warn(`    [WARN] "${key}" not found, will LLM-fallback`);
+      missing.push(key);
+      continue;
+    }
+    await field.click({clickCount:2});
+    await delay(frame,100,250);
+    await field.fill('');
+    await field.type(String(userData[key]),{delay:50});
+    await delay(frame,150,350);
+    await frame.keyboard.press('Tab');
+    await delay(frame,100,200);
   }
 
-  // 7) stop here (we’re not submitting yet)
+  // ────────── LLM FALLBACK ──────────
+  if(missing.length){
+    const taskPrompt =
+      'Fill the following fields on this SmartRecruiters form:\n' +
+      missing.map(m=>`- ${m}: ${userData[m]||''}`).join('\n');
+    console.log(`[INFO] Falling back on LLM for: ${missing.join(', ')}`);
+    await agent.executeTask(taskPrompt, {
+      onStep: (step) => {
+        console.log(`===== STEP ${step.idx} =====`);
+        console.dir(step, { depth:null, colors:true });
+        console.log('===============');
+      }
+    });
+  }
+
+  // ────────── CLICK NEXT ──────────
+  const nextBtn = await frame.$(
+    'oc-button[data-test="footer-next"] button, \
+     oc-button[data-test="footer-next"] spl-button'
+  );
+  if(nextBtn){
+    console.log('[INFO] Clicking Next');
+    await nextBtn.click();
+  } else {
+    console.warn('[WARN] Next button not found (validation error?)');
+  }
+
+  // wait for screening or final submit
+  try {
+    await Promise.race([
+      frame.waitForSelector('sr-screening-questions-form',{ state:'visible', timeout:60_000 }),
+      frame.waitForSelector('oc-button[data-test="footer-submit"]',{ state:'visible', timeout:60_000 })
+    ]);
+  } catch {
+    console.warn('[SmartRecruiters] no next page – stopping early.');
+    await agent.closeAgent();
+    return;
+  }
+  await delay(frame,500,1000);
+
   await agent.closeAgent();
 }
 
 module.exports = { applyToSmartRecruiters };
-

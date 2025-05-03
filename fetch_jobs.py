@@ -36,7 +36,7 @@ def fetch_all_jobs(keyword, location, total_jobs=100):
 
 
 # Usage
-results = fetch_all_jobs("data scientist", "United States", total_jobs=100)
+results = fetch_all_jobs("data scientist", "United States", total_jobs=1000)
 
 # Print sample
 for i, job in enumerate(results):

@@ -148,46 +148,75 @@ async function applyToSmartRecruiters(url,userData){
   }
 
   // ────────── LLM FALLBACK ──────────
-  if(missing.length){
+  if (missing.length) {
     const taskPrompt =
       'Fill the following fields on this SmartRecruiters form:\n' +
-      missing.map(m=>`- ${m}: ${userData[m]||''}`).join('\n');
+      missing.map(m => `- ${m}: ${userData[m] || ''}`).join('\n');
+
     console.log(`[INFO] Falling back on LLM for: ${missing.join(', ')}`);
-    await agent.executeTask(taskPrompt, {
+
+    await page.ai(taskPrompt, {
       onStep: (step) => {
         console.log(`===== STEP ${step.idx} =====`);
-        console.dir(step, { depth:null, colors:true });
+        console.dir(step, { depth: null, colors: true });
         console.log('===============');
       }
     });
   }
 
-  // ────────── CLICK NEXT ──────────
+  // ─────────── “Next or Submit” navigation ───────────
   const nextBtn = await frame.$(
     'oc-button[data-test="footer-next"] button, \
      oc-button[data-test="footer-next"] spl-button'
   );
-  if(nextBtn){
-    console.log('[INFO] Clicking Next');
+  if (nextBtn) {
+    console.log('[INFO] Clicking Next ▶');
     await nextBtn.click();
   } else {
-    console.warn('[WARN] Next button not found (validation error?)');
+    const submitBtn = await frame.$(
+      'oc-button[data-test="footer-submit"] button, \
+       oc-button[data-test="footer-submit"] spl-button'
+    );
+    if (submitBtn) {
+      console.log('[INFO] No Next found — clicking Submit ✅');
+      await submitBtn.click();
+    } else {
+      console.log('[INFO] Neither Next nor Submit found — checking for success message');
+      try {
+        // look for any “Application submitted” text
+        await frame.waitForSelector('text=/Application submitted/i', { timeout:10000 });
+        console.log('[SUCCESS] Application submitted! 🎉');
+      } catch {
+        console.warn('[WARN] No Next, no Submit, and no success message — exiting.');
+      }
+      await agent.closeAgent();
+      return;
+    }
   }
 
-  // wait for screening or final submit
+  // ─── after click: check for “Application submitted!” ───
+  await delay(frame,500,1000);
+  try {
+    await frame.waitForSelector('text=/Application submitted/i', { timeout:15000 });
+    console.log('[SUCCESS] Application submitted! 🎉');
+    await agent.closeAgent();
+    return;
+  } catch {
+    console.log('[INFO] No success message, proceeding to screening or next step');
+  }
+
+  // ─── wait for screening questions or final Submit button ───
   try {
     await Promise.race([
-      frame.waitForSelector('sr-screening-questions-form',{ state:'visible', timeout:60_000 }),
-      frame.waitForSelector('oc-button[data-test="footer-submit"]',{ state:'visible', timeout:60_000 })
+      frame.waitForSelector('sr-screening-questions-form', { state:'visible', timeout:60000 }),
+      frame.waitForSelector('oc-button[data-test="footer-submit"]', { state:'visible', timeout:60000 })
     ]);
   } catch {
-    console.warn('[SmartRecruiters] no next page – stopping early.');
+    console.warn('[SmartRecruiters] no next page within 60 s — stopping.');
     await agent.closeAgent();
     return;
   }
   await delay(frame,500,1000);
-
-  await agent.closeAgent();
 }
 
 module.exports = { applyToSmartRecruiters };

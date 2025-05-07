@@ -12,6 +12,7 @@ import {
   interface AuthCtx {
     session: Session | null
     signIn: (email: string, password: string) => Promise<any>
+    signUp: (email: string, password: string) => Promise<any>
     signOut: () => Promise<any>
   }
   
@@ -45,9 +46,13 @@ import {
       supabase.auth.signInWithPassword({ email, password })
   
     const signOut = () => supabase.auth.signOut()
-  
+    
+    const signUp = (email: string, password: string) =>
+      supabase.auth.signUp({ email, password })
+
+
     return (
-      <AuthContext.Provider value={{ session, signIn, signOut }}>
+      <AuthContext.Provider value={{ session, signIn, signUp, signOut }}>
         {children}
       </AuthContext.Provider>
     )

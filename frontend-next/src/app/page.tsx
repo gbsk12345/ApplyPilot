@@ -4,15 +4,26 @@ import { useState, useEffect } from 'react'
 import FancyBackground from '@/components/FancyBackground'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
+
+
 
 export default function App() {
   const supabase = createClient();
   const router = useRouter();
 
-  /* ───────────── auth state ───────────── */
-  const [session, setSession] = useState<any>(null); // Use 'any' or define a more specific type
+  const [session, setSession] = useState<any>(null);
   const loggedIn = Boolean(session);
   const userEmail = session?.user?.email ?? '';
+  const passwordRef = useRef<HTMLInputElement>(null)
+  const confirmPasswordRef = useRef<HTMLInputElement>(null)
+
+  function toggleVisibility(ref: React.RefObject<HTMLInputElement | null>) {
+    if (ref.current) {
+      ref.current.type = ref.current.type === 'password' ? 'text' : 'password'
+    }
+  }
+
 
   useEffect(() => {
     async function getInitialSession() {
@@ -61,12 +72,15 @@ export default function App() {
   const [isSignUp, setIsSignUp] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   async function handleSubmit() {
     setErrorMsg(null)
     if (!email || !password) return setErrorMsg('Both fields are required')
-
+    if (isSignUp && password !== confirmPassword) {
+      return setErrorMsg('Passwords do not match')
+    }
     let success = false;
     if (isSignUp) {
       success = await signUp(email, password);
@@ -75,14 +89,12 @@ export default function App() {
     }
 
     if (success) {
-      /* success → hide modal & clear form */
       setEmail('');
       setPassword('');
       setShowModal(false);
     }
   }
 
-  /* ───────────── UI ───────────── */
   return (
     <div className="relative flex flex-col min-h-screen bg-black text-white">
       {/* ─────────── TOP BAR ─────────── */}
@@ -158,8 +170,7 @@ export default function App() {
           </a>
           .
         </p>
-      </section>
-
+      </section>  
       {/* ─────────── AUTH MODAL ─────────── */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/90">
@@ -175,17 +186,44 @@ export default function App() {
               placeholder="Email"
               className="mb-3 w-full rounded bg-gray-800 p-2 text-white"
             />
+            <div className="relative mb-3">
             <input
+              ref={passwordRef}
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="Password"
-              className="mb-3 w-full rounded bg-gray-800 p-2 text-white"
+              className="w-full rounded bg-gray-800 p-2 pr-10 text-white"
             />
+            <button
+              type="button"
+              onClick={() => toggleVisibility(passwordRef)}
+              className="absolute right-2 top-2 text-gray-400 hover:text-white"
+            >
+              👁️
+            </button>
+          </div>
 
-            {errorMsg && (
-              <p className="mb-3 text-sm text-red-400">{errorMsg}</p>
-            )}
+                  {isSignUp && (
+          <div className="relative mb-3">
+            <input
+              ref={confirmPasswordRef}
+              type="password"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+              placeholder="Confirm Password"
+              className="w-full rounded bg-gray-800 p-2 pr-10 text-white"
+            />
+            <button
+              type="button"
+              onClick={() => toggleVisibility(confirmPasswordRef)}
+              className="absolute right-2 top-2 text-gray-400 hover:text-white"
+            >
+              👁️
+            </button>
+          </div>
+        )}
+
 
             <button
               onClick={handleSubmit}

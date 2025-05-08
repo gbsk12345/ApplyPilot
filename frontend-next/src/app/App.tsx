@@ -1,7 +1,7 @@
 // frontend/src/App.tsx
 import { useState } from 'react'
-import FancyBackground from './FancyBackground'
-import { useAuth } from './contexts/AuthContext'
+import FancyBackground from '@/components/FancyBackground'
+import { useAuth } from '@/contexts/AuthContext'
 
 export default function App() {
   /* ───────────── auth helpers ───────────── */

@@ -1,6 +1,5 @@
 // frontend/src/App.tsx
 'use client'
-import '../../index.css'
 import { useState, useEffect } from 'react'
 import FancyBackground from '@/components/FancyBackground'
 import { createClient } from '@/utils/supabase/client'
@@ -120,7 +119,7 @@ export default function App() {
       </header>
 
       {/* ─────────── HERO ─────────── */}
-      <main className="relative flex flex-1 items-center min-h-screenjustify-center px-4 py-20 text-center">
+      <main className="relative flex flex-1 items-center min-h-screen justify-center px-4 py-20 text-center">
         <FancyBackground />
 
         <div>

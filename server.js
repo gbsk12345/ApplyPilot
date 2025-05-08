@@ -1,3 +1,4 @@
+// server for the api for linkedin jobs api one to get linkedin jobs.
 const express = require('express')
 const linkedIn = require('linkedin-jobs-api')
 const app = express()

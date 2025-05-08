@@ -53,7 +53,7 @@ def process_job_urls(urls, skills_file):
         desc = extract_all_visible_text(url)
         if desc:
             # show first 500 chars
-            print(f"\n[Job Description Preview]\n{desc[:4500]}...\n")
+            print(f"\n[Job Description Preview]\n{desc[:500]}...\n")
             skills_found = extract_skills_from_text(desc, skills)
             print(f"Skills Found: {skills_found}")
         else:

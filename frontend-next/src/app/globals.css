@@ -9,4 +9,109 @@
   }
 }
 
+/* Add these overrides to your global CSS file (e.g., globals.css) */
+
+/* Main container for the dropdown */
+.stdropdown-container {
+  border: 1px solid #4b5563 !important; /* Tailwind gray-600 equivalent */
+  border-radius: 0.375rem !important; /* Tailwind rounded-md */
+  /* The font-family from the library is fine, or you can override it here if needed */
+}
+
+/* The visible input area where selected value is shown */
+/* This targets the wrapper. We also need to ensure any inner text element gets the color. */
+.stdropdown-input {
+  background-color: #1f2937 !important; /* Tailwind gray-800 */
+  color: #ffffff !important;
+  padding: 0.5rem !important; /* Tailwind p-2 equivalent */
+  /* Ensure any direct child text elements also get the white color */
+}
+.stdropdown-input > input[readonly], /* If the selected value is in a readonly input */
+.stdropdown-input > div, /* If the selected value is in a div */
+.stdropdown-input > span { /* Or a span */
+  color: #ffffff !important; /* Ensure text within these common elements is white */
+  background-color: transparent !important; /* Ensure no conflicting background */
+}
+
+/* Placeholder text styling (if the library uses a specific class or styles it via JS) */
+/* The library's .stdropdown-input input might be for search, not placeholder directly */
+/* For the placeholder of the main select, if it's an input or styled span: */
+.stdropdown-input input::placeholder, /* For actual input elements if used for display */
+.stdropdown-input [data-placeholder]::before { /* Common pattern for custom select placeholders */
+  color: #9ca3af !important; /* Tailwind gray-400 */
+  opacity: 1 !important; /* Ensure it's visible */
+}
+/* You might need to inspect to find the exact placeholder element/pseudo-element */
+
+
+/* Dropdown menu panel */
+.stdropdown-menu {
+  background-color: #374151 !important; /* Tailwind gray-700 */
+  border: 1px solid #4b5563 !important; /* Tailwind gray-600 */
+  border-top: none !important; /* Optional: remove top border if it looks better with input */
+  border-radius: 0 0 0.375rem 0.375rem !important; /* Match bottom corners */
+  max-height: 200px !important; /* Increased max-height a bit */
+}
+
+/* Individual items/options in the dropdown */
+.stdropdown-item {
+  color: #d1d5db !important; /* Tailwind gray-300 for text */
+  padding: 0.625rem 0.75rem !important; /* Adjust padding as needed */
+  cursor: pointer;
+}
+
+.stdropdown-item:hover,
+.stdropdown-item[aria-selected="true"], /* Some libraries use aria-selected for hover/focus like states */
+.stdropdown-item.highlighted { /* Check if library uses such a class for keyboard navigation */
+  background-color: #4b5563 !important; /* Tailwind gray-600 */
+  color: #ffffff !important;
+}
+
+/* Specifically selected item in the list */
+.stdropdown-item.selected { /* Library default is blue bg, white text - this is often fine */
+  background-color: #6d28d9 !important; /* Example: Tailwind purple-700 */
+  color: #ffffff !important;
+}
+
+/* Scrollbar styling for dark theme */
+.stdropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+.stdropdown-menu::-webkit-scrollbar-track {
+  background: #374151; /* Match menu background */
+}
+.stdropdown-menu::-webkit-scrollbar-thumb {
+  background: #6b7280; /* Tailwind gray-500 */
+  border-radius: 3px;
+}
+.stdropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af; /* Tailwind gray-400 */
+}
+
+/* Search box inside the dropdown (if used) */
+.stsearch-box {
+  background-color: #374151 !important; /* Match menu background */
+  padding: 0.5rem !important;
+  border-bottom: 1px solid #4b5563 !important; /* Separator */
+}
+
+.stsearch-box input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem !important;
+  background-color: #1f2937 !important; /* Tailwind gray-800 */
+  color: #ffffff !important;
+  border: 1px solid #4b5563 !important; /* Tailwind gray-600 */
+  border-radius: 0.25rem !important; /* Tailwind rounded-sm */
+}
+
+.stsearch-box input::placeholder {
+    color: #9ca3af !important; /* Tailwind gray-400 */
+    opacity: 1 !important;
+}
+
+
+/* Arrows/Icons styling (if they are not SVG and use font color) */
+/* Inspect the arrow icon and target its class if it's the wrong color */
+/* e.g. .stdropdown-input .some-arrow-class { color: #9ca3af !important; } */
 /* You can add other global styles below this */

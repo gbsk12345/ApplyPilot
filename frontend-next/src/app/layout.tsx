@@ -22,7 +22,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={calSans.className}> {/* Apply Inter globally to the html */}
+    <html lang="en" className={calSans.className}> {/*Description is on github page */}
       <body className={calSans.className}> {/* Apply Cal Sans to the body */}
         {children}
       </body>

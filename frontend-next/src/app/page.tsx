@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 
 
-
 export default function App() {
   const supabase = createClient();
   const router = useRouter();
@@ -23,7 +22,6 @@ export default function App() {
       ref.current.type = ref.current.type === 'password' ? 'text' : 'password'
     }
   }
-
 
   useEffect(() => {
     async function getInitialSession() {
@@ -92,6 +90,9 @@ export default function App() {
       setEmail('');
       setPassword('');
       setShowModal(false);
+      // if (isSignUp) {
+        router.push('/onboarding'); // Redirect to onboarding page after login/signup (should be in if statement but commented out for testing)
+      // }
     }
   }
 

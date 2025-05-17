@@ -124,6 +124,7 @@ if __name__ == "__main__":
     ats_score(
         resume_pdf_path="JobResume2.pdf",                # Replace with your resume PDF
         # Replace with actual job link
-        job_url="https://boards.greenhouse.io/embed/job_app?token=4447610006",
+        job_url="https://job-boards.greenhouse.io/applovin/jobs/4447610006",
+        # job_url="https://boards.greenhouse.io/embed/job_app?token=4447610006",
         tech_skills_path="tech_skills_list.txt"          # Path to skill list
     )

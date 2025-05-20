@@ -23,6 +23,8 @@ export default function App() {
     }
   }
 
+
+
   useEffect(() => {
     async function getInitialSession() {
       const { data: { session } } = await supabase.auth.getSession();
@@ -31,12 +33,21 @@ export default function App() {
 
     getInitialSession();
 
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, currentSession) => {
       setSession(currentSession);
     });
 
     return () => subscription.unsubscribe();
   }, [supabase]);
+
+  useEffect(() => {
+
+    if (session) {
+      console.log("User is logged in, redirecting to dashboard from App.tsx");
+      router.push('/dashboard/overview');
+    }
+  }, [session, router]);
 
   async function signIn(email: string, password: string) {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -90,9 +101,12 @@ export default function App() {
       setEmail('');
       setPassword('');
       setShowModal(false);
-      // if (isSignUp) {
+      if (isSignUp) {
         router.push('/onboarding'); // Redirect to onboarding page after login/signup (should be in if statement but commented out for testing)
-      // }
+      }
+      else {
+        router.push('/dashboard/overview'); // Redirect to dashboard after login
+      }
     }
   }
 

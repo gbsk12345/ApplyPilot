@@ -1,12 +1,6 @@
-import { redirect } from 'next/navigation'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+// src/app/dashboard/page.tsx
+import { redirect } from 'next/navigation';
 
-export default async function Dashboard() {
-  const supabase = createServerComponentClient({ cookies })
-  const { data: { session } } = await supabase.auth.getSession()
-
-  if (!session) redirect('/login')
-
-  return <div>Welcome, {session.user.email}</div>
+export default function DashboardRootPage() {
+  redirect('/dashboard/overview');
 }

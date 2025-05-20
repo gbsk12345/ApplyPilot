@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { createClient } from '@/utils/supabase/client';
 import {
     CountrySelect,
     StateSelect,
@@ -36,9 +37,6 @@ export default function ComprehensiveApplicationForm() {
         salaryExpectations: '',
         startDateAvailability: '',
         willingToRelocate: '',
-        howHeard: '',
-        referralName: '',
-        sourceDetails: '',
         whyInterestedRole: '',
         additionalInfo: '',
         gender: '',
@@ -145,17 +143,95 @@ export default function ComprehensiveApplicationForm() {
     };
 
 
-    const handleSubmit = (e) => {
+
+    const supabase = createClient();
+
+    const onSubmitForm = async (formData, experiences, educations) => {
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      if (authError || !user) {
+        console.error("User not authenticated:", authError);
+        return;
+      }
+    
+      const userId = user.id;
+    
+      // 1. Insert user profile
+      const { error: profileError } = await supabase.from('User_Profile').insert([{
+        user_id: userId,
+        first_name: formData.firstName,
+        middle_name: formData.middleName,
+        last_name: formData.lastName,
+        preferred_name: formData.preferredName,
+        email: formData.email,
+        phone: formData.phone,
+        address_line1: formData.address1,
+        address_line2: formData.address2,
+        country: formData.country,
+        state: formData.state,
+        city: formData.city,
+        postal_code: formData.postalCode,
+        linkedin_url: formData.linkedinUrl,
+        website_url: formData.websiteUrl,
+        github_url: formData.githubUrl,
+        authorized_to_work: formData.workEligibility === 'yes',
+        needs_sponsorship: formData.visaFuture === 'yes',
+        visa_status: formData.visaDetails,
+        desired_salary: formData.salaryExpectations,
+        willing_to_relocate: formData.willingToRelocate === 'yes',
+        interest_statement: formData.whyInterestedRole,
+        additional_info: formData.additionalInfo,
+        gender: formData.gender,
+        race: formData.ethnicity,
+        veteran_status: formData.veteranStatus,
+        disability_status: formData.disabilityStatus,
+        created_at: new Date().toISOString()
+      }]);
+    
+      if (profileError) {
+        console.error("Profile insert error:", profileError);
+        return;
+      }
+    
+      // 2. Insert experiences
+      const expPayload = experiences.map(exp => ({
+        user_id: userId,
+        job_title: exp.jobTitle,
+        company_name: exp.companyName,
+        company_location: exp.companyLocation,
+        start_date: exp.startDate ? `${exp.startDate}-01` : null,
+        end_date: exp.currentJob ? null : `${exp.endDate}-01`,
+        current_job: exp.currentJob,
+        job_description: exp.jobDescription
+      }));
+    
+      const { error: expError } = await supabase.from('Work_Experience').insert(expPayload);
+      if (expError) {
+        console.error("Experience insert error:", expError);
+        return;
+      }
+    
+      // 3. Insert educations
+      const eduPayload = educations.map(edu => ({
+        user_id: userId,
+        school_name: edu.schoolName,
+        degree_level: edu.degreeLevel,
+        major: edu.major,
+        start_date: '2020-08-01', // placeholder unless added to form
+        graduation_date: edu.graduationDate ? `${edu.graduationDate}-01` : null
+      }));
+    
+      const { error: eduError } = await supabase.from('Education').insert(eduPayload);
+      if (eduError) {
+        console.error("Education insert error:", eduError);
+        return;
+      }
+    
+      console.log("Successfully submitted all form data.");
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Consolidate all data
-        const completeFormData = {
-            ...formData,
-            experiences,
-            educations,
-            languages,
-        };
-        console.log('Submitting Form Data:', completeFormData);
-        // Here you would typically send completeFormData to your backend/API
+        await onSubmitForm(formData, experiences, educations);
     };
     
     // Conditional rendering for "Other Gender" input
@@ -169,7 +245,7 @@ export default function ComprehensiveApplicationForm() {
             setShowOtherGenderInput(false);
             setFormData(prevData => ({ ...prevData, genderOther: '' })); // Clear other gender field
         }
-    };
+    }
 
 
     return (
@@ -505,10 +581,6 @@ export default function ComprehensiveApplicationForm() {
                         <label htmlFor="salaryExpectations" className="block text-sm font-medium mb-1">Desired Salary/Compensation Expectations (e.g., per year, optional)</label>
                         <input type="text" name="salaryExpectations" id="salaryExpectations" value={formData.salaryExpectations} onChange={handleInputChange} placeholder="e.g., $70,000 per year or 15 LPA" className="w-full p-2 rounded bg-gray-800" />
                     </div>
-                    <div>
-                        <label htmlFor="startDateAvailability" className="block text-sm font-medium mb-1">Earliest Start Date/Availability</label>
-                        <input type="date" name="startDateAvailability" id="startDateAvailability" value={formData.startDateAvailability} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-800" />
-                    </div>
                      <div>
                         <label htmlFor="willingToRelocate" className="block text-sm font-medium mb-1">Are you willing to relocate?  (Answering No will result in filling no to all relocations)</label>
                         <select name="willingToRelocate" id="willingToRelocate" value={formData.willingToRelocate} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-800">
@@ -517,34 +589,6 @@ export default function ComprehensiveApplicationForm() {
                             <option value="no">No</option>
                             <option value="maybe">Maybe (discuss details)</option>
                         </select>
-                    </div>
-                </div>
-            </fieldset>
-
-            {/* Referral & Source */}
-            <fieldset className="border p-4 rounded">
-                <legend className="text-xl font-semibold mb-2 px-1">Referral & Source</legend>
-                <div className="space-y-4">
-                    <div>
-                        <label htmlFor="howHeard" className="block text-sm font-medium mb-1">How did you hear about this job/company?</label>
-                        <select name="howHeard" id="howHeard" value={formData.howHeard} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-800">
-                            <option value="">Select Source</option>
-                            <option value="linkedin">LinkedIn</option>
-                            <option value="company_website">Company Website</option>
-                            <option value="employee_referral">Employee Referral</option>
-                            <option value="job_board">Job Board (e.g., Indeed, Glassdoor)</option>
-                            <option value="career_fair">Career Fair</option>
-                            <option value="social_media">Social Media</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="referralName" className="block text-sm font-medium mb-1">If referred by an employee, their name/email:</label>
-                        <input type="text" name="referralName" id="referralName" value={formData.referralName} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-800" />
-                    </div>
-                     <div>
-                        <label htmlFor="sourceDetails" className="block text-sm font-medium mb-1">If Job Board or Other, please specify:</label>
-                        <input type="text" name="sourceDetails" id="sourceDetails" value={formData.sourceDetails} onChange={handleInputChange} className="w-full p-2 rounded bg-gray-800" />
                     </div>
                 </div>
             </fieldset>

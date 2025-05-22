@@ -1,5 +1,5 @@
 'use client';
-
+// Now client side
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client';

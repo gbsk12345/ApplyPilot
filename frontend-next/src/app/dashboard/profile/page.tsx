@@ -1,5 +1,5 @@
 'use client';
-
+// Now client side
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/client'; // Use client-side Supabase

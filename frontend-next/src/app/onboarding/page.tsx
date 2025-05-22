@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import React from 'react';
 import { createClient } from '@/utils/supabase/server'; // Adjust path as needed
-import FancyBackground from '@/components/FancyBackground';
 import ComprehensiveApplicationForm from '@/app/onboarding/onboardingForm';
 export default async function OnboardingPage() {
   const supabase = await createClient();

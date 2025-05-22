@@ -4,9 +4,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image'; // For optimized images if avatarUrl is used
-// Example icons (ensure react-icons is installed: npm install react-icons)
-// import { FiUser, FiSettings, FiLogOut, FiChevronDown } from 'react-icons/fi';
 import { createClient } from '@/utils/supabase/client'; // For client-side logout
 
 interface ProfileMenuProps {
@@ -15,7 +12,8 @@ interface ProfileMenuProps {
   avatarUrl?: string | null;
 }
 
-export default function ProfileMenu({ userName, userEmail, avatarUrl }: ProfileMenuProps) {
+export default function ProfileMenu({ userName, userEmail }: ProfileMenuProps) {
+    
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -45,7 +43,6 @@ export default function ProfileMenu({ userName, userEmail, avatarUrl }: ProfileM
     }
   };
 
-  const userInitial = userName ? userName.charAt(0).toUpperCase() : userEmail ? userEmail.charAt(0).toUpperCase() : 'U';
 
   return (
     <div className="relative" ref={menuRef}>
@@ -56,13 +53,6 @@ export default function ProfileMenu({ userName, userEmail, avatarUrl }: ProfileM
         aria-haspopup="true"
         id="user-menu-button"
       >
-        {avatarUrl ? (
-          <Image src={avatarUrl} alt={userName || 'User Avatar'} width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
-        ) : (
-          <span className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm font-semibold text-white">
-            {userInitial}
-          </span>
-        )}
         <span className="hidden md:inline text-sm text-gray-300 font-medium">{userName || 'User'}</span>
         <svg className={`hidden md:inline w-4 h-4 text-gray-400 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
       </button>

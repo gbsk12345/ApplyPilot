@@ -156,7 +156,7 @@ export default function ComprehensiveApplicationForm() {
       const userId = user.id;
     
       // 1. Insert user profile
-      const { error: profileError } = await supabase.from('User_Profile').insert([{
+      const { error: profileError } = await supabase.from('user_profile').insert([{
         user_id: userId,
         first_name: formData.firstName,
         middle_name: formData.middleName,
@@ -204,7 +204,7 @@ export default function ComprehensiveApplicationForm() {
         job_description: exp.jobDescription
       }));
     
-      const { error: expError } = await supabase.from('Work_Experience').insert(expPayload);
+      const { error: expError } = await supabase.from('work_experience').insert(expPayload);
       if (expError) {
         console.error("Experience insert error:", expError);
         return;
@@ -220,7 +220,7 @@ export default function ComprehensiveApplicationForm() {
         graduation_date: edu.graduationDate ? `${edu.graduationDate}-01` : null
       }));
     
-      const { error: eduError } = await supabase.from('Education').insert(eduPayload);
+      const { error: eduError } = await supabase.from('education').insert(eduPayload);
       if (eduError) {
         console.error("Education insert error:", eduError);
         return;

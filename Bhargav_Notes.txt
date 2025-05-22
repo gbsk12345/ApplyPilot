@@ -1,0 +1,12 @@
+For getting proper technical skills and etc, LightCast API is used.
+
+Currently, we can only get three types of typeID STD1,STD2 and STD3,
+
+They are 
+
+•	ST1 → Specialized Skill
+	•	ST2 → Common Skill
+	•	ST3 → Certification
+
+
+We could not get Language and Knowledge our API does not support or some other details.

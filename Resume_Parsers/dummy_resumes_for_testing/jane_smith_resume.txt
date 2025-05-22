@@ -1,0 +1,7 @@
+
+    Jane Smith
+    Profile
+    My work involves extensive use of SQL for data extraction and Python (Pandas, NumPy) for data manipulation and analysis.
+    I also have experience creating visualizations with Tableau. Experienced with git for version control.
+    Used machine learning models (scikit-learn) for predictive analytics.
+    

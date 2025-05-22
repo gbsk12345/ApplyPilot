@@ -86,6 +86,7 @@ export default function App() {
 
   async function handleSubmit() {
     setErrorMsg(null)
+    console.log(errorMsg);
     if (!email || !password) return setErrorMsg('Both fields are required')
     if (isSignUp && password !== confirmPassword) {
       return setErrorMsg('Passwords do not match')

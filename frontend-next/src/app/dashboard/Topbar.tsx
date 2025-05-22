@@ -24,7 +24,7 @@ interface TopbarProps {
   // onToggleMobileMenu?: () => void; // Add this if Sidebar's mobile toggle is controlled from layout/topbar
 }
 
-export default function Topbar({ userName, userEmail, avatarUrl /*, onToggleMobileMenu */ }: TopbarProps) {
+export default function Topbar({ userName, userEmail /*, onToggleMobileMenu */ }: TopbarProps) {
   const pathname = usePathname();
   const currentTitle = getTitleFromPathname(pathname);
 
@@ -45,7 +45,7 @@ export default function Topbar({ userName, userEmail, avatarUrl /*, onToggleMobi
       
       <div className="flex items-center space-x-4">
         {/* Add other icons like notifications here if needed */}
-        <ProfileMenu userName={userName} userEmail={userEmail} avatarUrl={avatarUrl} />
+        <ProfileMenu userName={userName} userEmail={userEmail} />
       </div>
     </header>
   );

@@ -1,53 +1,94 @@
 // src/app/dashboard/layout.tsx
+'use client'; // Make the layout a Client Component
+
 import Sidebar from '@/app/dashboard/Sidebar';
 import Topbar from '@/app/dashboard/Topbar';
-import React from 'react';
-import { createClient } from '@/utils/supabase/server'; // Ensure this path is correct
-import { redirect } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { AuthProvider, useAuth } from '@/contexts/AuthContext'; // Adjust path if needed
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client'; // Client-side client
 
-export default async function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const supabase = await createClient();
-  const { data: { user }, error: userError } = await supabase.auth.getUser();
+interface UserProfileLayoutData {
+  firstName: string | null;
+  email: string | null;
+}
 
-  if (userError || !user) {
-    console.error('User not authenticated or error fetching user:', userError);
-    redirect('/login'); // Or your specific login page route
+function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
+  const { user, loading: authLoading, session } = useAuth();
+  const router = useRouter();
+  const supabase = createClient();
+
+  const [userProfile, setUserProfile] = useState<UserProfileLayoutData | null>(null);
+  const [profileLoading, setProfileLoading] = useState(true);
+
+  useEffect(() => {
+    if (!authLoading) {
+      if (!user) {
+        router.replace('/'); // Redirect if not authenticated
+        return;
+      }
+
+      // Fetch profile for Topbar
+      const fetchProfile = async () => {
+        setProfileLoading(true);
+        const { data, error } = await supabase
+          .from('user_profile')
+          .select('first_name, email')
+          .eq('user_id', user.id)
+          .maybeSingle();
+
+        if (error) {
+          console.error("Layout: Database error fetching user_profile:", error.message);
+          // Potentially redirect or show error, for now, Topbar will show defaults
+        } else if (!data) {
+          console.log(`Layout: No profile found for user ${user.id}. Redirecting to onboarding.`);
+          router.replace('/onboarding');
+          return;
+        }
+        setUserProfile({
+          firstName: data?.first_name || null,
+          email: data?.email || user.email || null,
+        });
+        setProfileLoading(false);
+      };
+
+      fetchProfile();
+    }
+  }, [user, authLoading, router, supabase]);
+
+  if (authLoading || (user && profileLoading && !userProfile)) {
+    // Show a global loading state for the dashboard shell until user and minimal profile are loaded
+    return (
+      <div className="flex h-screen bg-gray-900 text-white items-center justify-center">
+        <div>Loading Dashboard...</div> {/* Or a more sophisticated skeleton */}
+      </div>
+    );
   }
 
-  // Fetch profile data including onboarding status, full_name, and email
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('onboarding_completed, full_name, email, avatar_url') // Added avatar_url
-    .eq('id', user.id)
-    .single();
+  // If user is null after auth check (and not loading), they'd have been redirected.
+  // If user exists but profile fetch led to onboarding redirect, this part isn't reached.
 
-  if (profileError && profileError.code !== 'PGRST116') { // PGRST116: row not found
-    console.error("Error fetching profile for dashboard layout:", profileError.message);
-    redirect('/login'); // Or an error page
-  }
-  
-  if (!profile || !profile.onboarding_completed) {
-    redirect('/onboarding');
-  }
-
-  // User is authenticated and onboarded
   return (
     <div className="flex h-screen bg-gray-900 text-white antialiased">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Topbar 
-          userName={profile?.full_name || user.email} 
-          userEmail={profile?.email || user.email} // Use profile email or auth email as fallback
-          avatarUrl={profile?.avatar_url}
+        <Topbar
+          userName={userProfile?.firstName || user?.email || 'User'}
+          userEmail={userProfile?.email || user?.email || ''}
         />
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-800 p-4 md:p-6">
           {children}
         </main>
       </div>
     </div>
+  );
+}
+
+// The actual default export for layout.tsx wraps content with AuthProvider
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <AuthProvider>
+      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+    </AuthProvider>
   );
 }

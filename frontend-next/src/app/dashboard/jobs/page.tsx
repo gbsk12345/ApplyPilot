@@ -3,9 +3,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/contexts/AuthContext'; // Ensure this path is correct
-import { createClient } from '@/utils/supabase/client';
-import type { User } from '@supabase/supabase-js';
+import { useAuth } from '@/contexts/AuthContext';
 
 // --- Interface Definition ---
 interface JobListing {
@@ -22,7 +20,7 @@ interface JobListing {
   matchPercentage?: number; // For UI display
 }
 
-const JOBS_PER_PAGE = 6; // Display 6 jobs (fits 2 or 3 columns)
+const JOBS_PER_PAGE = 6;
 const SKILL_MATCH_THRESHOLD_PERCENTAGE = 60;
 
 // --- Dummy Data & Placeholders ---
@@ -42,10 +40,8 @@ const ALL_DUMMY_JOBS_SOURCE: JobListing[] = [
   { id: '11', job_title: 'Entry Level Software Engineer', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Entry-level', description_full: 'Exciting opportunity for new graduates to kickstart their career. Work on various projects using modern tech stacks.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
   { id: '12', job_title: 'Cloud Support Engineer', company_name: 'CloudNetics', location: 'Austin, TX', experience_level: 'Mid-level', description_full: 'Provide technical support for our cloud services. Troubleshoot issues and assist customers.', date_posted: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Cloud Computing", "AWS", "Azure", "Customer Support", "Communication", "Problem Solving"] },
 ];
-// --- End of Dummy Data ---
 
-// --- Helper Functions ---
-const formatDatePosted = (dateString: string) => { /* ... same as your previous correct version ... */ 
+const formatDatePosted = (dateString: string) => {
   const date = new Date(dateString);
   const now = new Date();
   const diffTime = Math.abs(now.getTime() - date.getTime());
@@ -64,14 +60,13 @@ const calculateMatchScore = (userSkills: string[], jdSkills: string[]): number =
   const matchingSkills = lowerUserSkills.filter(skill => lowerJdSkills.includes(skill));
   return (matchingSkills.length / lowerUserSkills.length) * 100;
 };
-// --- End of Helper Functions ---
 
 export default function DiscoverJobsPage() {
   const { user, loading: authLoading } = useAuth();
-  // const supabase = createClient(); // Only needed if fetchJobsPage uses it directly
+
 
   const [displayedJobs, setDisplayedJobs] = useState<JobListing[]>([]);
-  const [userSkills, setUserSkills] = useState<string[]>([]); // Start empty, fetch on user load
+  const [userSkills, setUserSkills] = useState<string[]>([]);
   
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -160,25 +155,21 @@ export default function DiscoverJobsPage() {
   // Effect 2: Load jobs when user is available AND userSkills are populated
   useEffect(() => {
     if (user && userSkills.length > 0) {
-      // console.log("User and skills ready, loading initial jobs (page 1).");
-      setCurrentPage(1);    // Reset to page 1
-      setDisplayedJobs([]); // Clear for new filter/user
-      loadAndFilterJobs(1, userSkills, false); // Load page 1, not appending
+      setCurrentPage(1);
+      setDisplayedJobs([]);
+      loadAndFilterJobs(1, userSkills, false);
     }
-    // If user exists but userSkills is empty, it means either skill fetching failed or user has no skills.
-    // loadAndFilterJobs will show all jobs for page 1 in that case (due to the check inside it).
-    else if (user && userSkills.length === 0 && !isLoading && !error) { // Ensure not in error/loading from skill fetch
+    else if (user && userSkills.length === 0 && !isLoading && !error) {
         setCurrentPage(1);
         setDisplayedJobs([]);
-        loadAndFilterJobs(1, [], false); // Load with empty skills (shows all jobs from page 1)
+        loadAndFilterJobs(1, [], false);
     }
 
-  }, [user, userSkills, loadAndFilterJobs]); // Runs when user or userSkills change
+  }, [user, userSkills, loadAndFilterJobs]);
 
   const handleRefresh = () => {
     if (user && !isLoading && !isLoadingMore) {
       setCurrentPage(1);
-      // setDisplayedJobs([]); // loadAndFilterJobs will reset it
       loadAndFilterJobs(1, userSkills, false);
     }
   };

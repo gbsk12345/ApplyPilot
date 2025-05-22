@@ -1,327 +1,209 @@
-// src/app/dashboard/jobs/page.tsx
+// src/app/dashboard/applications/page.tsx
 'use client';
-
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+// Now client side
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/contexts/AuthContext'; // Ensure this path is correct
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/client'; // Client-side Supabase
+import { useAuth } from '@/contexts/AuthContext'; // Assuming you have this from previous setup
 import type { User } from '@supabase/supabase-js';
 
-// --- Interface Definition ---
-interface JobListing {
-  id: string;
+interface Application {
+  id: string; // or number, ensure this matches your DB schema
   job_title: string;
   company_name: string;
-  location: string;
-  experience_level?: string | null;
-  description_full: string;
-  date_posted: string;
-  apply_url: string;
-  created_at: string;
-  jd_skills: string[];
-  matchPercentage?: number; // For UI display
+  application_date: string | null;
+  status: string;
+  // Add other fields as needed
 }
 
-const JOBS_PER_PAGE = 6; // Display 6 jobs (fits 2 or 3 columns)
-const SKILL_MATCH_THRESHOLD_PERCENTAGE = 60;
+interface CachedApplications {
+  timestamp: number;
+  data: Application[];
+}
 
-// --- Dummy Data & Placeholders ---
-const DUMMY_USER_SKILLS: string[] = ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"];
+const initialApplications: Application[] = [];
+const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes
 
-const ALL_DUMMY_JOBS_SOURCE: JobListing[] = [
-  { id: '1', job_title: 'Frontend Developer (React)', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Mid-level', description_full: 'Build cutting-edge UIs with React & Next.js. Focus on user experience and responsive design...', date_posted: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "JavaScript", "HTML", "CSS", "Next.js", "TailwindCSS", "Communication", "REST APIs", "Git"] },
-  { id: '2', job_title: 'Senior Backend Engineer (Node.js)', company_name: 'Synergy Corp', location: 'New York, NY', experience_level: 'Senior', description_full: 'Design and implement scalable backend services using Node.js, Express, and PostgreSQL...', date_posted: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Node.js", "Express.js", "PostgreSQL", "API Design", "SQL", "Problem Solving", "TypeScript"] },
-  { id: '3', job_title: 'UX/UI Designer', company_name: 'Creative Minds LLC', location: 'Remote (US Only)', experience_level: 'Mid-level', description_full: 'Create intuitive user experiences. Strong portfolio in Figma/Sketch required.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["UX Design", "UI Design", "Figma", "User Research", "Communication"] },
-  { id: '4', job_title: 'Full-Stack Developer (Next.js)', company_name: 'Alpha Solutions', location: 'Austin, TX', experience_level: 'Mid-level', description_full: 'Join a fast-paced team building with Next.js, TypeScript, and Supabase...', date_posted: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Next.js", "React", "TypeScript", "Node.js", "Supabase", "TailwindCSS", "SQL", "Project Management", "REST APIs"] },
-  { id: '5', job_title: 'DevOps Engineer', company_name: 'CloudNetics', location: 'Remote', experience_level: 'Senior', description_full: 'Manage and scale our cloud infrastructure on AWS. CI/CD, Docker, Kubernetes...', date_posted: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform", "Problem Solving"] },
-  { id: '6', job_title: 'Project Manager - Tech', company_name: 'Synergy Corp', location: 'Remote', experience_level: 'Mid-level', description_full: 'Lead agile software projects, manage timelines, and ensure stakeholder communication...', date_posted: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Project Management", "Agile", "Scrum", "Communication", "JIRA"] },
-  { id: '7', job_title: 'Node.js Developer - Junior', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Junior', description_full: 'Focus on backend API development with Node.js and TypeScript. Mentorship provided.', date_posted: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Node.js", "TypeScript", "REST APIs"] },
-  { id: '8', job_title: 'React Developer - Mid', company_name: 'Creative Minds LLC', location: 'Remote', experience_level: 'Mid-level', description_full: 'Develop beautiful user interfaces with React and modern JavaScript.', date_posted: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "JavaScript", "HTML", "CSS", "Communication"] },
-  { id: '9', job_title: 'SQL Database Specialist', company_name: 'Alpha Solutions', location: 'Austin, TX', experience_level: 'Senior', description_full: 'Manage, optimize, and secure our SQL databases. Performance tuning and query optimization.', date_posted: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["SQL", "Database Administration", "PostgreSQL", "MySQL", "Performance Tuning"] },
-  { id: '10', job_title: 'Technical Content Creator', company_name: 'CloudNetics', location: 'Remote', experience_level: 'Mid-level', description_full: 'Create clear and concise technical documentation, tutorials, and blog posts for our software products.', date_posted: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Technical Writing", "Communication", "Documentation", "Content Creation"] },
-  { id: '11', job_title: 'Entry Level Software Engineer', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Entry-level', description_full: 'Exciting opportunity for new graduates to kickstart their career. Work on various projects using modern tech stacks.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["JavaScript", "HTML", "CSS", "Problem Solving"] },
-  { id: '12', job_title: 'Cloud Support Engineer', company_name: 'CloudNetics', location: 'Austin, TX', experience_level: 'Mid-level', description_full: 'Provide technical support for our cloud services. Troubleshoot issues and assist customers.', date_posted: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Cloud Computing", "AWS", "Azure", "Customer Support", "Communication", "Problem Solving"] },
-];
-// --- End of Dummy Data ---
+// Helper to fetch applications from Supabase
+async function fetchApplicationsFromDB(userId: string, supabaseClient: ReturnType<typeof createClient>): Promise<Application[]> {
+  console.log(`Workspaceing applications for user ${userId} from database`); // For debugging
+  const { data, error } = await supabaseClient
+    .from('application') // Ensure 'application' is your correct table name
+    .select('id, job_title, company_name, application_date, status')
+    .eq('user_id', userId)
+    .order('application_date', { ascending: false });
 
-// --- Helper Functions ---
-const formatDatePosted = (dateString: string) => { /* ... same as your previous correct version ... */ 
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffTime = Math.abs(now.getTime() - date.getTime());
-  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-  if (diffDays === 0) return 'Posted today';
-  if (diffDays === 1) return `Posted 1 day ago`;
-  if (diffDays <= 30) return `Posted ${diffDays} days ago`;
-  return `Posted on ${date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`;
-};
+  if (error) {
+    console.error("Error fetching applications from DB:", error.message);
+    throw error; // Throw error to be caught by caller
+  }
+  return (data as Application[]) || [];
+}
 
-const calculateMatchScore = (userSkills: string[], jdSkills: string[]): number => {
-  if (!userSkills || userSkills.length === 0) return 0;
-  if (!jdSkills || jdSkills.length === 0) return 0;
-  const lowerUserSkills = userSkills.map(skill => skill.toLowerCase().trim());
-  const lowerJdSkills = jdSkills.map(skill => skill.toLowerCase().trim());
-  const matchingSkills = lowerUserSkills.filter(skill => lowerJdSkills.includes(skill));
-  return (matchingSkills.length / lowerUserSkills.length) * 100;
-};
-// --- End of Helper Functions ---
-
-export default function DiscoverJobsPage() {
+export default function ApplicationsPage() {
   const { user, loading: authLoading } = useAuth();
-  // const supabase = createClient(); // Only needed if fetchJobsPage uses it directly
-
-  const [displayedJobs, setDisplayedJobs] = useState<JobListing[]>([]);
-  const [userSkills, setUserSkills] = useState<string[]>([]); // Start empty, fetch on user load
-  
+  const [applications, setApplications] = useState<Application[]>(initialApplications);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalAvailableJobsInDB, setTotalAvailableJobsInDB] = useState(0); // Total count of all jobs in DB
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const supabase = createClient();
 
-  // Placeholder: Function to fetch user's actual skills
-  const fetchUserSkills = useCallback(async (userId: string) => {
-    console.log(`Placeholder: Fetching skills for user ${userId}...`);
-    await new Promise(resolve => setTimeout(resolve, 100));
-    return DUMMY_USER_SKILLS;
-  }, []);
+  const loadApplications = useCallback(async (currentUser: User) => {
+    setIsLoading(true);
+    setFetchError(null);
+    const localStorageKey = `applications-${currentUser.id}`;
 
-  // Placeholder: Function to fetch jobs from DB (simulated pagination)
-  const fetchJobsPageFromDB = useCallback(async (page: number, limit: number) => {
-    console.log(`SIMULATING DB FETCH: Page ${page}, Limit ${limit}`);
-    // In real app, use supabase client here
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const start = (page - 1) * limit;
-    const end = start + limit;
-    const paginatedJobs = ALL_DUMMY_JOBS_SOURCE.slice(start, end);
-    return { jobs: paginatedJobs, totalCount: ALL_DUMMY_JOBS_SOURCE.length };
-  }, []);
-
-
-  // Main data loading and filtering logic
-  const loadAndFilterJobs = useCallback(async (pageToLoad: number, skillsForMatching: string[], isAppending: boolean) => {
-    if (skillsForMatching.length === 0 && pageToLoad === 1) {
-        console.log("No user skills to match against, showing all jobs for page " + pageToLoad);
-        // Or decide to show nothing / a message if skills are mandatory for viewing
+    // 1. Try to load from localStorage
+    const cachedItem = localStorage.getItem(localStorageKey);
+    if (cachedItem) {
+      try {
+        const parsedCache: CachedApplications = JSON.parse(cachedItem);
+        if (Date.now() - parsedCache.timestamp < CACHE_DURATION_MS) {
+          setApplications(parsedCache.data);
+          setIsLoading(false);
+          console.log("Loaded applications from fresh localStorage cache.");
+          return; // Data is fresh enough, no need to fetch from DB immediately
+        }
+        // If cache is stale, we'll still set it for instant UI, then fetch fresh below
+        setApplications(parsedCache.data);
+        console.log("Loaded applications from stale localStorage cache, will refresh.");
+      } catch (e) {
+        console.error("Failed to parse applications from localStorage:", e);
+        localStorage.removeItem(localStorageKey); // Clear corrupted item
+      }
     }
 
-    if (isAppending) setIsLoadingMore(true); else setIsLoading(true);
-    setError(null);
-
+    // 2. Cache miss or stale cache -> fetch from DB
     try {
-      const { jobs: fetchedRawJobs, totalCount } = await fetchJobsPageFromDB(pageToLoad, JOBS_PER_PAGE);
-      setTotalAvailableJobsInDB(totalCount);
-
-      const newMatchedJobs = fetchedRawJobs.map(job => ({
-        ...job,
-        matchPercentage: calculateMatchScore(skillsForMatching, job.jd_skills),
-      })).filter(job => job.matchPercentage! >= SKILL_MATCH_THRESHOLD_PERCENTAGE);
-
-
-      if (isAppending) {
-        setDisplayedJobs(prevJobs => [...prevJobs, ...newMatchedJobs]);
-      } else {
-        setDisplayedJobs(newMatchedJobs);
-      }
-    } catch (err: any) {
-      console.error("Error in loadAndFilterJobs:", err);
-      setError("Failed to load jobs. Please try refreshing.");
+      const freshApplications = await fetchApplicationsFromDB(currentUser.id, supabase);
+      setApplications(freshApplications);
+      const newCache: CachedApplications = {
+        timestamp: Date.now(),
+        data: freshApplications,
+      };
+      localStorage.setItem(localStorageKey, JSON.stringify(newCache));
+      console.log("Fetched fresh applications and updated localStorage.");
+    } catch (error) {
+      setFetchError("Could not fetch applications. Please try again later.");
+      // applications will retain stale cache data or be empty if no cache
     } finally {
       setIsLoading(false);
-      setIsLoadingMore(false);
     }
-  }, [fetchJobsPageFromDB]); // filterAndSetDisplayedJobs removed as its logic is merged
+  }, [supabase]);
 
-  // Effect 1: Fetch user skills when user is available
   useEffect(() => {
-    if (user && !authLoading) {
-      setIsLoading(true); // Indicate loading for skills
-      fetchUserSkills(user.id)
-        .then(skills => {
-          setUserSkills(skills);
-          // setIsLoading(false); // Loading for jobs will be handled by the next effect
-        })
-        .catch(err => {
-          console.error("Failed to fetch user skills:", err);
-          setError("Could not load your skills profile to match jobs.");
-          setIsLoading(false);
-        });
-    } else if (!user && !authLoading) {
-      // No user, clear data
-      setUserSkills([]);
-      setDisplayedJobs([]);
-      setCurrentPage(1);
-      setTotalAvailableJobsInDB(0);
+    if (authLoading) {
+      setIsLoading(true); // Keep loading while auth state is being determined
+      return;
+    }
+
+    if (user) {
+      loadApplications(user);
+    } else {
+      // No user, clear applications and stop loading
+      setApplications(initialApplications);
       setIsLoading(false);
+      setFetchError(null); // Or set a "please log in" message
+      // Consider clearing localStorage if you want, though user-specific keys handle separation
     }
-  }, [user, authLoading, fetchUserSkills]);
+  }, [user, authLoading, loadApplications]);
 
-  // Effect 2: Load jobs when user is available AND userSkills are populated
-  useEffect(() => {
-    if (user && userSkills.length > 0) {
-      // console.log("User and skills ready, loading initial jobs (page 1).");
-      setCurrentPage(1);    // Reset to page 1
-      setDisplayedJobs([]); // Clear for new filter/user
-      loadAndFilterJobs(1, userSkills, false); // Load page 1, not appending
-    }
-    // If user exists but userSkills is empty, it means either skill fetching failed or user has no skills.
-    // loadAndFilterJobs will show all jobs for page 1 in that case (due to the check inside it).
-    else if (user && userSkills.length === 0 && !isLoading && !error) { // Ensure not in error/loading from skill fetch
-        setCurrentPage(1);
-        setDisplayedJobs([]);
-        loadAndFilterJobs(1, [], false); // Load with empty skills (shows all jobs from page 1)
-    }
-
-  }, [user, userSkills, loadAndFilterJobs]); // Runs when user or userSkills change
-
-  const handleRefresh = () => {
-    if (user && !isLoading && !isLoadingMore) {
-      setCurrentPage(1);
-      // setDisplayedJobs([]); // loadAndFilterJobs will reset it
-      loadAndFilterJobs(1, userSkills, false);
-    }
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return 'N/A';
+    // Ensure date parsing is robust, consider timezones if they are stored in UTC
+    return new Date(dateString).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
   };
 
-  const handleLoadMore = () => {
-    const canActuallyLoadMore = (currentPage * JOBS_PER_PAGE) < totalAvailableJobsInDB;
-    if (user && canActuallyLoadMore && !isLoadingMore && !isLoading) {
-      const nextPage = currentPage + 1;
-      loadAndFilterJobs(nextPage, userSkills, true);
-    }
-  };
-  
-  const canActuallyLoadMore = useMemo(() => {
-    return (currentPage * JOBS_PER_PAGE) < totalAvailableJobsInDB;
-  }, [currentPage, totalAvailableJobsInDB]);
 
-
-  // --- JSX ---
-  if (authLoading || (isLoading && displayedJobs.length === 0 && currentPage === 1)) {
-    return ( /* ... Your detailed skeleton ... */ 
-        <div>
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-100">Discover Jobs</h1>
-                <button disabled className="bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg opacity-50 cursor-not-allowed">
-                    Refresh Jobs
-                </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
-                {[...Array(3)].map((_, i) => (
-                <div key={i} className="bg-gray-800/50 p-6 rounded-xl shadow-lg h-72"> 
-                    <div className="h-6 bg-gray-700/50 rounded w-3/4 mb-3"></div>
-                    <div className="h-4 bg-gray-700/50 rounded w-1/2 mb-2"></div>
-                    <div className="h-4 bg-gray-700/50 rounded w-1/3 mb-4"></div>
-                    <div className="h-16 bg-gray-700/50 rounded mb-4"></div>
-                    <div className="flex justify-between items-center">
-                    <div className="h-4 bg-gray-700/50 rounded w-1/4"></div>
-                    <div className="h-10 bg-purple-600/50 rounded w-1/3"></div>
-                    </div>
-                </div>
-                ))}
-            </div>
+  if (isLoading && applications.length === 0) { // Show skeleton only if truly loading initial data
+    return (
+      <div>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl md:text-3xl font-semibold text-gray-100">My Job Applications</h1>
+          {/* Add New button can be a skeleton too or shown */}
         </div>
+        <div className="overflow-x-auto bg-gray-700/50 shadow-md rounded-lg p-4 animate-pulse">
+           <div className="h-8 bg-gray-600/50 rounded w-1/4 mb-4"></div> {/* Header skeleton */}
+           {[...Array(3)].map((_, i) => (
+             <div key={i} className="h-12 bg-gray-600/50 rounded mb-2"></div> /* Row skeleton */
+           ))}
+        </div>
+      </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-100">Discover Jobs</h1>
-        <button
-          onClick={handleRefresh}
-          disabled={isLoading || isLoadingMore}
-          className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-150 flex items-center gap-2 disabled:opacity-70"
+        <h1 className="text-2xl md:text-3xl font-semibold text-gray-100">My Job Applications</h1>
+        <Link
+          href="/dashboard/applications/new"
+          className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-150"
         >
-          {isLoading && !isLoadingMore ? 'Refreshing...' : 'Refresh Jobs'}
-        </button>
+          + Add New Application
+        </Link>
       </div>
 
-      {error && (
-        <p className="text-red-400 bg-red-900/30 p-4 rounded-md">{error}</p>
+      {fetchError && (
+        <p className="text-red-400 bg-red-900/30 p-3 rounded-md mb-4">{fetchError}</p>
       )}
-
-      {!isLoading && !error && displayedJobs.length === 0 && (
-        <div className="text-center py-12 bg-gray-800/50 rounded-lg shadow-md">
-          <p className="mx-auto text-4xl text-gray-500">🤷</p>
-          <h3 className="mt-4 text-xl font-medium text-white">No Matching Jobs Found</h3>
-          <p className="mt-1 text-sm text-gray-400">
-            We couldn&apos;t find any open positions that match {SKILL_MATCH_THRESHOLD_PERCENTAGE}% or more of your skills right now.
-            <br />
-            Try updating your skills in your profile or check back later!
-          </p>
-        </div>
-      )}
-
-      {displayedJobs.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {displayedJobs.map((job) => (
-            <div 
-              key={job.id} 
-              className="bg-gray-800 p-6 rounded-xl shadow-2xl flex flex-col justify-between
-                         border border-gray-700/50 hover:border-purple-500/70 
-                         transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-purple-500/30"
+      
+      {!isLoading && !fetchError && applications.length === 0 && (
+        <div className="text-center py-10 bg-gray-700 rounded-lg shadow-md">
+          <svg className="mx-auto h-12 w-12 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          </svg>
+          <h3 className="mt-2 text-lg font-medium text-white">No applications tracked</h3>
+          <p className="mt-1 text-sm text-gray-400">Get started by adding your first job application.</p>
+          <div className="mt-6">
+            <Link
+              href="/dashboard/applications/new"
+              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-purple-500"
             >
-              <div> {/* Card content wrapper */}
-                <div className="mb-3">
-                  <div className="flex justify-between items-start">
-                    <h2 className="text-xl font-semibold text-gray-100 leading-tight truncate pr-2" title={job.job_title}>
-                      {job.job_title}
-                    </h2>
-                    {job.matchPercentage !== undefined && (
-                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${job.matchPercentage >= SKILL_MATCH_THRESHOLD_PERCENTAGE ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300'}`}>
-                           {job.matchPercentage.toFixed(0)}% Match
-                        </span>
-                    )}
-                  </div>
-                  <p className="text-md text-purple-300">{job.company_name}</p>
-                </div>
-
-                <div className="space-y-1.5 text-sm text-gray-400 mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">📍</span>
-                    <span>{job.location}</span>
-                  </div>
-                  {job.experience_level && (
-                     <div className="flex items-center gap-2">
-                        <span className="text-lg">📈</span>
-                        <span>{job.experience_level}</span>
-                    </div>
-                  )}
-                </div>
-                
-                <p className="text-sm text-gray-300 mb-4 line-clamp-4 leading-relaxed">
-                  {job.description_full}
-                </p>
-              </div>
-
-              <div className="mt-auto pt-4 border-t border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-3">
-                <p className="text-xs text-gray-500 whitespace-nowrap">
-                  ⏳ {formatDatePosted(job.date_posted)}
-                </p>
-                <Link 
-                  href={job.apply_url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 px-5 rounded-lg text-sm text-center transition-colors duration-150 whitespace-nowrap shadow-md hover:shadow-lg"
-                >
-                  Apply Now
-                </Link>
-              </div>
-            </div>
-          ))}
+              Add New Application
+            </Link>
+          </div>
         </div>
       )}
 
-      {!isLoading && !error && canActuallyLoadMore && displayedJobs.length > 0 && (
-        <div className="mt-10 text-center">
-          <button
-            onClick={handleLoadMore}
-            disabled={isLoadingMore}
-            className="bg-gray-700 hover:bg-gray-600 text-purple-300 font-semibold py-2.5 px-6 rounded-lg shadow-md transition duration-150 disabled:opacity-50 flex items-center justify-center mx-auto gap-2"
-          >
-            {isLoadingMore ? 'Loading More...' : 'Load More Jobs'}
-          </button>
+      {!fetchError && applications.length > 0 && (
+        <div className="overflow-x-auto bg-gray-700 shadow-md rounded-lg">
+          <table className="min-w-full text-sm text-left text-gray-300">
+            <thead className="text-xs text-gray-200 uppercase bg-gray-600">
+              <tr>
+                <th scope="col" className="px-6 py-3">Job Title</th>
+                <th scope="col" className="px-6 py-3">Company</th>
+                <th scope="col" className="px-6 py-3">Date Applied</th>
+                <th scope="col" className="px-6 py-3">Status</th>
+                <th scope="col" className="px-6 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {applications.map((app) => (
+                <tr key={app.id} className="border-b border-gray-600 hover:bg-gray-600/50">
+                  <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap">{app.job_title}</th>
+                  <td className="px-6 py-4">{app.company_name}</td>
+                  <td className="px-6 py-4">{formatDate(app.application_date)}</td>
+                  <td className="px-6 py-4">
+                    <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${
+                      app.status === 'Applied' ? 'bg-blue-500 text-blue-100' :
+                      app.status === 'Interviewing' ? 'bg-yellow-500 text-yellow-100' :
+                      app.status === 'Offer' ? 'bg-green-500 text-green-100' : 
+                      app.status === 'Rejected' ? 'bg-red-500 text-red-100' : 
+                      app.status === 'Wishlist' ? 'bg-indigo-500 text-indigo-100' : 
+                      'bg-gray-500 text-gray-100'
+                    }`}>
+                      {app.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <Link href={`/dashboard/applications/edit/${app.id}`} className="font-medium text-purple-400 hover:underline">
+                      View/Edit
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

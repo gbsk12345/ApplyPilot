@@ -10,7 +10,6 @@ interface UserProfileDataForUpdate {
   middle_name?: string | null;
   last_name?: string | null;
   preferred_name?: string | null;
-  // email is typically not updated here as it's tied to auth and handled separately if needed
   phone?: string | null;
   address_line1?: string | null;
   address_line2?: string | null;
@@ -25,29 +24,27 @@ interface UserProfileDataForUpdate {
   needs_sponsorship?: boolean | null;
   visa_status?: string | null;
   desired_salary?: string | null;
-  willing_to_relocate?: boolean | null; // Note: your edit page <select> might send "true" as string
+  willing_to_relocate?: boolean | null;
   interest_statement?: string | null;
   additional_info?: string | null;
-  key_skills?: string | null;       // Added
-  gender?: string | null;           // Added
-  race?: string | null;             // Added
-  veteran_status?: string | null;   // Added
-  disability_status?: string | null;// Added
-  // avatar_url?: string | null; // Add if you handle avatar uploads and want to update URL
+  key_skills?: string | null;
+  gender?: string | null;
+  race?: string | null;
+  veteran_status?: string | null;
+  disability_status?: string | null;
 }
 
 interface EducationItemClient {
-  id?: number | string; // Optional 'id' for new items, number for existing. `undefined` for new.
+  id: number | string; // Critical: client sends number for existing, string for new
   school_name?: string | null;
   degree_level?: string | null;
   major?: string | null;
   start_date?: string | null;
   graduation_date?: string | null;
-  // user_id will be set on the server
 }
 
 interface WorkExperienceItemClient {
-  id?: number | string; // Optional 'id' for new items, number for existing. `undefined` for new.
+  id: number | string; // Critical: client sends number for existing, string for new
   job_title?: string | null;
   company_name?: string | null;
   company_location?: string | null;
@@ -55,19 +52,18 @@ interface WorkExperienceItemClient {
   end_date?: string | null;
   current_job?: boolean | null;
   job_description?: string | null;
-  // user_id will be set on the server
 }
 
 export interface UpdateProfilePayload {
-  userProfileData: Partial<UserProfileDataForUpdate>; // Client sends only changed fields
-  educationUpdates: Array<Omit<EducationItemClient, 'user_id'>>; // Client sends array of items
-  workExperienceUpdates: Array<Omit<WorkExperienceItemClient, 'user_id'>>; // Client sends array of items
-  deletedEducationIds: number[];
-  deletedWorkExperienceIds: number[];
+  userProfileData: Partial<UserProfileDataForUpdate>;
+  educationUpdates: EducationItemClient[];
+  workExperienceUpdates: WorkExperienceItemClient[];
+  deletedEducationIds: number[]; // Numeric IDs of records to delete
+  deletedWorkExperienceIds: number[]; // Numeric IDs of records to delete
 }
 
 const ensureValidDateOrNull = (dateString?: string | null): string | null => {
-    if (!dateString || dateString.trim() === '') return null;
+    if (!dateString) return null;
     // Matches YYYY-MM
     if (/^\d{4}-\d{2}$/.test(dateString)) {
         return `${dateString}-01`; // Append a default day
@@ -76,17 +72,14 @@ const ensureValidDateOrNull = (dateString?: string | null): string | null => {
     if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
         return dateString;
     }
+    // Attempt to parse other common date formats (optional, can be stricter)
     try {
-        const d = new Date(dateString); // Try to parse if it's a more complete date string
+        const d = new Date(dateString);
         if (isNaN(d.getTime())) return null; // Invalid date
-        // Format to YYYY-MM-DD. Using UTC methods to avoid timezone shifts from toISOString().
-        const year = d.getUTCFullYear();
-        const month = (d.getUTCMonth() + 1).toString().padStart(2, '0');
-        const day = d.getUTCDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
+        return d.toISOString().split('T')[0]; // Format to YYYY-MM-DD
     } catch (e) {
-        console.error('Error parsing date in ensureValidDateOrNull:', e);
-        return null; 
+        console.error('Error parsing date:', e);
+        return null; // Error during parsing
     }
 };
 
@@ -107,24 +100,10 @@ export async function updateUserProfile(payload: UpdateProfilePayload): Promise<
   } = payload;
 
   // 1. Update user_profile table
-  // Ensure only non-empty changed data is sent for update
   if (userProfileData && Object.keys(userProfileData).length > 0) {
-    // Sanitize boolean-like fields if they come as strings from form
-    const profileDataToUpdate = { ...userProfileData };
-    if (typeof profileDataToUpdate.authorized_to_work === 'string') {
-        profileDataToUpdate.authorized_to_work = profileDataToUpdate.authorized_to_work === 'true';
-    }
-    if (typeof profileDataToUpdate.needs_sponsorship === 'string') {
-        profileDataToUpdate.needs_sponsorship = profileDataToUpdate.needs_sponsorship === 'true';
-    }
-    if (typeof profileDataToUpdate.willing_to_relocate === 'string') {
-        profileDataToUpdate.willing_to_relocate = profileDataToUpdate.willing_to_relocate === 'true';
-    }
-
-
     const { error: profileError } = await supabase
       .from('user_profile')
-      .update(profileDataToUpdate) // Use sanitized data
+      .update(userProfileData)
       .eq('user_id', user.id);
 
     if (profileError) {
@@ -139,27 +118,28 @@ export async function updateUserProfile(payload: UpdateProfilePayload): Promise<
       .from('education')
       .delete()
       .in('id', deletedEducationIds)
-      .eq('user_id', user.id);
+      .eq('user_id', user.id); // Ensure user can only delete their own records (RLS should also enforce this)
     if (deleteEduError) {
       console.error('Error deleting education records:', deleteEduError);
       return { error: `Failed to delete education records: ${deleteEduError.message}` };
     }
   }
   
-  // Prepare education data for upsert, ensuring user_id and correct date formats
   const educationToUpsert = educationUpdates
     .map(edu => ({
-      ...edu, // Spread client-provided fields
-      id: typeof edu.id === 'number' ? edu.id : undefined, // Handle ID for new vs existing
-      user_id: user.id, // Ensure user_id is set on the server
+      id: typeof edu.id === 'number' ? edu.id : undefined, // Key for differentiating new vs. existing
+      user_id: user.id,
+      school_name: edu.school_name,
+      degree_level: edu.degree_level,
+      major: edu.major,
       start_date: ensureValidDateOrNull(edu.start_date),
       graduation_date: ensureValidDateOrNull(edu.graduation_date),
     }))
     .filter(edu => edu.school_name || edu.degree_level || edu.major); // Avoid saving empty records
 
-
-  // console.log('Authenticated user.id for RLS check:', user.id); // Kept for your debugging
-  // console.log('Education data being upserted:', JSON.stringify(educationToUpsert, null, 2));
+  // For debugging RLS or other issues - kept as per your provided code
+  console.log('Authenticated user.id for RLS check:', user.id);
+  console.log('Education data being upserted:', JSON.stringify(educationToUpsert, null, 2));
   
   if (educationToUpsert.length > 0) {
       const { error: eduUpsertError } = await supabase
@@ -171,13 +151,13 @@ export async function updateUserProfile(payload: UpdateProfilePayload): Promise<
       }
   }
 
-  // 3. Handle Work Experience records
+  // 3. Handle Work Experience records (apply the same logic as education)
   if (deletedWorkExperienceIds && deletedWorkExperienceIds.length > 0) {
      const { error: deleteWorkExpError } = await supabase
       .from('work_experience')
       .delete()
       .in('id', deletedWorkExperienceIds)
-      .eq('user_id', user.id);
+      .eq('user_id', user.id); // Ensure user can only delete their own records
     if (deleteWorkExpError) {
       console.error('Error deleting work experience records:', deleteWorkExpError);
       return { error: `Failed to delete work experience records: ${deleteWorkExpError.message}` };
@@ -186,12 +166,15 @@ export async function updateUserProfile(payload: UpdateProfilePayload): Promise<
 
   const workExperienceToUpsert = workExperienceUpdates
     .map(exp => ({
-      ...exp, // Spread client-provided fields
-      id: typeof exp.id === 'number' ? exp.id : undefined, // Handle ID for new vs existing
-      user_id: user.id, // Ensure user_id is set on the server
+      id: typeof exp.id === 'number' ? exp.id : undefined, // Key for differentiating new vs. existing
+      user_id: user.id,
+      job_title: exp.job_title,
+      company_name: exp.company_name,
+      company_location: exp.company_location,
       start_date: ensureValidDateOrNull(exp.start_date),
       end_date: ensureValidDateOrNull(exp.end_date),
-      // current_job is already boolean from client, or should be
+      current_job: exp.current_job,
+      job_description: exp.job_description,
     }))
     .filter(exp => exp.job_title || exp.company_name); // Avoid saving empty records
 
@@ -207,17 +190,16 @@ export async function updateUserProfile(payload: UpdateProfilePayload): Promise<
 
   // Revalidate paths to reflect changes
   revalidatePath('/dashboard/profile');
-  revalidatePath('/dashboard/profile/edit'); // Revalidate edit page itself if it pre-fills from server data that might change
-  revalidatePath('/dashboard/overview'); // Revalidate overview if it shows counts or related data
+  revalidatePath('/dashboard/profile/edit');
+  revalidatePath('/dashboard/overview');
   
-  // Check if any layout-relevant data (like name or avatar) was part of the update
   if (userProfileData && (
         userProfileData.hasOwnProperty('first_name') || 
         userProfileData.hasOwnProperty('last_name') ||
-        userProfileData.hasOwnProperty('preferred_name') 
-        // || userProfileData.hasOwnProperty('avatar_url') // Add if you have avatar_url
+        // userProfileData.hasOwnProperty('email') || // Email typically not updated here
+        userProfileData.hasOwnProperty('avatar_url') 
      )) {
-    revalidatePath('/dashboard', 'layout'); // Revalidate the dashboard layout
+    revalidatePath('/dashboard', 'layout'); // Revalidate layout if name/avatar changes
   }
 
   return { success: true, message: 'Profile updated successfully!' };

@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import Link from 'next/link';
+import ApplyButton from '../ApplyButton';
 import { useAuth } from '@/contexts/AuthContext';
 
 // --- Interface Definition ---
@@ -29,7 +29,7 @@ const DUMMY_USER_SKILLS: string[] = ["React", "TypeScript", "Node.js", "Next.js"
 const ALL_DUMMY_JOBS_SOURCE: JobListing[] = [
   { id: '1', job_title: 'Frontend Developer (React)', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Mid-level', description_full: 'Build cutting-edge UIs with React & Next.js. Focus on user experience and responsive design...', date_posted: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "JavaScript", "HTML", "CSS", "Next.js", "TailwindCSS", "Communication", "REST APIs", "Git"] },
   { id: '2', job_title: 'Senior Backend Engineer (Node.js)', company_name: 'Synergy Corp', location: 'New York, NY', experience_level: 'Senior', description_full: 'Design and implement scalable backend services using Node.js, Express, and PostgreSQL...', date_posted: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Node.js", "Express.js", "PostgreSQL", "API Design", "SQL", "Problem Solving", "TypeScript"] },
-  { id: '3', job_title: 'UX/UI Designer', company_name: 'Creative Minds LLC', location: 'Remote (US Only)', experience_level: 'Mid-level', description_full: 'Create intuitive user experiences. Strong portfolio in Figma/Sketch required.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
+  { id: '3', job_title: 'Access Software Engineer', company_name: 'Cloudflare', location: 'Remote (US Only)', experience_level: 'Entry-level', description_full: 'Create intuitive user experiences. Strong portfolio in Figma/Sketch required.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: 'https://job-boards.greenhouse.io/cloudflare/jobs/6886051?gh_jid=6886051&utm_source=cvrve&ref=cvrve', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
   { id: '4', job_title: 'Full-Stack Developer (Next.js)', company_name: 'Alpha Solutions', location: 'Austin, TX', experience_level: 'Mid-level', description_full: 'Join a fast-paced team building with Next.js, TypeScript, and Supabase...', date_posted: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Next.js", "React", "TypeScript", "Node.js", "Supabase", "TailwindCSS", "SQL", "Project Management", "REST APIs"] },
   { id: '5', job_title: 'DevOps Engineer', company_name: 'CloudNetics', location: 'Remote', experience_level: 'Senior', description_full: 'Manage and scale our cloud infrastructure on AWS. CI/CD, Docker, Kubernetes...', date_posted: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
   { id: '6', job_title: 'Project Manager - Tech', company_name: 'Synergy Corp', location: 'Remote', experience_level: 'Mid-level', description_full: 'Lead agile software projects, manage timelines, and ensure stakeholder communication...', date_posted: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Project Management", "Agile", "Scrum", "Communication", "JIRA"] },
@@ -189,7 +189,7 @@ export default function DiscoverJobsPage() {
 
   // --- JSX ---
   if (authLoading || (isLoading && displayedJobs.length === 0 && currentPage === 1)) {
-    return ( /* ... Your detailed skeleton ... */ 
+    return (
         <div>
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-100">Discover Jobs</h1>
@@ -290,14 +290,7 @@ export default function DiscoverJobsPage() {
                 <p className="text-xs text-gray-500 whitespace-nowrap">
                   ⏳ {formatDatePosted(job.date_posted)}
                 </p>
-                <Link 
-                  href={job.apply_url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 px-5 rounded-lg text-sm text-center transition-colors duration-150 whitespace-nowrap shadow-md hover:shadow-lg"
-                >
-                  Apply Now
-                </Link>
+                <ApplyButton jobUrl={job.apply_url} jobTitle={job.job_title} />
               </div>
             </div>
           ))}

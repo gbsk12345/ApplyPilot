@@ -27,27 +27,7 @@ except LookupError:
 SKILL_FILE_PATH = "software_skills_lowercase.txt"
 with open(SKILL_FILE_PATH, "r") as f:
     TECHNICAL_SKILLS_LIST = [line.strip() for line in f if line.strip()]
-TECHNICAL_SKILLS_LIST = [
-    "python", "java", "c++", "c#", "javascript", "typescript", "php", "ruby", "swift", "kotlin", "go", "rust",
-    "sql", "mysql", "postgresql", "mongodb", "nosql", "sqlite", "oracle database", "sql server",
-    "react", "angular", "vue.js", "vue", "next.js", "gatsby",
-    "django", "flask", "spring", "spring boot", ".net", "dotnet", "asp.net", "laravel", "ruby on rails",
-    "node.js", "express.js",
-    "html", "html5", "css", "css3", "sass", "less", "bootstrap", "tailwind css",
-    "aws", "azure", "google cloud platform", "gcp", "docker", "kubernetes", "k8s", "terraform", "ansible", "jenkins",
-    "linux", "unix", "bash scripting", "powershell",
-    "git", "github", "gitlab", "bitbucket", "jira", "confluence",
-    "rest", "restful apis", "graphql", "soap", "microservices", "api design",
-    "machine learning", "deep learning", "natural language processing", "nlp", "computer vision", "data science",
-    "pandas", "numpy", "scipy", "scikit-learn", "sklearn", "tensorflow", "keras", "pytorch",
-    "big data", "hadoop", "spark", "apache spark", "kafka", "apache kafka",
-    "data analysis", "data visualization", "tableau", "power bi",
-    "cybersecurity", "penetration testing", "ethical hacking", "encryption", "network security",
-    "agile", "scrum", "kanban", "devops", "ci/cd",
-    "object-oriented programming", "oop", "functional programming",
-    "selenium", "playwright", "cypress", "unit testing", "integration testing",
-    "r programming", "matlab", "objective-c", "perl", "scala"
-]
+
 SKILL_SECTION_KEYWORDS = [
     "skills", "technical skills", "technical proficiencies", "core competencies",
     "key skills", "technologies", "tools & technologies", "tools and technologies",
@@ -338,8 +318,7 @@ def run_dummy_tests():
     if not os.path.exists(dummy_files_dir):
         os.makedirs(dummy_files_dir)
 
-    resume_path_1 = os.path.join(dummy_files_dir, "JobResume2.txt")
-    # resume_path_1 = os.path.join(dummy_files_dir, "Devanshu_Resume.txt")
+    resume_path_1 = os.path.join(dummy_files_dir, "JobResume2.pdf")
     resume_path_2 = os.path.join(dummy_files_dir, "jane_smith_resume.txt")
     resume_path_docx = os.path.join(
         dummy_files_dir, "alice_wonderland_resume.docx")

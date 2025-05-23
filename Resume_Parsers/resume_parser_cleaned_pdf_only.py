@@ -306,69 +306,6 @@ def parse_resume_for_skills(resume_file_path):
     return sorted(list(all_extracted_skills))
 
 
-def run_dummy_tests():
-    """Creates and tests with dummy resume files."""
-    print("\n--- Running Dummy Tests ---")
-    dummy_resume_text_1 = """
-    John Doe
-    Technical Skills:
-    - Programming Languages: Python, JavaScript, Java, C#
-    - Web Technologies: React, Node.js, HTML5, CSS3, RESTful APIs
-    - Databases: MongoDB, PostgreSQL, MySQL. Also worked with SQL Server.
-    - Cloud: AWS (EC2, S3, Lambda), Docker
-    - Tools: Git, Jenkins, Jira. Familiar with C++.
-    Experience
-    Developed using python scripting.
-    """
-    dummy_resume_text_2 = """
-    Jane Smith
-    Profile
-    My work involves extensive use of SQL for data extraction and Python (Pandas, NumPy) for data manipulation and analysis.
-    I also have experience creating visualizations with Tableau. Experienced with git for version control.
-    Used machine learning models (scikit-learn) for predictive analytics.
-    """
-    dummy_resume_text_docx = """Alice Wonderland
-    Core Competencies
-    Languages: Ruby, Go, Swift
-    Frameworks: Ruby on Rails
-    Cloud: Google Cloud Platform (GCP), Kubernetes (k8s)
-    Other: CI/CD, DevOps practices, .NET experience.
-    """
-    dummy_files_dir = "dummy_resumes_for_testing"  # Changed name to avoid conflict
-    if not os.path.exists(dummy_files_dir):
-        os.makedirs(dummy_files_dir)
-
-    resume_path_1 = os.path.join(dummy_files_dir, "JobResume2.txt")
-    # resume_path_1 = os.path.join(dummy_files_dir, "Devanshu_Resume.txt")
-    resume_path_2 = os.path.join(dummy_files_dir, "jane_smith_resume.txt")
-    resume_path_docx = os.path.join(
-        dummy_files_dir, "alice_wonderland_resume.docx")
-
-    with open(resume_path_1, "w", encoding="utf-8") as f:
-        f.write(dummy_resume_text_1)
-    with open(resume_path_2, "w", encoding="utf-8") as f:
-        f.write(dummy_resume_text_2)
-    try:
-        from docx import Document
-        doc = Document()
-        doc.add_paragraph(dummy_resume_text_docx)
-        doc.save(resume_path_docx)
-        test_files = [resume_path_1, resume_path_2, resume_path_docx]
-    except ImportError:
-        print("python-docx not installed. Skipping DOCX dummy file creation and test.")
-        test_files = [resume_path_1, resume_path_2]
-    except Exception as e:
-        print(f"Error creating dummy DOCX: {e}")
-        test_files = [resume_path_1, resume_path_2]
-
-    for resume_file in test_files:
-        if os.path.exists(resume_file):
-            extracted_skills = parse_resume_for_skills(resume_file)
-            print(
-                f"\n>>> Final Extracted Skills for {os.path.basename(resume_file)}: {extracted_skills}")
-            print("-" * 50)
-
-
 # --- Main Execution Block ---
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -380,9 +317,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if args.test:
-        run_dummy_tests()
-    elif args.resume_file:
+    if args.resume_file:
         if os.path.exists(args.resume_file):
             extracted_skills = parse_resume_for_skills(args.resume_file)
             print(

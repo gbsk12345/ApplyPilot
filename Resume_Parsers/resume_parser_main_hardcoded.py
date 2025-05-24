@@ -23,31 +23,24 @@ except LookupError:
     nltk.download('stopwords', quiet=True)
     print("NLTK resources downloaded.")
 
-# Load skills from external file
-SKILL_FILE_PATH = "software_skills_lowercase.txt"
-with open(SKILL_FILE_PATH, "r") as f:
+# # Load skills from external file
+# SKILL_FILE_PATH = "software_skills_lowercase.txt"
+# with open(SKILL_FILE_PATH, "r") as f:
+#     TECHNICAL_SKILLS_LIST = [line.strip() for line in f if line.strip()]
+
+
+# Get absolute path to the directory containing this script
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Path to the skills file (you can rename this path if needed)
+skills_file_path = os.path.join(base_dir, 'software_skills_lowercase.txt')
+
+# Read the technical skills list from the file
+# Each line in the file is considered a distinct skill
+with open(skills_file_path, 'r', encoding='utf-8') as f:
     TECHNICAL_SKILLS_LIST = [line.strip() for line in f if line.strip()]
-TECHNICAL_SKILLS_LIST = [
-    "python", "java", "c++", "c#", "javascript", "typescript", "php", "ruby", "swift", "kotlin", "go", "rust",
-    "sql", "mysql", "postgresql", "mongodb", "nosql", "sqlite", "oracle database", "sql server",
-    "react", "angular", "vue.js", "vue", "next.js", "gatsby",
-    "django", "flask", "spring", "spring boot", ".net", "dotnet", "asp.net", "laravel", "ruby on rails",
-    "node.js", "express.js",
-    "html", "html5", "css", "css3", "sass", "less", "bootstrap", "tailwind css",
-    "aws", "azure", "google cloud platform", "gcp", "docker", "kubernetes", "k8s", "terraform", "ansible", "jenkins",
-    "linux", "unix", "bash scripting", "powershell",
-    "git", "github", "gitlab", "bitbucket", "jira", "confluence",
-    "rest", "restful apis", "graphql", "soap", "microservices", "api design",
-    "machine learning", "deep learning", "natural language processing", "nlp", "computer vision", "data science",
-    "pandas", "numpy", "scipy", "scikit-learn", "sklearn", "tensorflow", "keras", "pytorch",
-    "big data", "hadoop", "spark", "apache spark", "kafka", "apache kafka",
-    "data analysis", "data visualization", "tableau", "power bi",
-    "cybersecurity", "penetration testing", "ethical hacking", "encryption", "network security",
-    "agile", "scrum", "kanban", "devops", "ci/cd",
-    "object-oriented programming", "oop", "functional programming",
-    "selenium", "playwright", "cypress", "unit testing", "integration testing",
-    "r programming", "matlab", "objective-c", "perl", "scala"
-]
+
+
 SKILL_SECTION_KEYWORDS = [
     "skills", "technical skills", "technical proficiencies", "core competencies",
     "key skills", "technologies", "tools & technologies", "tools and technologies",

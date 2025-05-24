@@ -1,137 +1,205 @@
-
 import os
 import re
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 
-import nltk
-
+# === Ensure NLTK resources are available ===
 try:
-    nltk.data.find("tokenizers/punkt")
+    stopwords.words('english')
+    word_tokenize("test")
 except LookupError:
-    nltk.download("punkt")
+    nltk.download('punkt')
+    nltk.download('stopwords')
 
-try:
-    nltk.data.find("corpora/stopwords")
-except LookupError:
-    nltk.download("stopwords")
+# === Configuration Paths ===
+base_dir = os.path.dirname(os.path.abspath(__file__))
+mapping_file_path = os.path.join(base_dir, "cleaned_skill_mapping.txt")
+resume_file_path = os.path.join(
+    base_dir, "JobResume2.pdf")  # Replace with your file
 
-# Ensure required NLTK data is available
+# === Load Only Main Skills from Mapping File ===
+MAIN_SKILLS_LIST = []
+with open(mapping_file_path, 'r', encoding='utf-8') as f:
+    for line in f:
+        if "→" in line:
+            keyword = line.split("→")[0].strip().lower()
+            if keyword:
+                MAIN_SKILLS_LIST.append(keyword)
+
+# === Compile Regex Patterns for Skills ===
+COMPILED_SKILL_PATTERNS = []
+SINGLE_WORD_SKILLS_SET = set()
+
+for skill in MAIN_SKILLS_LIST:
+    if " " in skill or "." in skill or "#" in skill or "+" in skill or "-" in skill:
+        pattern = r"\b" + r"\s+".join(re.escape(p)
+                                      for p in skill.split()) + r"\b"
+        COMPILED_SKILL_PATTERNS.append(re.compile(pattern, re.IGNORECASE))
+    else:
+        SINGLE_WORD_SKILLS_SET.add(skill)
+
+# === Section Headers for Skill Extraction ===
+SKILL_SECTION_KEYWORDS = [
+    "skills", "technical skills", "technical proficiencies", "core competencies",
+    "key skills", "technologies", "tools & technologies", "tools and technologies",
+    "programming languages", "software proficiency", "technical expertise",
+    "expertise", "proficient in", "familiar with"
+]
+GENERAL_SECTION_DELIMITERS = [
+    "experience", "work experience", "professional experience", "employment history",
+    "education", "academic qualifications", "qualifications", "academic background",
+    "projects", "personal projects", "portfolio",
+    "summary", "objective", "profile", "about me", "professional summary",
+    "awards", "honors", "recognitions",
+    "publications", "research",
+    "certifications", "licenses", "courses",
+    "references", "volunteer experience", "extracurricular activities", "interests", "hobbies"
+]
 
 
-def ensure_nltk_resources():
+def compile_regex_patterns(keywords):
+    return re.compile(
+        r"^\s*(" + "|".join(re.escape(k) for k in keywords) + r")\s*:?\s*$",
+        re.IGNORECASE | re.MULTILINE
+    )
+
+
+SKILL_SECTION_HEADER_REGEX = compile_regex_patterns(SKILL_SECTION_KEYWORDS)
+DELIMITER_HEADER_REGEX = compile_regex_patterns(GENERAL_SECTION_DELIMITERS)
+
+# === Text Extraction ===
+
+
+def extract_text_from_pdf(file_path):
     try:
-        stopwords.words('english')
-    except LookupError:
-        nltk.download('stopwords')
-
-    try:
-        word_tokenize("This is a test.", preserve_line=True)
-    except LookupError:
-        nltk.download('punkt')
+        from PyPDF2 import PdfReader
+        reader = PdfReader(file_path)
+        return "\n".join([page.extract_text() for page in reader.pages if page.extract_text()])
+    except Exception as e:
+        print(f"PDF Read Error: {e}")
+        return ""
 
 
-ensure_nltk_resources()
+def get_text_from_resume(file_path):
+    if not os.path.exists(file_path):
+        print("❌ File not found.")
+        return ""
+    _, ext = os.path.splitext(file_path.lower())
+    if ext == ".pdf":
+        return extract_text_from_pdf(file_path)
+    else:
+        print("❌ Unsupported file format. Only .pdf is supported.")
+        return ""
+
+# === Text Preprocessing ===
 
 
-class ResumeSkillExtractor:
-    def __init__(self, skill_file_path):
-        self.skill_file_path = skill_file_path
-        self.skill_list = self.load_skills()
-        self.compiled_patterns = []
-        self.single_word_skills = set()
-        self.compile_skill_patterns()
-        self.stop_words = set(stopwords.words('english'))
+def preprocess_text_for_skill_matching(text):
+    return text.lower() if text else ""
 
-    def load_skills(self):
-        with open(self.skill_file_path, "r") as f:
-            return [line.strip().lower() for line in f if line.strip()]
+# === Extract Skill Sections from Resume ===
 
-    def compile_skill_patterns(self):
-        for skill in self.skill_list:
-            if any(sym in skill for sym in [' ', '.', '#', '+', '-']):
-                # Match symbol-based skills without word boundaries
-                self.compiled_patterns.append(
-                    re.compile(re.escape(skill), re.IGNORECASE))
+
+def extract_targeted_sections(full_text):
+    sections = []
+    lines = full_text.splitlines()
+    in_skill_section = False
+    buffer = []
+    blank_lines = 0
+
+    for line in lines:
+        line_stripped = line.strip()
+        is_skill_header = bool(SKILL_SECTION_HEADER_REGEX.match(line_stripped))
+        is_delimiter = bool(DELIMITER_HEADER_REGEX.match(
+            line_stripped)) and not is_skill_header
+
+        if is_skill_header:
+            if buffer:
+                sections.append("\n".join(buffer))
+            buffer = []
+            in_skill_section = True
+            blank_lines = 0
+            continue
+
+        if in_skill_section:
+            if is_delimiter:
+                if buffer:
+                    sections.append("\n".join(buffer))
+                buffer = []
+                in_skill_section = False
+                blank_lines = 0
+                continue
+
+            if not line_stripped:
+                blank_lines += 1
+                if blank_lines >= 2 and buffer:
+                    sections.append("\n".join(buffer))
+                    buffer = []
+                    in_skill_section = False
+                    blank_lines = 0
             else:
-                # Use word-boundary for clean single-word skills
-                self.compiled_patterns.append(re.compile(
-                    r"\b" + re.escape(skill) + r"\b", re.IGNORECASE))
-                self.single_word_skills.add(skill)
+                blank_lines = 0
+                buffer.append(line)
 
-    def extract_text(self, file_path):
-        if not os.path.exists(file_path) or not os.path.isfile(file_path):
-            print(f"Error: File '{file_path}' not found.")
-            return ""
+            if len(buffer) > 30:
+                sections.append("\n".join(buffer))
+                buffer = []
+                in_skill_section = False
 
-        _, ext = os.path.splitext(file_path.lower())
-        if ext == ".pdf":
-            return self.extract_text_from_pdf(file_path)
-        elif ext == ".docx":
-            return self.extract_text_from_docx(file_path)
-        elif ext == ".txt":
-            return self.extract_text_from_txt(file_path)
-        else:
-            print(f"Unsupported file format: {ext}")
-            return ""
+    if in_skill_section and buffer:
+        sections.append("\n".join(buffer))
+    return sections
 
-    def extract_text_from_pdf(self, file_path):
-        try:
-            from PyPDF2 import PdfReader
-            reader = PdfReader(file_path)
-            return "\n".join(page.extract_text() for page in reader.pages if page.extract_text())
-        except ImportError:
-            print("PyPDF2 not installed. Run 'pip install PyPDF2'")
-            return ""
-        except Exception as e:
-            print(f"PDF extraction error: {e}")
-            return ""
+# === Skill Matching Logic ===
 
-    def extract_text_from_docx(self, file_path):
-        try:
-            from docx import Document
-            doc = Document(file_path)
-            return "\n".join(para.text for para in doc.paragraphs)
-        except ImportError:
-            print("python-docx not installed. Run 'pip install python-docx'")
-            return ""
-        except Exception as e:
-            print(f"DOCX extraction error: {e}")
-            return ""
 
-    def extract_text_from_txt(self, file_path):
-        try:
-            with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                return f.read()
-        except Exception as e:
-            print(f"TXT extraction error: {e}")
-            return ""
+def find_skills_in_chunk(text_chunk):
+    found_skills = set()
+    text = preprocess_text_for_skill_matching(text_chunk)
 
-    def extract_skills_from_text(self, text):
-        if not text:
-            return []
+    for pattern in COMPILED_SKILL_PATTERNS:
+        if pattern.search(text):
+            skill = pattern.pattern.replace(r'\b', '').replace(
+                r'\s+', ' ').replace('\\', '')
+            found_skills.add(skill.strip())
 
-        text_lower = text.lower()
-        found_skills = set()
+    for skill in SINGLE_WORD_SKILLS_SET:
+        if re.search(r"\b" + re.escape(skill) + r"\b", text):
+            found_skills.add(skill)
 
-        for pattern in self.compiled_patterns:
-            if pattern.search(text_lower):
-                found_skills.add(pattern.pattern.strip(
-                    "\b").strip("\\b").strip("\\").strip("^$"))
+    return found_skills
 
-        words = set(word_tokenize(text_lower, preserve_line=True)
-                    ) - self.stop_words
-        found_skills.update(
-            [skill for skill in self.single_word_skills if skill in words])
+# === Main Parsing Flow ===
 
-        return sorted(found_skills)
 
-    def extract_skills_from_file(self, resume_file_path):
-        text = self.extract_text(resume_file_path)
-        return self.extract_skills_from_text(text)
+def parse_resume_for_skills(resume_path):
+    print(f"\n📄 Processing resume: {resume_path}")
+    full_text = get_text_from_resume(resume_path)
+    if not full_text:
+        print("❌ Could not extract text.")
+        return []
 
-    def extract_text_and_skills(self, resume_file_path):
-        text = self.extract_text(resume_file_path)
-        skills = self.extract_skills_from_text(text)
-        return text, skills
+    all_skills = set()
+    skill_sections = extract_targeted_sections(full_text)
+
+    for i, section in enumerate(skill_sections):
+        print(f"\n🔍 Scanning section {i+1}...")
+        skills = find_skills_in_chunk(section)
+        if skills:
+            print(f"✅ Found: {', '.join(sorted(skills))}")
+            all_skills.update(skills)
+
+    if not all_skills:
+        print("\n⚠️ No skills found in sections. Doing full resume scan...")
+        all_skills.update(find_skills_in_chunk(full_text))
+
+    return sorted(all_skills)
+
+
+# === Run the Parser and Show Output ===
+if __name__ == "__main__":
+    final_skills = parse_resume_for_skills(resume_file_path)
+    print("\n🎯 Final Extracted Skills:")
+    for skill in final_skills:
+        print("-", skill)

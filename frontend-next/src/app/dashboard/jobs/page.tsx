@@ -1,9 +1,12 @@
 // src/app/dashboard/jobs/page.tsx
 'use client';
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import ApplyButton from '../ApplyButton';
-import { useAuth } from '@/contexts/AuthContext';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import Link from 'next/link';
+import ApplyButton from '../ApplyButton'; // Assuming ApplyButton is in app/dashboard/ApplyButton.tsx
+import { useAuth } from '@/contexts/AuthContext'; // Ensure this path is correct
+import { createClient } from '@/utils/supabase/client';
+import type { User } from '@supabase/supabase-js';
 
 // --- Interface Definition ---
 interface JobListing {
@@ -20,18 +23,19 @@ interface JobListing {
   matchPercentage?: number;
 }
 
-const JOBS_PER_PAGE = 6;
+const JOBS_PER_PAGE = 30;
 const SKILL_MATCH_THRESHOLD_PERCENTAGE = 60;
 
-// --- Dummy Data & Placeholders ---
 const DUMMY_USER_SKILLS: string[] = ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"];
-
 const ALL_DUMMY_JOBS_SOURCE: JobListing[] = [
   { id: '1', job_title: 'SmartRecuiter Job', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Mid-level', description_full: 'Build cutting-edge UIs with React & Next.js. Focus on user experience and responsive design...', date_posted: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), apply_url: 'https://jobs.smartrecruiters.com/oneclick-ui/company/ServiceNow/publication/d722dc74-a7e2-4a23-b239-08f0c05e1b71?dcr_ci=ServiceNow', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
   { id: '2', job_title: 'Greenhouse Job', company_name: 'Cloudflare', location: 'Remote (US Only)', experience_level: 'Entry-level', description_full: 'Create intuitive user experiences. Strong portfolio in Figma/Sketch required.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: 'https://job-boards.greenhouse.io/cloudflare/jobs/6886051?gh_jid=6886051&utm_source=cvrve&ref=cvrve', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
   { id: '3', job_title: 'Lever Job', company_name: 'CloudNetics', location: 'Remote', experience_level: 'Senior', description_full: 'Manage and scale our cloud infrastructure on AWS. CI/CD, Docker, Kubernetes...', date_posted: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), apply_url: 'https://jobs.lever.co/plusgrade/9c9728f3-031d-4df5-b3a3-f060e338f684/apply?utm_source=Simplify&ref=Simplify', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
-];
 
+];
+// --- End of Dummy Data ---
+
+// --- Helper Functions ---
 const formatDatePosted = (dateString: string) => {
   const date = new Date(dateString);
   const now = new Date();
@@ -51,10 +55,11 @@ const calculateMatchScore = (userSkills: string[], jdSkills: string[]): number =
   const matchingSkills = lowerUserSkills.filter(skill => lowerJdSkills.includes(skill));
   return (matchingSkills.length / lowerUserSkills.length) * 100;
 };
+// --- End of Helper Functions ---
 
 export default function DiscoverJobsPage() {
   const { user, loading: authLoading } = useAuth();
-
+  const supabase = createClient();
 
   const [displayedJobs, setDisplayedJobs] = useState<JobListing[]>([]);
   const [userSkills, setUserSkills] = useState<string[]>([]);
@@ -64,7 +69,40 @@ export default function DiscoverJobsPage() {
   const [error, setError] = useState<string | null>(null);
   
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalAvailableJobsInDB, setTotalAvailableJobsInDB] = useState(0); // Total count of all jobs in DB
+  const [totalAvailableJobsInDB, setTotalAvailableJobsInDB] = useState(0);
+
+  // State for managing which job description is expanded in-card (only one at a time)
+  const [expandedJobId, setExpandedJobId] = useState<string | null>(null);
+  // State for managing the job detail modal
+  const [selectedJobForModal, setSelectedJobForModal] = useState<JobListing | null>(null);
+
+  const toggleDescriptionExpansion = (jobId: string) => {
+    setExpandedJobId(prevId => (prevId === jobId ? null : jobId));
+  };
+
+  const openJobDetailModal = (job: JobListing) => {
+    setSelectedJobForModal(job);
+  };
+
+  const closeJobDetailModal = () => {
+    setSelectedJobForModal(null);
+  };
+
+  // useEffect to handle 'Escape' key for closing the modal
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeJobDetailModal();
+      }
+    };
+    if (selectedJobForModal) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedJobForModal]);
+
 
   const fetchUserSkills = useCallback(async (userId: string) => {
     console.log(`Placeholder: Fetching skills for user ${userId}...`);
@@ -98,12 +136,12 @@ export default function DiscoverJobsPage() {
         matchPercentage: calculateMatchScore(skillsForMatching, job.jd_skills),
       })).filter(job => job.matchPercentage! >= SKILL_MATCH_THRESHOLD_PERCENTAGE);
 
-
       if (isAppending) {
         setDisplayedJobs(prevJobs => [...prevJobs, ...newMatchedJobs]);
       } else {
         setDisplayedJobs(newMatchedJobs);
       }
+      setCurrentPage(pageToLoad); // Update current page after processing
     } catch (err: any) {
       console.error("Error in loadAndFilterJobs:", err);
       setError("Failed to load jobs. Please try refreshing.");
@@ -111,9 +149,14 @@ export default function DiscoverJobsPage() {
       setIsLoading(false);
       setIsLoadingMore(false);
     }
-  }, [fetchJobsPageFromDB]);
+  }, [fetchJobsPageFromDB]); // Removed skillsForMatching from here, will pass as arg
+
   useEffect(() => {
-    if (user && !authLoading) {
+    if (authLoading) {
+      setIsLoading(true);
+      return;
+    }
+    if (user) {
       setIsLoading(true);
       fetchUserSkills(user.id)
         .then(skills => {
@@ -124,8 +167,7 @@ export default function DiscoverJobsPage() {
           setError("Could not load your skills profile to match jobs.");
           setIsLoading(false);
         });
-    } else if (!user && !authLoading) {
-      // No user, clear data
+    } else {
       setUserSkills([]);
       setDisplayedJobs([]);
       setCurrentPage(1);
@@ -134,31 +176,28 @@ export default function DiscoverJobsPage() {
     }
   }, [user, authLoading, fetchUserSkills]);
 
-  // Effect 2: Load jobs when user is available AND userSkills are populated
   useEffect(() => {
-    if (user && userSkills.length > 0) {
+    // This effect runs when `user` is confirmed and `userSkills` are populated (or change)
+    if (user && (userSkills.length > 0 || !isLoading)) { // Proceed if skills are loaded or if it's a no-skill scenario post-initial load
+      // console.log("User and skills ready, loading initial jobs (page 1).");
       setCurrentPage(1);
-      setDisplayedJobs([]);
+      setDisplayedJobs([]); // Clear for new filter/user
       loadAndFilterJobs(1, userSkills, false);
     }
-    else if (user && userSkills.length === 0 && !isLoading && !error) {
-        setCurrentPage(1);
-        setDisplayedJobs([]);
-        loadAndFilterJobs(1, [], false);
-    }
-
-  }, [user, userSkills, loadAndFilterJobs]);
+  }, [user, userSkills, loadAndFilterJobs, isLoading]); // Added isLoading to avoid running if skill fetch failed and set loading false
 
   const handleRefresh = () => {
     if (user && !isLoading && !isLoadingMore) {
+      setExpandedJobId(null); // Collapse any open card on refresh
+      setSelectedJobForModal(null); // Close modal on refresh
       setCurrentPage(1);
       loadAndFilterJobs(1, userSkills, false);
     }
   };
 
   const handleLoadMore = () => {
-    const canActuallyLoadMore = (currentPage * JOBS_PER_PAGE) < totalAvailableJobsInDB;
-    if (user && canActuallyLoadMore && !isLoadingMore && !isLoading) {
+    const canActuallyLoad = (currentPage * JOBS_PER_PAGE) < totalAvailableJobsInDB;
+    if (user && canActuallyLoad && !isLoadingMore && !isLoading) {
       const nextPage = currentPage + 1;
       loadAndFilterJobs(nextPage, userSkills, true);
     }
@@ -171,7 +210,7 @@ export default function DiscoverJobsPage() {
 
   // --- JSX ---
   if (authLoading || (isLoading && displayedJobs.length === 0 && currentPage === 1)) {
-    return (
+    return ( /* Your existing skeleton loader for initial page load */ 
         <div>
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-100">Discover Jobs</h1>
@@ -219,66 +258,94 @@ export default function DiscoverJobsPage() {
           <p className="mx-auto text-4xl text-gray-500">🤷</p>
           <h3 className="mt-4 text-xl font-medium text-white">No Matching Jobs Found</h3>
           <p className="mt-1 text-sm text-gray-400">
-            We couldn&apos;t find any open positions that match {SKILL_MATCH_THRESHOLD_PERCENTAGE}% or more of your skills right now.
+            We couldn&apos;t find any open positions that match {SKILL_MATCH_THRESHOLD_PERCENTAGE}% or more of your current skills.
             <br />
             Try updating your skills in your profile or check back later!
           </p>
         </div>
       )}
 
+      {/* Job Listings Grid */}
       {displayedJobs.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {displayedJobs.map((job) => (
-            <div 
-              key={job.id} 
-              className="bg-gray-800 p-6 rounded-xl shadow-2xl flex flex-col justify-between
-                         border border-gray-700/50 hover:border-purple-500/70 
-                         transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-purple-500/30"
-            >
-              <div> {/* Card content wrapper */}
-                <div className="mb-3">
-                  <div className="flex justify-between items-start">
-                    <h2 className="text-xl font-semibold text-gray-100 leading-tight truncate pr-2" title={job.job_title}>
-                      {job.job_title}
-                    </h2>
-                    {job.matchPercentage !== undefined && (
-                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${job.matchPercentage >= SKILL_MATCH_THRESHOLD_PERCENTAGE ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300'}`}>
-                           {job.matchPercentage.toFixed(0)}% Match
-                        </span>
+          {displayedJobs.map((job) => {
+            const isDescriptionCurrentlyExpanded = expandedJobId === job.id;
+            return (
+              <div 
+                key={job.id} 
+                className="bg-gray-800 p-6 rounded-xl shadow-2xl flex flex-col
+                           border border-gray-700/50 hover:border-purple-500/70 
+                           transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-purple-500/30"
+              >
+                <div className="flex-grow"> {/* Allows description to expand without pushing footer down prematurely */}
+                  <div className="mb-3">
+                    <div className="flex justify-between items-start">
+                      <h2 className="text-xl font-semibold text-gray-100 leading-tight truncate pr-2" title={job.job_title}>
+                        {job.job_title}
+                      </h2>
+                      {job.matchPercentage !== undefined && (
+                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full whitespace-nowrap ${job.matchPercentage >= SKILL_MATCH_THRESHOLD_PERCENTAGE ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300'}`}>
+                             {job.matchPercentage.toFixed(0)}% Match
+                          </span>
+                      )}
+                    </div>
+                    <p className="text-md text-purple-300">{job.company_name}</p>
+                  </div>
+
+                  <div className="space-y-1.5 text-sm text-gray-400 mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">📍</span>
+                      <span>{job.location}</span>
+                    </div>
+                    {job.experience_level && (
+                       <div className="flex items-center gap-2">
+                          <span className="text-lg">📈</span>
+                          <span>{job.experience_level}</span>
+                      </div>
                     )}
                   </div>
-                  <p className="text-md text-purple-300">{job.company_name}</p>
-                </div>
-
-                <div className="space-y-1.5 text-sm text-gray-400 mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">📍</span>
-                    <span>{job.location}</span>
+                  
+                  {/* Expandable Description */}
+                  <div className="text-sm text-gray-300 mb-4 leading-relaxed">
+                    <p className={!isDescriptionCurrentlyExpanded ? 'line-clamp-4' : ''}>
+                      {job.description_full}
+                    </p>
+                    {job.description_full.length > 200 && ( // Show toggle only for longer descriptions
+                        <button
+                            onClick={() => toggleDescriptionExpansion(job.id)}
+                            className="text-purple-400 hover:text-purple-300 text-xs font-semibold mt-2 hover:underline"
+                        >
+                            {isDescriptionCurrentlyExpanded ? 'Read Less' : 'Read More...'}
+                        </button>
+                    )}
                   </div>
-                  {job.experience_level && (
-                     <div className="flex items-center gap-2">
-                        <span className="text-lg">📈</span>
-                        <span>{job.experience_level}</span>
-                    </div>
-                  )}
                 </div>
-                
-                <p className="text-sm text-gray-300 mb-4 line-clamp-4 leading-relaxed">
-                  {job.description_full}
-                </p>
-              </div>
 
-              <div className="mt-auto pt-4 border-t border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-3">
-                <p className="text-xs text-gray-500 whitespace-nowrap">
-                  ⏳ {formatDatePosted(job.date_posted)}
-                </p>
-                <ApplyButton jobUrl={job.apply_url} jobTitle={job.job_title} />
+                {/* Card Footer Actions */}
+                <div className="mt-auto pt-4 border-t border-gray-700 flex flex-col gap-3">
+                  <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+                     <p className="text-xs text-gray-500 whitespace-nowrap self-center sm:self-auto">
+                        ⏳ {formatDatePosted(job.date_posted)}
+                     </p>
+                     <button
+                        onClick={() => openJobDetailModal(job)}
+                        className="w-full sm:w-auto border border-purple-500/50 hover:border-purple-500 text-purple-300 hover:text-purple-200 font-semibold py-2 px-4 rounded-lg text-xs text-center transition-colors duration-150 whitespace-nowrap"
+                      >
+                        View Full Details
+                      </button>
+                  </div>
+                  <ApplyButton 
+                    jobUrl={job.apply_url} 
+                    jobTitle={job.job_title} 
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
+      {/* Load More Button */}
       {!isLoading && !error && canActuallyLoadMore && displayedJobs.length > 0 && (
         <div className="mt-10 text-center">
           <button
@@ -288,6 +355,70 @@ export default function DiscoverJobsPage() {
           >
             {isLoadingMore ? 'Loading More...' : 'Load More Jobs'}
           </button>
+        </div>
+      )}
+
+      {/* Job Detail Modal */}
+      {selectedJobForModal && (
+        <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={closeJobDetailModal} // Close on overlay click
+        >
+          <div 
+            className="bg-gray-800 text-gray-100 p-6 md:p-8 rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()} // Prevent clicks inside modal from closing it
+          >
+            <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-700">
+              <h2 className="text-2xl font-semibold text-purple-400">{selectedJobForModal.job_title}</h2>
+              <button 
+                onClick={closeJobDetailModal} 
+                className="text-gray-400 hover:text-white text-3xl leading-none"
+                aria-label="Close modal"
+              >
+                &times;
+              </button>
+            </div>
+            
+            <div className="overflow-y-auto pr-2 space-y-4 flex-grow"> {/* Scrollable content area */}
+                <p className="text-lg text-gray-200 mb-1">{selectedJobForModal.company_name}</p>
+                <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-400 mb-3">
+                    <span>📍 {selectedJobForModal.location}</span>
+                    {selectedJobForModal.experience_level && <span>📈 Experience: {selectedJobForModal.experience_level}</span>}
+                    <span>⏳ Posted: {formatDatePosted(selectedJobForModal.date_posted)}</span>
+                </div>
+                
+                {selectedJobForModal.matchPercentage !== undefined && (
+                    <p className={`font-semibold mb-3 ${selectedJobForModal.matchPercentage >= SKILL_MATCH_THRESHOLD_PERCENTAGE ? 'text-green-400' : 'text-yellow-400'}`}>
+                        Skill Match: {selectedJobForModal.matchPercentage.toFixed(0)}%
+                    </p>
+                )}
+
+                <div>
+                    <h3 className="text-lg font-semibold text-gray-200 mb-1">Full Job Description:</h3>
+                    <div className="prose prose-sm prose-invert max-w-none text-gray-300 whitespace-pre-line">
+                        {selectedJobForModal.description_full}
+                    </div>
+                </div>
+
+                {selectedJobForModal.jd_skills && selectedJobForModal.jd_skills.length > 0 && (
+                    <div className="mt-3">
+                        <h4 className="text-md font-semibold text-gray-200 mb-1">Skills Mentioned:</h4>
+                        <div className="flex flex-wrap gap-2">
+                            {selectedJobForModal.jd_skills.map(skill => (
+                                <span key={skill} className="bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded-full">{skill}</span>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
+            
+            <div className="mt-6 pt-4 border-t border-gray-700 flex justify-end">
+              <ApplyButton 
+                jobUrl={selectedJobForModal.apply_url} 
+                jobTitle={selectedJobForModal.job_title} 
+              />
+            </div>
+          </div>
         </div>
       )}
     </div>

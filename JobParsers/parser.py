@@ -165,7 +165,8 @@ def main():
     Main function to run the job parsing process.
     """
     skill_dir = Path("LightCast_Skills_Output")
-    skill_file = skill_dir / "software_skills_lowercase.txt"
+    # skill_file = skill_dir / "software_skills_lowercase.txt"
+    skill_file = skill_dir / "cleaned_skills.txt"
 
     if not skill_file.exists():
         print("Creating a dummy skills file for demonstration...")

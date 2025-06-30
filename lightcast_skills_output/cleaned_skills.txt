@@ -1,0 +1,8599 @@
+.net assemblies
+.net framework
+.net framework 1
+.net framework 3
+.net framework 4
+.net maui
+.net reflector
+.net remoting
+.htaccess files
+.nettiers
+1password
+2020 design software
+2d gel analysis software
+3cx phone systems
+3d computer graphics
+3d computer graphics software
+3d modeling software
+3dml
+3dmark
+3dslicer
+3dvia composer
+3gpp
+3m
+3m codefinder
+3m encoder
+3d engine
+3d secure
+4dos
+4sight
+6lowpan
+7-zip
+8 mm video format
+aaa protocol
+aaa video games
+abc flowcharter
+abyss genome assembler
+acdsee
+acid pro
+acl2
+adabas
+adms
+ado.net
+adomd.net
+adodb database abstraction library for php
+adp enterprise
+adp pcpw
+adp pay expert
+adp payforce
+adp payroll
+adp smartcompliance
+adp totalsource peo services
+adp vantage
+adp workforce now
+aermod
+aeronet
+aes3
+afgrow
+agfa impax 6
+agi32
+ai personalization
+algol
+alm octane
+ame accounting software
+ampl
+ampscript
+ams device management
+amt asset management software
+ansi c
+ansys icepak
+antlr
+ants performance profiler
+aolserver
+appx
+aqtime
+arc macro language
+arcore
+aremos
+argo bankpro
+arisg
+arkit
+arm7 architecture
+armulator
+asc x12 standards
+asic programming language
+asp.net
+asp.net core
+asp.net core mvc
+asp.net extensions for ajax
+asp.net fundamentals
+asp.net identity
+asp.net mvc 5
+asp.net mvc framework
+asp.net razor
+asp.net web api
+atg dynamo
+atl server
+atlas.ti
+atp/emtp software
+aveva pi
+aveva plant scada
+avg
+avplayer
+avrcp
+avs video editor
+avoided emissions and generation tool
+awk
+aws amplify
+aws app mesh
+aws appsync
+aws auto scaling
+aws backup
+aws batch
+aws bedrock
+aws cli
+aws cloud development kit
+aws cloudformation
+aws cloudhsm
+aws cloudtrail
+aws codebuild
+aws codecommit
+aws codedeploy
+aws codepipeline
+aws directory service
+aws elastic beanstalk
+aws elastic mapreduce
+aws fargate
+aws glue
+aws identity and access management
+aws inferentia
+aws internet of things
+aws key management service
+aws kinesis
+aws lambda
+aws opsworks
+aws outposts
+aws sdk
+aws sagemaker
+aws serverless
+aws systems manager
+aws user pools
+aws x-ray
+ab initio
+abaqus
+abend-aid
+ableton live
+abstract state machine language
+abstract syntax notation one
+abstract syntax tree
+abstract window toolkit
+abvent artlantis
+access control facility
+access query languages
+accounting software
+accounts payable workflow systems
+accurev scm
+aceproject
+acronis cyber protect home office
+act! crm
+actian vector
+actian zen
+actionscript
+actionview
+active directory
+active directory application mode
+active directory explorer
+active directory federation services
+active directory lightweight directory services
+active directory migration tool
+active directory rights management services
+active directory service interfaces
+active format description
+active input method manager
+active integration
+active scripting
+active server pages
+active template library
+active-hdl
+activecampaign
+activeperl
+activepython
+activereports
+activestate komodo
+activesync
+activevos
+activex
+activex data objects
+activex document
+activeadmin
+activecollab
+activiti
+activity manager
+acumatica
+acunetix
+ad-aware
+ad-hoc configuration protocols
+adworks
+ada
+ada programming support environment
+adafruit
+adaptation kit upgrade
+adapter pattern
+adcolony
+address space layout randomization
+aderant
+adlib software
+admin tools
+admob
+adobe air
+adobe acrobat
+adobe after effects
+adobe analysis workspace
+adobe analytics
+adobe animate
+adobe audience manager
+adobe audition
+adobe authorware
+adobe bridge
+adobe business catalyst
+adobe cq
+adobe campaign
+adobe captivate
+adobe coldfusion
+adobe coldfusion builder
+adobe color
+adobe connect
+adobe content servers
+adobe contribute
+adobe creative cloud
+adobe creative suite
+adobe data collection tags
+adobe digital editions
+adobe digital publishing suite
+adobe dimension
+adobe director
+adobe distiller
+adobe dreamweaver
+adobe edge animate
+adobe elearning suite
+adobe encore
+adobe experience cloud
+adobe experience manager
+adobe express
+adobe fireworks
+adobe flash
+adobe flash builder
+adobe flash catalyst
+adobe flash lite
+adobe flash player
+adobe fonts
+adobe framemaker
+adobe freehand
+adobe golive
+adobe illustrator
+adobe imageready
+adobe incopy
+adobe indesign
+adobe jrun
+adobe livecycle
+adobe livemotion
+adobe livecycle designer
+adobe marketing cloud
+adobe media encoder
+adobe media server
+adobe pagemaker
+adobe pagemill
+adobe persuasion
+adobe photoshop
+adobe photoshop album
+adobe photoshop elements
+adobe photoshop lightroom
+adobe premiere elements
+adobe premiere pro
+adobe premiere rush
+adobe presenter
+adobe robohelp
+adobe sensei
+adobe shockwave
+adobe soundbooth
+adobe stock
+adobe streamline
+adobe substance
+adobe target
+adobe technical communication suite
+adobe type manager
+adobe ultra
+adobe version cue
+adobe visual communicator
+adobe workfront
+adobe xd
+adonisjs
+adserver
+advance steel
+advanced audio coding
+advanced business application programming
+advanced configuration and power interface
+advanced continuous simulation languages
+advanced host controller interface
+advanced installer
+advanced interactive multidimensional modeling system
+advanced linux sound architecture
+advanced message queuing protocol
+advanced packaging tool
+advanced rest client
+advanced stream redirector
+advanced video coding high definition
+advent geneva
+adventure game studio
+adview
+adware
+adyen
+aegisub
+aerodrome mapping databases
+aerospike database
+affinity designer
+affinity photo
+affinity publisher
+affymetrix genechip operating software
+aforge
+afterburner
+agent extensibility protocols
+aggflow
+aggregate level simulation protocol
+aggregator
+agilent chemstation
+aha!
+ahrefs site explorer
+aimsun
+airmagnet
+airsnort
+airbyte
+aircrack-ng
+airflow
+airline reservations systems
+airplay
+airport express
+airprint
+airtable
+airwatch
+ajax.net
+ajax4jsf
+ajera
+akamai
+akka
+akka.net
+alamofire
+alation data catalog
+alchemer
+alembic
+alerton
+alexa skills kit
+alfabet
+alfresco ecm
+algebraic modeling language
+algolia
+alibaba cloud
+alibre design
+alice concierge
+alienvault
+alljoyn
+allegro common lisp
+allegrograph
+alloyui
+alluxio
+allway sync
+alooma
+alphabasic
+alphacam
+alt.js
+altera hardware description language
+altera quartus
+alternative trading systems
+alteryx
+altia - user interface design tools and gui software
+altiscale
+altix supercomputers
+altova diffdog
+amadeus crs
+amag symmetry
+amavis
+amazon api gateway
+amazon alexa
+amazon appstore
+amazon appstream
+amazon athena
+amazon aurora
+amazon cloud directory
+amazon cloudsearch
+amazon cloudwatch
+amazon cognito
+amazon comprehend
+amazon connect
+amazon data pipeline
+amazon documentdb
+amazon drive
+amazon dynamodb
+amazon elasticache
+amazon elastic block stores
+amazon elastic compute cloud
+amazon elastic container registry
+amazon elastic container service
+amazon elastic file system
+amazon elastic kubernetes service
+amazon elasticsearch service
+amazon flexible payments services
+amazon forecast
+amazon guardduty
+amazon inspector
+amazon lex
+amazon lightsail
+amazon linux amazon machine image
+amazon lumberyard
+amazon mq
+amazon macie
+amazon managed blockchain
+amazon managed streaming for apache kafka
+amazon marketplace
+amazon mechanical turk
+amazon neptune
+amazon personalize
+amazon polly
+amazon product advertising api
+amazon quantum ledger database
+amazon quicksight
+amazon redshift
+amazon rekognition
+amazon relational database services
+amazon route 53
+amazon s3
+amazon s3 glacier flexible retrieval
+amazon simple email service
+amazon simple notification service
+amazon simple queue services
+amazon simple workflow service
+amazon simpledb
+amazon textract
+amazon timestream
+amazon transcribe
+amazon translate
+amazon virtual private cloud
+amazon web services
+amazon workspaces
+america's labor market information systems
+amfphp
+amigabasic
+amplifyjs
+ampps
+anaconda
+analytic applications
+analytical dashboard
+analytics.js
+anaplan
+andover controls
+android
+android applications
+android automotive
+android butterknife
+android debug bridge
+android development tools
+android emulators
+android interface definition language
+android jetpack
+android marshmallow
+android middleware
+android ndk
+android sdk
+android studio
+angelscript
+angr
+angular
+angular cli
+angular components
+angular material
+angular reactive forms
+angular ui
+animoto
+anjuta ide
+ankhsvn
+anorm
+ansi sql
+ansible
+ansible playbook
+ansible tower
+ansoff matrix
+ansys maxwell
+ansys simulation software
+anthillpro
+anthology student
+anti-patterns
+antivirus software
+anvato
+anylogic
+anything relationship management software
+apache 1.3
+apache accumulo
+apache activemq
+apache airflow
+apache ambari
+apache ant
+apache apex
+apache archiva
+apache atlas
+apache avro
+apache axis2
+apache beam
+apache beehive
+apache cxf
+apache camel
+apache cassandra
+apache cloudstack
+apache commons ognl
+apache cordova
+apache derby
+apache directory
+apache drill
+apache druid
+apache felix
+apache flex
+apache flex data services
+apache flink
+apache flume
+apache fop
+apache giraph
+apache guacamole
+apache hbase
+apache http server
+apache hadoop
+apache hive
+apache ibatis
+apache iceberg
+apache ignite
+apache impala
+apache jmeter
+apache jserv protocol
+apache jackrabbit
+apache kafka
+apache karaf
+apache lucene
+apache lucene.net
+apache madlib
+apache mxnet
+apache mahout
+apache maven
+apache mesos
+apache modules
+apache myfaces
+apache nifi
+apache oozie
+apache opennlp
+apache openoffice
+apache openjpa
+apache openoffice calc
+apache pdfbox
+apache poi
+apache parquet
+apache phoenix
+apache pig
+apache pulsar
+apache ranger
+apache singa
+apache samza
+apache servicemix
+apache shiro
+apache sling
+apache solr
+apache spark
+apache storm
+apache struts
+apache subversion
+apache superset
+apache thrift
+apache tika
+apache tiles
+apache tinkerpop
+apache tomee
+apache tomcat
+apache torque
+apache traffic server
+apache turbine
+apache velocity
+apache wicket
+apache yarn
+apache zeppelin
+apache zookeeper
+apachebench
+aperture
+apex code
+apex data loader
+apigee
+apktool
+apollo client
+apollo graphql
+apollo server
+app inventor for android
+app manager
+app store
+app transport security
+appcodes
+appexchange
+appfabric caching
+appsheet
+appstream
+apparmor
+appcelerator
+appdata
+appdynamics
+appian
+appium
+apple aperture
+apple automator
+apple calendar
+apple carplay
+apple cocoa
+apple configurator
+apple developer tools
+apple healthkit
+apple ios
+apple keynote
+apple mail
+apple maps
+apple pages
+apple prores
+apple qmaster
+apple remote desktop
+apple wallet
+apple writer
+apple xcode
+applelink
+applescript
+appletalk
+appleworks
+applepay
+applesoft basic
+applicant tracking systems
+application client
+application delivery network
+application development languages
+application environments
+application firewall
+application foundation classes
+application frameworks
+application interface framework
+application kits
+application lifecycle management software
+application programming interface
+application xml
+application-level gateway
+applinks
+applitools
+appsflyer
+appscript
+appstats
+apptio
+apptus
+appveyor
+appway
+aprima ehr
+aprimo
+aptana
+aptana jaxer
+aptana studio
+aqua data studio
+arangodb
+araxis merge
+arbortext
+arbortext command language
+arceditor
+arcgis
+arcgis engine
+arcgis explorer
+arcgis mapping
+arcgis servers
+arcgis storymaps
+arcgis survey123
+arcgis viewer for flex
+arcims
+arcinfo
+arcmap
+arcobjects
+arcreaders
+arcsde
+arcsoft showbiz
+arcview
+arch linux
+archicad
+archibus
+architecture analysis and design language
+architecture of windows nt
+archive file
+archivesspace
+arcpy
+arcserve
+ardupilot
+arduino
+arexx
+argo cd
+argouml
+arisglobal
+arm64
+armed forces health longitudinal technology application
+army food management information system
+arpabet
+arquillian
+arraytrack
+artstation
+artvps shaderlight
+articulate 360
+articulate storyline
+articulate studio
+artifactory
+artificial intelligence markup language
+artificial intelligence systems
+artificial linguistic internet computer entity
+artioscad
+artomatix
+artweaver
+aruba
+aruba clearpass
+arules
+asadmin
+asana
+asciidoc
+asianux linux
+asigra cloud backup
+aspdotnetstorefront
+aspectj
+aspen hysys
+aspen plus
+aspen simulation software
+aspose
+aspose.words
+assembla
+assembly language
+assertj
+asset recovery software
+assetworks
+assimp
+astropy
+asynctask
+asynchronous javascript
+asynchronous javascript and xml
+asyncio
+atscale
+atari basic
+athenaclinicals ehr
+atlas dmt
+atlas model weaver
+atlassian bamboo
+atlassian confluence
+atlassian crucible
+atlassian opsgenie
+atlassian stash
+atoll
+atom
+atomikos
+attachmate extra
+attask
+attention profiling mark-up language
+attribute change package
+audacity
+audio converter
+audio editing software
+audiovault
+audiobook creation exchange
+audiogram
+audit info system
+auditd
+augmented backus-naur form
+aura framework
+aurelia
+auro 3d
+aurora
+australian national data services
+auth0
+authentication servers
+authorit
+authoring software
+authoring systems
+authorize.net
+auto build
+auto close
+auto dialer
+auto layout
+auto responder
+auto-tune
+autocad
+autocad architecture
+autocad civil 3d
+autocad plant 3d
+autochem
+autodock
+autogen
+autohotkey
+autoit
+autolisp
+autoquotes
+autorun
+autosketch
+autoturn
+autoboxing
+autocommit
+autodeploy
+autodesk
+autodesk 3ds max
+autodesk alias
+autodesk animator
+autodesk combustion
+autodesk construction cloud
+autodesk design review
+autodesk forma
+autodesk inventor
+autodesk lustre
+autodesk maya
+autodesk mechanical desktop
+autodesk motionbuilder
+autodesk navisworks
+autodesk recap pro
+autodesk revit
+autodesk simulation
+autodesk sketchbook pro
+autodesk softimage
+autodesk vault
+autodiscovery
+autodoc
+autoencoders
+autofac
+autofill
+autofixture
+autofocus
+automake
+automapper
+automated consumer dispute verification
+automated cost estimating integrated tools
+automated critical asset management systems
+automated customer account transfer service
+automated device enrollment
+automated dynamic analysis of mechanical systems
+automated logic
+automated logic webctrl
+automated message handling systems
+automated testing framework
+automatic call distributor
+automatic data processing software
+automatic repeat request
+automatic system recovery
+automatic test markup language
+automatically programmed tool
+automation anywhere
+automation studio
+automatix
+automattic bbpress
+automounter
+autonomous system
+autoplay
+autotask psa
+autotest
+autotrax
+avada wordpress theme
+availity
+avalanche
+avalara
+avature
+avaya application server 5300
+avaya communication server 2100
+avfoundation
+avisynth
+aviary
+avid aax plug-in
+avid media composer
+avid symphony
+avizo
+avkit
+aweber
+axialis iconworkshop
+axios
+axure rp
+axway
+azkaban
+azure ai studio
+azure api apps
+azure active directory
+azure application insights
+azure automation
+azure batch
+azure blob storage
+azure blueprints
+azure cloud services
+azure cognitive services
+azure command-line interface
+azure content delivery network
+azure cosmos db
+azure cost management
+azure data catalog
+azure data explorer
+azure data factory
+azure data lake
+azure databricks
+azure devops
+azure event hubs
+azure firewall
+azure functions
+azure internet of things
+azure kubernetes service
+azure load balancer
+azure logic apps
+azure mfa
+azure machine learning
+azure monitor
+azure openai
+azure pipelines
+azure policy
+azure security
+azure service bus
+azure service fabric
+azure synapse analytics
+azure web apps
+b
+b method
+b-tree file system
+b2evolution
+base24
+bb flashback
+bbedit
+bd software c compiler
+bert
+bgfs algorithms
+bi launch pad
+bind
+bios
+biovia
+birt project
+bmc patrol
+bmc remedy action request system
+bmc user administration and provisioning
+bos/360
+brfplus
+bs2000
+bsd operating system
+bss application part
+baan process solutions
+babel
+babylon.js
+backbox linux
+backtrack linux
+backblaze
+backbone.js
+backing beans
+backport
+backup domain controller
+backup sites
+backup tools
+backuppc
+bacon.js
+bacpac
+bacula
+bada
+baidu
+balsamiq studios
+banking software
+bare metal
+base sas
+base station subsystem
+base station system gprs protocol
+basex
+basecamp
+baseflow
+bash
+basic linear algebra subprograms
+basic4android
+basis database
+batch files
+batch updates
+batik
+batman.js
+bazel
+befunky
+beos
+bea weblogic application server 8.1
+beagleboard
+beagleboneblack
+beamer
+bean validation
+beanshell
+beanstalkd
+beautifulsoup
+beaver builder
+beego
+beeline
+behat
+bentley autopipe
+bentley autoplant
+bentley lumenrt
+bentley software
+beowulf cluster
+berkeley db
+berkeley sockets
+berkshelf
+bestcrypt
+beyondtrust remote support
+beyondcompare
+bidirectional-streams over synchronous http
+big ip
+bigbluebutton
+bigcommerce
+biginsights
+billback
+binance
+binary codes
+binary files
+binary ninja
+binary search trees
+bind9
+bing maps
+bing maps platforms
+bing search
+bink video
+bintray
+biojava
+bionumerics
+biophp
+bioperl
+bioconductor
+bioinformatics databases
+biological database
+biopython
+birchstreet software
+bisynchronous protocols
+bitbake
+bitkeeper
+bitlocker drive encryption
+bittorrent
+bitbucket
+bitnami
+bitrise
+bitrix
+bitwise operation
+bizagi
+black duck
+blackberry enterprise servers
+blackberry messenger
+blackberry os
+blackberry world
+blackline
+blackbaud crm
+blackboard learning systems
+blackbox
+blackmagic
+blast2go
+blaze advisor
+blazeds
+blazemeter
+blazor
+blender 3d
+blind carbon copy
+blitz basic
+block element modifier
+blockly
+blogger
+bloodhound
+bloomberg terminal
+bluej
+blueprism
+bluebeam revu
+bluecoat proxies
+bluefish
+bluehost
+bluetooth low energy
+bluetooth protocols stack
+bluetooth stack
+bluez
+bmc software
+board bi
+board support package
+bochs
+boltzmann machine
+bones
+bonfire
+bonsai
+bontq
+booking
+bookshare
+boost
+boot disk
+boot loaders
+boot2docker
+bootcd
+bootstrap
+bootstrap protocol
+border gateway protocol
+boris fx
+borland c++
+borland database engine
+borland together
+borland turbo c
+borland turbo debugger
+bot framework
+boto3
+bouncy castle
+bounds checker
+bourne shell
+box api
+box2d
+boxcar
+bpel4people
+brainspace
+brainware intelligent capture
+brakeman
+branch.io
+brandwatch
+breeze.js
+bresenham's algorithm
+bricscad
+brightedge
+brightstor portal
+brightscript
+broadvision quicksilver
+broadcastreceiver
+browser extension
+browserify
+browserstack
+browzwear
+bryce 3d
+bsearch
+bubble.io
+bug tracking and management
+bugzilla
+build tools
+buildbot
+buildium
+buildmaster
+buildpack
+bulk copy program
+bullhorn
+bulma css
+bundler
+burp suite
+burroughs mcp
+burrows-wheeler aligner software
+bus networks
+business computer systems
+business integration software
+business intelligence tools
+business process execution language
+business process modeling language
+business rule management systems
+business rules engines
+business software
+business to manufacturing markup language
+busybox
+buzzsumo
+bytebuffer
+bytecode
+byteflight
+c
+c compilers
+c data types
+c dynamic memory allocation
+c file input/output
+c graphics
+c mathematical functions
+c preprocessor
+c sharp software
+c sharp syntax
+c shell
+c standard libraries
+c#
+c# fundamentals
+c++
+c++ concepts
+c++ fundamentals
+c++ modules
+c++ server pages
+c++/cli
+c++14
+c-based programming languages
+c/c++ standard libraries
+c166 family
+c3.js
+ca devtest
+ca harvest software change manager
+ca identity manager
+ca service virtualization
+ca test data manager
+ca unicenter
+ca workload automation ae
+ca-7
+ca-telon
+ca/eztest
+cad data exchange
+cad programs
+cad standards
+cadstar
+cadwork
+calpuff
+canalyzer
+canape
+carto
+castep
+cats applicant tracking system
+cbasic
+ccure
+ccleaner
+cdets - cisco defect and enhancement tracking systems
+cdma subscriber identity module
+cdex
+cfengines
+cfscript
+cgic
+cgrect
+chemkin
+cint
+ciw website management
+ckan
+clisp
+clist
+clo3d
+clr profiler
+cms made simple
+cmake
+cobol
+contentdm
+cp2k
+cpce
+cpanel
+cpython
+crm webclient ui
+cse html validator
+csla .net
+css flex box layout
+css frameworks
+csv import
+cunit
+cvsnt
+cweb
+cxfs file system
+cyma payroll and accounting software
+cache control
+cachefs
+cacti
+cadsoft eagle pcb
+cadence skill
+cadence virtuoso
+caffe
+caffe2
+cakephp
+cakewalk sonar
+cal3d
+calayer
+caldera openlinux
+calendar and contacts servers
+calendaring software
+caliburn.micro
+call control extensible markup languages
+callfire
+callkit
+callable statement
+callback functions
+calyx point
+camstudio
+camera api
+camera2
+campaign monitor
+camtasia studio
+camunda
+cancancan
+canjs
+canonical xml
+canva
+canvasjs
+capicom
+capistrano
+capital iq
+capture cis
+capture one
+capybara
+carsim
+carbonite
+carddav
+care management software
+caretracker
+carefully controlled alternative php syntax
+careware
+carnivore
+carrier-grade nat
+carrierwave
+carthage
+cascading style sheets
+case management systems
+casecomplete
+casemap
+caseware software applications
+casperjs
+caspio
+cassini
+castle windsor
+cat.net
+catboost
+catalog server
+catapult
+ccache
+ccavenue
+cdata
+cedet
+cedit
+celery
+cellprofiler
+cellebrite
+cellular data communication protocols
+celoxis
+cemli
+centos
+centos5
+centos6
+central process scheduling
+ceph
+cerberus ftp servers
+ceros
+certutil
+cervisia
+cesium.js
+cfdocument
+cfnetwork
+cgi application
+cglib
+cgroups
+chai
+chainer
+chainlink
+changeman
+changelog
+chaos monkey
+character studio
+chargify
+charles proxy
+chart director
+chart.js
+chartboost
+chartio
+chatgpt
+chatbot
+checkpoint ppc
+checkmarx
+checkstyle
+chef solo
+chefspec
+chemdraw
+cherrypy
+chimera
+chkrootkit
+chordiant
+chromatography software
+chrome os
+chromium os
+chroot
+ci server
+cinema 4d
+cinema craft encoder
+cinema tools
+cipher
+circleci
+circuitcam
+cisco adaptive security appliance
+cisco bpx 8600 series switches
+cisco commerce workspace
+cisco contact center
+cisco customer voice portal
+cisco dna center
+cisco hdlc
+cisco ios
+cisco ios network security
+cisco ip interoperability and collaboration system
+cisco identity services engine
+cisco intersight
+cisco meraki
+cisco nac appliance
+cisco nexus switches
+cisco pap2t internet phone adapter
+cisco pix
+cisco pix firewall software
+cisco packet tracer
+cisco secure pix firewall advanced
+cisco secure virtual private network
+cisco software
+cisco systems vpn client
+cisco unified computing systems
+cisco unified contact center enterprise
+cisco unified ip interactive voice response
+cisco unified wireless networking
+cisco webex
+ciscoworks ciscoview
+citect cicode
+citrix sharefile
+citrix virtual apps
+citrix winframe
+citrix workspace
+cityengine
+cityworks
+civicrm
+civil engineering software
+clam antivirus
+clang
+claris impact
+clarity
+claroline
+claroty
+classful networks
+clearhealth
+cleartool
+clickdimensions
+clickfunnels
+clickhouse dbms
+clickonce
+clicktale
+clickup
+clickbank
+client/server application language
+clientscript
+climacs
+clintrial
+clinic management systems
+clinical context object workgroup
+clinical pathway
+clinical sas
+clinical trial management systems
+clinker
+clion
+clip studio paint
+clojure
+clojurescript
+clonecd
+clonezilla
+cloud applications
+cloud data management interface
+cloud database
+cloud dataflow
+cloud firestore
+cloud foundry
+cloud infrastructure management interface
+cloud management platforms
+cloud platform system
+cloud security applications
+cloud storage
+cloud-native applications
+cloud-native architecture
+cloud-native computing foundation standards
+cloud-native development
+cloud-native infrastructure
+cloud9
+cloudbase
+cloudant
+cloudbees
+cloudberry
+cloudboost
+cloudera impala
+cloudera manager
+cloudflare
+cloudfoundry
+cloudhub
+cloudify
+cloudinary
+cloudkit
+cloveretl
+clustal
+cluster analysis
+cluster continuous replication
+costar real estate manager
+coaxpress
+cobian backup
+cobranet
+cockroachdb
+cocoa touch
+cocoapods
+cocoonjs
+cocos2d
+code access security
+code audit
+code composer studio
+code editor
+code insight
+codeigniter
+codesynthesis xsd/e
+codeview
+codewarrior
+codebeamer
+codebook
+codeception
+codecs
+coded user interface
+codedom
+codegen
+codekit
+codepen
+codeplex
+codeship
+codesign
+codesmith
+codoncode aligner
+coffeecup html editor
+coffeescript
+cognos impromptu
+cognos planning
+cognos powerplay
+cognos reportnet
+cognos workspace
+coldbox platforms
+coldfusion components
+coldfusion markup language
+coldfusion on wheels
+collaboration data objects for windows nt servers
+collaborative software
+collabtive
+collectd
+collibra
+colligo contributor
+colorbox
+column-oriented dbms
+cometd
+commvault
+command language
+command post of the future
+command prompt
+command query separation
+command-line interface
+command-query responsibility segregation
+commerce extensible markup language
+commercial joint mapping toolkit
+commissioning management systems
+common alerting protocol
+common desktop environments
+common gateway interface
+common isdn application programming interface
+common intermediate format
+common language infrastructure
+common language runtime
+common lisp interface manager
+common lisp object systems
+common management information protocol
+common object request broker architecture
+common type systems
+common unix printing system
+commonjs
+commonwealth workforce development system
+communicating sequential processes
+communication cpu to application cpu interface
+communication program generator
+communication software
+communications protocols
+community climate system model
+community data analysis tools
+communityviz
+compex
+compact hypertext markup language
+competency management systems
+compilers
+compiz
+compojure
+component content management system
+component object model
+component pascal
+component-oriented development software
+componentone
+composer php
+composite patterns
+composite ui application block
+compound files
+computer aided three-dimensional interactive application
+computer clusters
+computer reservations systems
+computer-aided audit tools
+computer-assisted audit tools and techniques
+computer-assisted engineering software
+computerrx
+computerized payroll systems
+comsol multiphysics
+conceptdraw pro
+concordion
+concrete5
+concur expense
+concur invoice
+concur travel
+concurrent versions system
+config files
+configserver
+configuration management databases
+configurators
+confirmit
+conga
+connect-direct
+consensuspathdb
+console applications
+console games
+constant contact
+construction estimating software
+construction management software
+consultant plus
+contact center software
+content management framework
+content management interface
+content management systems
+content manager ondemand
+content repository api for java
+contextual query language
+contiki
+continuous media markup languages
+contivity vpn client
+control and provisioning of wireless access points
+control objectives for information and related technology
+control-m
+control4
+controlup
+convergent technologies operating systems
+conversational user interface
+conversions
+convox
+copado
+corda
+cordax
+cordova plugins
+core api
+core audio
+core data
+core graphics
+core location manager
+core media
+core pocket media player
+core text
+coreclr
+coremedia cms
+coreos
+corespotlight
+coreboot
+corel aftershot
+corel designer
+corel linux
+corel painter
+corel paradox
+corel photo-paint
+corel ventura
+corel videostudio
+coreldraw
+coremetrics
+corona renderer
+coroutine
+corptax
+correlation database
+cortana
+cortex xdr
+cortex xpanse
+cortex xsiam
+cortex xsoar
+corticon
+cosmids
+couchdb
+couchbase servers
+counterspy
+coupa
+courier mail servers
+coveo
+coverity
+cppcheck
+cppunit
+cpputest
+cpuid
+cqlsh
+craft cms
+crashlytics
+cratedb
+crazy egg
+create react app
+createjs
+credential manager
+creo elements/direct drafting
+crewai
+cricketgraph
+crimson editor
+criteria api
+critical section
+crittercism
+cron
+cropper
+cross platform component object model
+cross-origin resource sharing
+cross-platform applications
+cross-server attack
+crosstalk
+crossfilter
+crossloop
+cruisecontrol
+cryengine
+cryptool
+crypto++
+cryptographic module validation programs
+crystal reports
+cs cockpit
+csound
+ctags
+ctest
+cubic motion
+cublas
+cucumber
+cucumber.js
+cudnn
+cursor ai
+custom post types
+custom software
+custom statement formatter
+custom urls
+customer engagement suite with google ai
+customer information control system
+customer relationship management software
+cuteftp
+cutepdf
+cyanogenmod
+cyara
+cyberark
+cybergraphx
+cyberx
+cyberduck
+cygwin
+cypher query language
+cypressio
+cython
+cytoscape
+d-bus
+d3.js
+dall-e image generator
+daqri 4d studio
+darpa agent markup language
+databus
+daz studio
+db2 sql
+db2/400
+dbaccess
+dbartisan
+dbg
+dbase
+dbpedia
+dcris - distributed customer records information system
+dcs file format
+dd-wrt
+ddev
+ddos mitigation
+deams - defense enterprise accounting and management system
+decnet phase iv control protocol
+dfrmm - data facility removable media manager
+dfsr
+dg/ux
+dhtmlx suite
+dialux
+dibol
+difms - defense industrial financial management systems
+digital command language
+disa gold disk
+dise digital signage software
+dita open toolkits
+diva software
+dm over ip
+dmoz - the open directory project
+dms software reengineering toolkits
+dna databases
+dnet
+dom inspector
+dot
+dpvs
+dr-dos
+dspam
+dsniff
+dspace
+dvd decrypter
+dvd flick
+dvd ripper
+dvd shrink
+dvd-video
+dvise
+dwg trueview
+dx application performance management
+dyl280
+dynix/ptx
+davinci resolve
+dacpac
+daemon tools
+dagger 2
+daifuku
+dalvik
+dansguardian
+dapper orm
+daptiv ppm
+darik's boot and nuke
+darkbasic
+dart
+das u-boot
+dashboard
+dashcode
+dask
+dassault syst mes delmia
+data access object patterns
+data analysis and display
+data as a service
+data base query language
+data buffer
+data build tool
+data class
+data control language
+data display debuggers
+data encryption standard
+data engineering scripting language
+data explorers
+data format description language
+data frame
+data general aviion computers
+data interfaces
+data lakes
+data language interface
+data link connection identifier
+data link control
+data management platforms
+data manipulation language
+data mapper patterns
+data mining query language
+data ontap
+data plane development kit
+data recovery software
+data stream management systems
+data structure alignment
+data system
+data warehouse architectures
+data warehouse systems
+dataadapters
+database markup language
+databasic
+datacad
+dataflex
+dataflux
+datahub
+datanucleus
+datastax enterprise
+datastax enterprise graph
+datatransfer workbench sap
+databags
+database abstraction layer
+database application
+database availability group
+database dump
+database engine tuning advisor
+database engines
+database management systems
+database normalization
+database performance analyzer
+database reporting software
+database search engine
+database software
+database systems
+databricks
+datacap
+datacom/db
+datadog
+dataflow architecture
+datagram
+datagram congestion control protocols
+datagram transport layer security
+datakit
+datalog
+datamaps
+datanet
+datapump
+dataset
+datastax
+datatable
+dataweave
+datediff
+datomic
+day cq
+dayforce
+dbfit
+dbunit
+dbvisualizer
+dbeaver
+dbscan
+dc.js
+dcast
+dcount
+ddd service
+debabelizer
+dezign for databases
+debian linux
+debugdiag
+decentralized applications
+decision lenses
+decision making software
+deck.gl
+decompiler
+decorator pattern
+dedoose
+deductive database
+deep freeze
+deep six operating system
+deepspeech
+deeplearning4j
+defense civilian personnel data systems
+defense counterintelligence information systems
+defense enrollment eligibility reporting systems
+defense readiness reporting system - army
+defense readiness reporting systems
+defense security assistance management systems
+defense travel systems
+defense video and imagery distribution systems
+defraggler
+deighton dtims
+delay-tolerant networking
+delcam powerinspect
+delcam powershape
+dell boomi
+dell emc unisphere
+dell idrac
+dell poweredge
+dell remote access controller
+delphi
+delta controls systems
+deltav distributed control system
+deltacloud
+deltek cobra
+deltek costpoint
+deltek vision
+demandware
+denodo
+dentrix
+department of defense 8500 series
+dependency walker
+derivative touchdesigner
+design software
+design view
+design web format
+designing cisco data center unified computing
+desksite
+desktop communication protocol
+desktop underwriter
+desmos
+deterministic parallel java
+dev-c++
+devexpress
+devtrack
+devart
+developer console
+devextreme
+devforce
+device admin
+devices profile for web services
+devkit
+devstack
+devtools
+dfsort
+diagramming software
+dialog control language
+dialogflow
+digication
+digital audio control protocol
+digital content platforms
+digital darkroom
+digital dashboards
+digital data communications message protocols
+digital data storage
+digital guardian
+digital ice
+digital image correlation
+digital performer
+digital picture exchange
+digital private network signaling systems
+digital subscriber line access multiplexer
+digital.ai release
+digitalocean
+dimension table
+dimensions cm
+diptrace
+dirsync pro
+direct access file systems
+direct connect
+direct electronic data interchange
+direct programming interface
+direct web remoting
+direct3d
+directadmin
+directdraw
+directfb
+directlogic
+directshow
+directvobsub
+directx
+directcompute
+directory service
+directory services markup language
+disprot
+disassembler
+discovery studio
+discrete element modeling software
+discretionary access controls
+disguise.one
+disk cleanup
+disk manager
+disk operating systems
+disk performance analyzer for networks
+disk quota
+disk usage analyzer
+disk utility
+disktracker
+diskless remote boot in linux
+diskpart
+disqus
+distance vector multicast routing protocol
+distance-vector routing protocols
+distcc
+distech
+distributed cache
+distributed component object model
+distributed computing environment
+distributed database
+distributed database management system
+distributed firewall
+distributed gis
+distributed lock manager
+distributed relational database architecture
+distributed social networking protocols
+distributed system security architecture
+distribution software
+district health information system
+divx
+divi wordpress theme
+divinity
+django
+djbdns
+dlib
+dmalloc
+dnasp software
+dnsmasq
+dod employee interactive data system
+dodaf
+doc2vec
+docbook
+docker
+docker compose
+docker container
+docker engine
+docker hub
+docker machine
+docker swarm
+dockerfile
+docman
+doctrine query language
+docusign
+docuware
+document capture software
+document management systems
+document object model
+document structure description
+document type definition
+document-oriented databases
+document.write
+documentum
+dojo toolkit
+dokku
+dolby pro logic
+dom4j
+domain name system
+domain name system servers
+domain name system security extensions
+domain-specific language
+domainkeys
+domino xml language
+domo
+doodle
+dopostback
+dormer
+dotnetnuke
+dotcms
+dotcover
+dottrace
+double-ended queue
+doubleclick digital marketing
+dovecot
+doxy.me
+doxygen
+dplyr
+draftsight
+draggable
+dragon dictation
+dragon naturallyspeaking systems
+dragondictate
+dragonfly bsd
+dragula
+drake
+draw.io
+drawplus
+drawable
+drawloop
+dreamscape
+drive image
+drivespace
+driveworks
+drone.io
+drools
+dropbox sign
+dropbox api
+dropwizard
+drumagog
+drupal
+drush
+druva software
+ds 5
+dtsearch
+dtexec
+dtrace
+dual-ported ram
+duck creek platform
+duckduckgo
+duco
+dump analyzer
+dundas bi
+dupeblocker
+durandal
+dust.js
+dwb - a webkit web browser
+dwolla
+dxdesigner
+dymola
+dynamic dns
+dynamic extensible markup language
+dynamic html
+dynamic host configuration protocol
+dynamic ip
+dynamic job descriptor entry
+dynamic management views
+dynamic multipoint virtual private networks
+dynamic network authentication system
+dynamic ui
+dynamic virtual tunnel interface
+dynamic web pages
+dynamic websites
+dynamic-link libraries
+dynamo
+dynamo application servers
+dynatrace
+e-mds
+e-tools
+e-on vue
+e2fsprogs
+ear
+ebios risk evaluation
+eci empower
+ecmascript
+ecmascript 2015
+ecmascript 2016
+ecmascript 2017
+ecognition
+edos
+eeglab
+egroupware
+em simulation software
+emc avamar
+emc cloud computing
+emc networker
+emc vmax
+emc vplex
+emco msi package builder
+emac
+epanet
+epi info
+epi maps
+epicweb
+episervers
+erd commander
+erfx
+es6 module loader
+eset nod32 antivirus
+esi ic.ido
+esi va one
+ess/mss
+etap
+eviews
+exc codes
+exec
+exec 2
+ext2
+ext3
+extremely large data bases
+ez lynx
+ez publish
+ezgenerator
+ezproxy
+earlgrey
+earned value management systems
+easeljs
+easerver
+easily applicable graphical layout editor
+easy java simulations
+easyb
+easymock
+easytrieve
+ebase
+ebean
+ebextensions
+ebtables
+echarts
+echosign
+echolink
+eclemma
+eclipse
+eclipse cdt project development tooling
+eclipse java development tools
+eclipse modeling framework
+eclipse ppm software
+eclipse process framework
+eclipselink
+ecocyc
+ecoscope
+ecosys
+ecore
+edge development options
+edifecs
+editgrid
+editplus
+edius
+edraw max
+educational software
+eggplant functional
+egnyte
+ehcache
+eigen
+ejabberd
+ekahau site survey
+ektron
+elastic stack
+elastic load balancer
+elasticsearch
+election markup language
+electric image animation systems
+electrical cad
+electrical cad interface
+electricflow
+electron energy loss spectroscopy
+electron packager
+electron.js
+electronic business using extensible markup language
+electronic case filing systems
+electronic clinical research information system
+electronic communication networks
+electronic data capture
+electronic design automation software
+electronic health record applications
+electronic lab notebook
+electronic logbook
+electronic news production systems
+electronic performance support systems
+electronic trading platform
+element management systems
+elgg
+elixir
+eloqua
+eloquent orm
+eltron programming language
+elucidat
+emacs
+emacs lisp
+email on acid
+email software
+emarsys
+embarcadero software
+embase
+embeddable common lisp
+embedded c
+embedded code
+embedded databases
+embedded domain-specific languages
+embedded http server
+embedded intelligence
+embedded java
+embedded media
+embedded operating systems
+embedded sql
+embedded software
+embedded wizard
+ember cli
+ember data
+ember model
+ember.js
+embroidery software
+emgucv
+empower 3 chromatography software
+emulator high-level language application program interface
+encase
+enablon
+encoder pro
+encompass
+encounter data management
+encrypting file systems
+encryption software
+endnote
+endeca
+endevor
+energy analysis system
+energycap
+enform software
+engageip
+engineering equation solver
+enhanced mitigation experience toolkit
+enhanced write filter
+enovia
+enscape
+enscribe
+enscript
+enterprise application software
+enterprise communications system sipxecs
+enterprise distributed object computing
+enterprise document management system
+enterprise java bean certificate authority
+enterprise javabeans
+enterprise mashup markup language
+enterprise meta environment
+enterprise mission assurance support service
+enterprise planning systems
+enterprise privacy authorization languages
+enterprise search
+enterprise service bus
+enterprise storage system
+enterprise systems connection
+enterprise vault
+enterprisedb
+entirex
+entity bean
+entity component system
+entity framework
+entity framework core
+entitymanager
+entrepreneurial operating system
+entry sequenced data set
+enums
+enzyme
+ephesoft
+epic adt
+epic asap
+epic anesthesia
+epic beacon
+epic beaker
+epic bridges
+epic cadence
+epic clarity
+epic emr
+epic mychart
+epic optime
+epic prelude
+epic radar
+epic resolute
+epic stork
+epic tapestry
+epic willow
+epiccare ambulatory
+epiccare inpatient
+epiccare link
+epicor prophet 21
+epiphany crm
+epoll
+eprint
+epub3
+equinox
+equivio
+erdas imagine
+ericsson mediaroom
+erlang
+error logging modules and handlers
+erwin
+esapi
+esker
+eslint
+espresso
+espresso
+esterel
+etherape
+ethers.js
+etherscan
+european molecular biology open software suite
+event listeners
+event management software
+event processing language
+event tracing
+eventbrite
+eventkit
+evermotion nox
+evernote
+exacq
+exago
+exalead
+excel services
+excel solver
+excelpackage
+exchange web services
+exchangeable image file format
+executable uml
+execution management systems
+executive control language
+execvp
+expando
+expdp
+expedia tools
+experience api
+expo
+exponent cms
+express 4
+express.js
+expressionengine
+ext js
+ext.net
+extendscript
+extendsim
+extended computer aided test tool
+extended file allocation table
+extended sql
+extensible application markup language
+extensible configuration checklist description format
+extensible hypertext markup language
+extensible markup language
+extensible storage engine
+extensible stylesheet language
+extensible stylesheet language transformations
+external memory interface
+extjs4
+extreme cloud administration toolkit
+eyeon fusion
+ezsql
+f#
+f5 irules
+facsys
+fast esp
+fdisk
+feko
+ffmpeg
+fincad
+fis getpaid
+fixatdl
+fl studio
+fme server
+foil
+forscene
+fwtools
+fxml
+fabric application interface standards
+fabric os
+fabric operating system
+fabric.io
+fabric8
+facade pattern
+facegen
+facebook
+facebook api
+facebook analytics
+facebook apps
+facebook content
+facebook graph api
+facebook insights
+facebook platform
+facebook query language
+facebook4j
+facelets
+faceted search
+factset
+factiva
+fail2ban
+faircom db
+falcon
+famo.us
+farpoint spread
+faraday
+fast fourier transforms
+fast light toolkit
+fast.ai
+fastapi
+fastcad
+fastcgi
+fastexport
+fasttrack schedule
+fastboot
+fastcase
+fastest fourier transform in the west
+fastify
+fastlane
+fastpath
+fastq
+fastrac
+fastreport
+fatwire
+favicon
+fax servers
+fbx
+federal desktop core configuration
+federated database systems
+fedora linux
+feedburner
+feeddemon
+feedly
+femap
+fetchxml
+ffdshow
+fiber distributed data interface
+fibersim
+fibre channel over ip
+fiddler
+fidessa
+field-programmable gate array
+fifth-generation programming languages
+figjam
+figma
+file allocation table
+file archiver
+file manager
+file replication service
+file watcher
+fileaid
+filebound
+filehold systems
+fileman
+filenet
+filevault
+filezilla
+filebeat
+filemaker
+filepath
+fileset
+fileshare
+filesystem hierarchy standards
+filesystem-level encryption
+filetab
+finacle
+finagle
+final cut express
+final cut pro
+final cut server
+final draft
+final expense insurance
+finalbuilder
+finale
+finance software
+financial aid software
+financial analysis software
+financial and business management system
+financial integrated data system
+financial software
+financialforce
+findbugs
+findstr
+fiona
+firebase
+firebase analytics
+firebase security
+firebird database
+firebug
+firefox
+firefox extensions
+firefox plugin
+firewall
+firewalld
+firmware
+firststrike
+fisheye
+fitnesse
+five9
+flash
+flash cms
+flashcopy
+flashdevelop
+flashpaper
+flashtalking
+flashvars
+flask
+flat file database
+fleet maintenance software
+flex4
+flexnet publisher
+flexray
+flexslider
+flexwiki
+flexdashboard
+flexera adminstudio
+flexisign
+flexigrid
+flexmojos
+flexsim
+flexunit
+flickr
+flight software
+flightcheck
+flinto
+flip video
+flipboard
+flotherm
+flowjo
+flowtracer
+fluentd
+fluentvalidation
+flutter
+flutterflow
+flux
+fluxbox
+flwor
+flying logic
+flyway
+fmrib software libraries
+fogbugz
+foglight
+font awesome
+font face
+font fusion
+font management software
+fontforge
+force.com
+foreign keys
+forensic toolkits
+forensics tools
+forgerock
+form designer
+form fields
+form filler
+form-z
+formatting objects processor
+formatting output specification instance
+formbuilder
+formik
+formstack
+formula language
+forth
+fortify software security center
+fortify static code analysis
+fortify webinspect
+fortinet
+fortran
+fortran90
+fortran95
+foundry mari
+fourgen
+fourgen computer-aided software engineering tools
+fourth extended filesystem
+fourth-generation programming language
+foxpro
+foxit readers
+fpml
+frame relay
+framebuffer
+frameforge 3d studio
+framer
+framer.js
+frameworx
+framing
+fraud detection and national security data system
+free pascal
+freeagent
+freebsd
+freeflyer
+freemarker
+freenas
+freepbx
+freeradius
+freertos
+freeswitch
+freesurfer
+freeform
+freeipa
+freeware
+freeware advanced audio coder
+freshchat
+freshdesk
+frisby.js
+froglogic squish
+frontpage server extensions
+frontify
+frostbite
+fsck
+fstab
+ftrace
+fuelphp
+fullcalendar premium
+fully qualified domain name
+fumefx
+fundez
+fuse esb
+fuse services framework
+fusebox
+fuser
+fusion 360
+fusioncharts
+fxcop
+g programming language
+g-codes
+g.723 standard
+gamess
+gd graphics libraries
+gdsii
+ge cimplicity
+ge ifix
+geda
+geos
+giac payment card industry
+giac secure internet presence
+giac web application security
+gifbuilder
+gis applications
+glbasic
+glib
+gnat programming studio
+gnome
+gnome terminal
+gns3
+gnu adns
+gnu assembler
+gnu autoconf
+gnu binutils
+gnu build systems
+gnu c libraries
+gnu compiler collection
+gnu debuggers
+gnu gatekeeper
+gnu image manipulation program
+gnu libtool
+gnu linear programming kit
+gnu linker
+gnu mathprog
+gnu octave
+gnu privacy guard
+gnu radio
+gnu scientific libraries
+gnu toolchain
+gpe palmtop environment
+gprs tunnelling protocol
+gps navigation software
+gpt-3
+grc software
+groningen machine for chemical simulations
+gsoap
+gselector
+gstreamer
+gt-suite
+gt.m
+gtk
+gtk sharp
+gtkwave
+gtmetrix
+gui designer
+gui testing tools
+gw-basic
+gabi software
+gacutil
+gainsight
+galera
+gallery project
+gallio automation platform
+galvanize
+galvanize acl analytics
+game ai
+game engine
+gamemaker
+gamemaker- studio
+gamesalad
+ganache
+ganglia
+garageband
+gastroplus
+gateway electronic medical management systems
+gatling
+gatsby.js
+gchart
+gcloud
+gcov
+ge centricity
+geant4
+geany
+gearman
+gearshift quality assessment
+gemalto
+gemfire
+gemstone
+gen
+genmapp
+gene designer
+genepattern
+geneious
+general fund enterprise business systems
+general packet radio service
+general parallel file systems
+generalized audit software
+generalized multi-protocol label switching
+generative artificial intelligence
+generic java
+generic mapping tools
+generic routing encapsulation
+generics in java
+genesis framework
+genesys
+genesys contact center
+gensim
+gensuite
+gentoo linux
+genymotion
+geoaccess
+geocue
+geoda
+geodjango
+geogebra
+geomedia
+geonet
+georss
+geoserver
+geotiff
+geotools
+geoext
+geographic information systems
+geographic resources analysis support system
+geography markup language
+geojson
+geomagic
+geonames
+geoportal
+geopy
+geospatial data abstraction library
+geospatial information technology
+gephi
+gerrit
+getronics
+gevent
+gforge
+gforth
+ggplot2
+gherkin
+ghidra
+ghost
+ghostscript
+gibbscam
+gigya
+girders
+git
+git branch
+git flow
+git stash
+github copilot
+gitlab ci/cd
+gitops
+gitbook
+github
+gitkraken
+gitlab
+gitolite
+gitorious
+gizmo5
+glassfish metro
+glassfish application servers
+glide
+gliffy
+glitz
+global information systems
+global mapper
+global mobile satellite systems
+global system for mobile communications
+globalsight
+glusterfs
+glyph
+gmail
+gmail api
+gmax
+gmock
+gnu make
+gnuwin32
+gnumeric
+gnuplot
+go
+go continuous delivery
+go ethereum
+gocad
+gosystems
+gotoassist
+gotomeeting
+gotomypc
+gotowebinar
+goback
+gobject
+godaddy
+godot engine
+goldmine crm
+goldsim
+gooddata
+goodput
+google apis
+google ad manager
+google adsense
+google admin sdk
+google ads
+google alerts
+google analytics
+google app engines
+google apps script
+google assistant actions
+google automl
+google bard
+google bigquery
+google bigtable
+google business listings
+google business profile
+google calendar
+google cast
+google chart api
+google checkout
+google classroom
+google closure tools
+google cloud build
+google cloud composer
+google cloud connect
+google cloud dataproc
+google cloud ml engine
+google cloud messaging
+google cloud platform
+google cloud print
+google code
+google compute engine
+google contacts
+google data
+google desktops
+google display & video 360
+google docs
+google drive
+google earth
+google file systems
+google fonts
+google form
+google fusion tables
+google gadgets
+google gadgets api
+google gears
+google glass
+google groups
+google gson
+google guava
+google guice
+google hacking
+google hangouts
+google home
+google ime
+google identity toolkit
+google jamboard
+google keyword planner
+google kubernetes engine
+google latitude
+google lighthouse
+google maps
+google meet
+google news
+google nexus
+google optimize
+google patents
+google pay
+google photos
+google places
+google play console
+google postini
+google scholar
+google search ads 360
+google search appliance
+google search console
+google services
+google shopping
+google sitemap
+google sites
+google slides
+google snapseed
+google storage
+google street view
+google tag manager
+google talk
+google tools
+google trends
+google tv
+google urchin
+google vr sdk
+google voice
+google wallet
+google web toolkits
+google webmaster tools
+google workspace
+googlemock
+googletest
+gosu
+goverlan remote control software
+gprof
+gpsd
+gracenote
+gradle
+grafana
+graft
+grails
+grammatical framework
+graph database
+graph exchange language
+graphcalc
+graphdb
+graphedit
+graphpad instat
+graphpad prism
+graphql
+grapher
+graphicconverter
+graphical kernel systems
+graphical tools
+graphical user interface
+graphical user interface builder
+graphics apis
+graphics device interface
+graphics display resolution
+graphics layout engines
+graphics library
+graphics software
+graphicsmagick
+graphite
+graphlab
+grasshopper
+gravity forms
+graylog
+graylog2
+grayscale
+green hills integrity
+greendao
+greenplum
+greensock
+grep
+grid layout
+gridcontrol
+gridgain
+gridster
+groovy
+groovy server pages
+groundwater modeling system
+group-decision support systems
+groupon platform
+grunt.js
+gtkradiant
+gtkmm
+guidewire core
+guidewire data
+guidewire digital
+guitar pro
+gulp sass
+gulp.js
+gunicorn
+gurobi
+gutenberg
+gutenprint
+guvnor
+gvsig
+gwt 2.4
+gwt 2.5
+gzip
+h2o.ai
+haproxy
+hcl appscan
+hcl bigfix
+heat lanrev
+hec-hms
+hec-ras
+hmmer
+hoops 3d graphics systems
+hp 3par
+hp 9000
+hp 9000 servers
+hp basic
+hp basic for openvms
+hp bladesystems
+hp client automation software
+hp cloud
+hp cloud service automation software
+hp command line interface
+hp compaq tc1100
+hp comprehensive defective material retention
+hp data protector
+hp expertone
+hp hard partitioning
+hp information management software
+hp integrity servers
+hp integrity virtual machines
+hp linux imaging and printing
+hp loadrunner
+hp mediasmart servers
+hp multi-programming executive
+hp neoview
+hp openview
+hp performance center
+hp personal notebooks
+hp quicktest professional
+hp servers
+hp service manager software
+hp sitescope
+hp software
+hp storageworks
+hp storageworks xp
+hp systems insight manager
+hp trim records management systems
+hp thin clients
+hp vectra
+hp web jetadmin
+hp webinspect
+hp winrunner
+hp-ux
+hp/opentext exstream
+hr data warehouse
+html abstraction markup language
+html application
+html components
+html controls
+html document object models
+html editor
+html emails
+html generation
+html reports
+html5
+html5shiv
+htmlunit
+htmlx - javascript on the server for .net
+http cookie
+http file servers
+httrack
+hackerone
+hacklang
+hadoop cloudera
+hadoop distributed file system
+hadoop2
+hamcrest
+hammer.js
+hammermill
+hamming code
+hanami
+handheld device markup language
+handlebars.js
+hangfire
+hapi.js
+hardlink
+hardware description language
+hardware platform interface
+hardware verification language
+harpoons
+harvard graphics
+hashicorp
+hashicorp nomad
+hashistack
+hashicorp consul
+haskell
+hasura graphql engine
+hawtio
+haxe
+hazelcast
+hazus
+hcatalog
+hdinsight
+hdparm
+hela
+head unit
+header files
+health information systems programs
+healthstream
+heapster
+hearing aid software
+heartbleed bug
+heat maps
+helicon focus
+helioscope
+help authoring tool
+help scout
+help system
+helpndoc
+heroku
+hessian
+hex dump
+hex editor
+hibernate
+hibernate query language
+hibernate3
+hidden markov model
+hiera
+hierarchical and recursive queries in sql
+hierarchical data format
+hierarchical file systems
+hierarchical model view controller
+high definition compatible digital
+high throughput file systems
+high-level shader language
+highcharts
+highmaps
+highway capacity software
+hijackthis
+hipchat
+hippo cms
+hitachi truecopy
+hl7 v2
+hl7 v3
+hmisc
+hotmetal
+hockeyapp
+hocon
+home networks
+homebrew
+homekit
+homeless management information system
+homologene
+honeypots
+honeywell controls systems
+hootsuite
+horizon patient folder
+hornetq
+hortonworks data platform
+hortonworks sandbox
+host based security system
+host-based intrusion detection systems
+hostapd
+hosted app
+hosting controllers
+hostmonster
+hotdocs
+hotsos
+hotel reservation systems
+hotel salespro
+hotelligence
+hotfix
+hotjar
+houdini
+hping - active network security tool
+hpricot
+http monitor
+http unit
+httpd.conf
+httperf
+httprequest
+httpserver
+httpsession
+httpunit
+hubspot crm
+hubot
+hudson plugins
+hugging face
+hugging face transformers
+human resources information system
+hur
+hytrust
+hybrid mobile app
+hybris
+hydrogeosphere
+hydrology software
+hyland onbase
+hyper sql database
+hyper text structured query language
+hyper-v
+hyperaccess
+hypercam
+hypermesh
+hyperstudio
+hypertalk
+hypertext markup language
+hypertransport
+hyperworks
+hyperic
+hyperion enterprise
+hyperion financial reporting
+hyperion smartview
+hyperion strategic finance
+hyperion system 9 bi+
+hyperion workspace
+hyperledger
+hypermedia
+hypertext caching protocol
+hypervisor
+hystrix
+iar embedded workbench
+ibm - ims high availability large database
+ibm - tivoli change and configuration management database
+ibm 4300
+ibm 4690 operating systems
+ibm aix
+ibm advanced peer-to-peer networking
+ibm advanced program-to-program communications
+ibm aggregate backup and recovery systems
+ibm aspera
+ibm basic assembly language and successors
+ibm bluemix
+ibm blueworks live
+ibm business process manager
+ibm business systems
+ibm c2t
+ibm cl/supersession
+ibm cms pipelines
+ibm case manager
+ibm cgidev2
+ibm cloud computing
+ibm cognos business intelligence
+ibm cognos tm1
+ibm common user access
+ibm configuration management version control
+ibm connections
+ibm content manager
+ibm curam
+ibm db2
+ibm db2 dprop
+ibm data studio
+ibm developerworks
+ibm director
+ibm disk storage systems
+ibm es/9000 family
+ibm general parallel file systems
+ibm generalized markup language
+ibm guardium
+ibm http servers
+ibm high level assembler
+ibm ikjeft01
+ibm ilog cplex optimization studio
+ibm infoprint manager
+ibm infosphere
+ibm infosphere datastage
+ibm information management system
+ibm informix
+ibm informix dynamic server
+ibm informix-4gl
+ibm initiate
+ibm lan servers
+ibm lu6.2
+ibm lotus domino
+ibm lotus forms
+ibm lotus freelance graphics
+ibm lotus inotes
+ibm lotus quickr
+ibm lotus smartsuite
+ibm lotus symphony
+ibm lotus word pro
+ibm mq
+ibm mtcs
+ibm mainframe utility programs
+ibm master data management
+ibm maximo
+ibm mobile
+ibm network control programs
+ibm notes
+ibm omegamon
+ibm os/2
+ibm os/390
+ibm omnifind
+ibm opendx
+ibm openpower
+ibm operational decision manager
+ibm optim
+ibm personal computer xt
+ibm planning analytics workspace
+ibm qradar
+ibm query management facility
+ibm rpg
+ibm rsct
+ibm rational application developer
+ibm rational asset manager
+ibm rational clearcase
+ibm rational clearquest
+ibm rational functional tester
+ibm rational method composer
+ibm rational performance tester
+ibm rational quality manager
+ibm rational sqabasic
+ibm rational software
+ibm rational software architect
+ibm rational team concert
+ibm rational unified process
+ibm resilient
+ibm resource access control facility
+ibm san volume controllers
+ibm spss modeler
+ibm sql/ds
+ibm sametime
+ibm scalable architecture for financial reporting
+ibm secureway directory
+ibm series/1
+ibm service management framework
+ibm software
+ibm software configuration and library management
+ibm spufi
+ibm sterling b2b integrator
+ibm storage
+ibm system object models
+ibm system rs/6000
+ibm system z integrated information processor
+ibm system z9
+ibm system/3
+ibm system/34
+ibm system/360
+ibm system/370
+ibm systems application architecture
+ibm systems director
+ibm systems network architecture
+ibm tpns
+ibm time sharing option
+ibm tivoli directory servers
+ibm tivoli management framework
+ibm tivoli storage manager
+ibm tivoli workload scheduler
+ibm topview
+ibm totalstorage expert
+ibm tririga
+ibm unica netinsight
+ibm utilities
+ibm vnet
+ibm viavoice
+ibm visualage
+ibm was
+ibm websphere adapters
+ibm websphere commerce
+ibm websphere datapower soa appliances
+ibm websphere message broker
+ibm websphere portal
+ibm websphere portlet factory
+ibm websphere process server
+ibm websphere software
+ibm websphere application server
+ibm websphere esb
+ibm websphere edge components
+ibm websphere integration developer
+ibm worklight
+ibm workplace
+ibm xiv storage systems
+ibm xl c++
+ibm z/vm
+ibm zenterprise systems
+ibooks author
+ic programming
+icam definition
+ice validation
+icefaces
+icl 2900 series
+icmpv6
+iconix process
+icalendar
+ichat
+icloud
+ida pro
+idrisi
+ids infolease
+ids scheer
+idvd
+idrive
+iefbr14
+ifs erp
+ifolder
+igmp snooping
+igor pro
+iis debugging
+iis logs
+iis manager
+iis metabase
+ilogic
+imsl numerical libraries
+imvu
+imacros
+imatch
+imessage
+imindmap
+imovie
+ini file
+interbus
+ios applications
+ios sdk
+iozone
+ipcop
+ipfilter
+ipsoft amelia
+ipxe
+iphoto
+ipython
+iqnavigator
+irap rms suite
+ircam signal processing workstation
+irix
+isis/draw
+isql
+iservers
+isight
+isilo
+ispring suite
+italc
+itap
+itext
+ivault
+iwarp protocol
+iweb
+iwork
+ibatis.net
+ibooks
+icarus verilog
+icewarp mail server
+icenium
+icepdf
+icinga
+icinga2
+iconv
+identity management systems
+identityiq
+identityserver4
+idms
+idris
+ifconfig
+iframe
+ifttt
+iges
+igraph
+illustra
+image file formats
+image maps
+image mastering api
+image viewer
+image xplorer
+imagej
+imagemagick
+imagemixer
+imagenow
+imagex
+imageflow
+imagenet
+imagesource
+imagick
+imake
+imgburn
+imgur
+immunix
+immutable.js
+impact.js
+impdp
+imperva
+impex
+impresscms
+in vehicle monitoring system
+in-memory database
+inmagic
+inmoment
+inrule technology
+inssider
+inshot
+insync adaptive traffic control systems
+incr tcl
+indegy
+independent computing architecture
+indexed sequential access method
+indexeddb
+indigo renderer
+industrial control software
+industrial software
+industry 4.0
+inertia
+inetd
+inference engine
+infiniband
+infinispan
+influxdb
+infotrac
+infoblox ipam
+infobox
+infobright
+infocad cafm systems
+infomax
+infor lx
+infor software
+informatica
+informatica cloud
+informatica master data management
+informatica powercenter
+information systems security assessment framework
+information technology architecture
+information technology enabled service
+information technology infrastructure library
+information technology security evaluation criteria
+informix wingz
+infoview
+infragistics
+infrastructure as a service
+infusionsoft
+ingres database
+init.d
+initial graphics exchange specification
+initrd
+inkscape
+inline assembler
+inline function
+inmobi
+inno setup
+innodb
+inode
+inquiry
+inquisit
+insight hub
+insight squared
+insightvm
+insitevr
+instalod
+installanywhere
+installjammer
+installshield
+installable file systems
+installer vise
+installscript
+installwatch
+instruction pipeline
+instructure canvas
+integrated archaeological databases
+integrated data viewer
+integrated development environments
+integrated digital enhanced network
+integrated land and water information system
+integrated maintenance data system
+integrated performance primitives
+integrated platform management systems
+integrated workplace management systems
+integration definition
+integration platform as a service
+integration platforms
+intel appup
+intel debuggers
+intel modular server systems
+intel parallel studio
+intel quickpath interconnect
+intelex
+intelichart
+intelink
+intellicad
+intellij idea
+intellimatch
+intellisense
+intentservice
+inter-asterisk exchange
+interbase
+intermapper
+intermine
+interpro
+interqual criteria
+interactive c
+interactive data language
+interactive mode
+interactive web pages
+interface builder
+intergraph smartplant 3d
+international
+international material data systems
+internet explorer administration kit
+internet information services
+internet map server
+internet os
+internet suite
+internetwork operating system
+interroll
+intersystems cache
+intersystems ensemble data integration platform
+intranet portal
+intraweb
+intrushield
+invenio
+inventory control systems
+inventory management system
+invision
+io.js
+ioc container
+iometer
+ionic 2
+ionic 3
+ionic framework
+ionic native
+ios10
+iostat
+ipconfig
+iperf
+ipfirewall
+ipopt
+ipro ecapture
+iproute
+iproute2
+ipswitch imail server
+iptables
+iris gl
+ironmq
+ironport
+ironpython
+irrlicht engine
+isaac sdk
+isapi extension
+isearch
+isession
+isilon
+isobuster
+istio
+istream
+iterators
+itilv3
+ivalua
+ivanti
+ixchariot
+ixload
+ixveriwave
+ixia
+ixia breakingpoint
+j sharp
+j2c - java to c++ converter
+jar
+jaws scripting language
+jax-ws
+jbase odbc connector
+jbpm5
+jboss developer studio
+jboss eap
+jboss enterprise soa platforms
+jboss fuse
+jboss messaging
+jboss operations networks
+jboss seam
+jbuilder
+jconsole
+jcreator
+jd edwards enterpriseone
+jd edwards world
+jda demand planning
+jda fulfillment
+jdbc driver
+jdeveloper
+jface
+jfreecharts
+jfrog
+jgrasp
+jgnash
+jgroups
+jira
+jira studio
+jmp
+jmockit
+jovial
+jonas
+jpa2
+jpeg 2000
+jpos framework
+jprobe software suite
+jquery
+jquery mobile
+jquery ui
+jrt
+jruby
+jsapi
+jsdk - java servlet development kit
+jsdata
+jsdoc
+jsf 2
+jsfiddle
+jshint
+jslint
+json
+json web signature
+json web token
+json with padding
+jsperf
+jsunit
+jscript
+jscript.net
+juce c++ library
+jw player
+jacoco
+jabber
+jabberd2
+jacorb
+jahia
+jakarta ee
+jakarta xml rpc
+jalview
+jamf
+jamstack
+janrain
+janusgraph
+janusvr
+japplet
+jasmine
+jasperreports
+jasperserver
+jasypt
+java
+java 11
+java 2d
+java 3d
+java 7
+java 8
+java 9
+java api for restful web services
+java api for xml messaging
+java api for xml processing
+java api for xml registries
+java api for xml web services
+java apis
+java apis for integrated networks
+java access bridge
+java advanced imaging
+java agent development framework
+java annotation
+java applet
+java application server
+java architecture for xml binding
+java authentication and authorization services
+java business integration
+java business process management
+java bytecode
+java caps
+java card
+java card openplatform
+java classloader
+java code coverage tools
+java collections framework
+java community process
+java compilers
+java concurrency
+java console
+java cryptography architecture
+java cryptography extension
+java data mining
+java data objects
+java database connectivity
+java decompiler
+java desktop network components
+java development kit
+java development tools
+java dynamic management kit
+java ee application
+java ee connector architecture
+java ee version history
+java editors
+java enterprise edition
+java foundation classes
+java guis
+java interface definition language
+java keystore
+java keywords
+java logging framework
+java management extensions
+java media framework
+java message service
+java mobile media api
+java module
+java naming and directory interface
+java native access
+java native interface
+java network launch protocol
+java object oriented querying
+java open reliable asynchronous messaging
+java opengl
+java package
+java persistence api
+java persistence query language
+java platform debugger architecture
+java platform micro edition
+java platform standard edition
+java portlet specification
+java profiler
+java remote method invocation
+java rule engine api
+java runtime environment
+java scripting languages
+java secure socket extension
+java security
+java servlet
+java simple plugin framework
+java specification requests
+java stored procedure
+java syntax
+java tv
+java telephony api
+java transaction api
+java transaction service
+java virtual machine
+java web services
+java web services development pack
+java web start
+java xml
+java.util.concurrent
+java1.4
+javabeans
+javabeans activation framework
+javacc
+javafx
+javafx script
+javamail
+javapos
+javascript
+javascript build
+javascript engine
+javascript frameworks
+javascript libraries
+javascript os
+javascript style sheets
+javascriptcore
+javaserver faces
+javaserver pages
+javaserver pages standard tag library
+javac - java programming language compiler
+javacv
+javadoc
+javax tools
+javax.xml
+jaybird
+jbehave
+jboss rules
+jcache
+jcarousel
+jclouds
+jdbctemplate
+jdepend
+jdialog
+jdk1.4
+jdk1.5
+jdk1.6
+jdk1.7
+jdom
+jekyll
+jelastic
+jenkins
+jenkins 2
+jenkinsfile
+jersey
+jest
+jetbrains ide
+jetdirect
+jetadmin
+jetpack workflow
+jetty
+jexcelapi
+jform
+jgrapht
+jhipster
+jibx
+jini
+jinja
+jira align
+jison
+jitsi
+jitterbit integration servers
+jive
+jlink
+jlist
+job control language
+job entry subsystem 2/3
+jobvite
+jointjs
+joli os
+jomsocial
+joomla
+jotform
+journalling flash file system version 2
+joyent
+jpa annotations
+jpcap
+jprofiler
+jqgrid
+jqplot
+jqtouch
+jrebel
+jreport
+jrockit
+jrules
+jsrender/jsviews
+json.net
+jsonkit
+jsonpath
+jsoup java html parser
+jstack
+jstat
+jtable
+jtest
+jtree
+julia
+jump server
+junit
+junit3
+junit4
+junit5
+junos
+jupyter
+jupyter notebook
+justinmind prototyper
+jvisualvm
+jwplayer
+jython
+k2 blackpearl
+k3b
+kdevelop
+kgdb
+km programming language
+knime
+kxml
+kademlia
+kahoot!
+kairosdb
+kajabi
+kaldi
+kali linux
+kalido
+kalypso
+kapacitor
+karate
+kardin
+karma
+kashflow
+kaspersky anti-virus
+kaspersky internet security
+katalon studio
+katana
+kayako
+kdenlive
+keepass
+kendo grid
+kendo ui
+kendo ui mobile
+kenna security
+kentico
+keras
+kerio connect
+kerio windroute firewall
+kerkythea
+kernel debuggers
+kernel patch protection
+kernel scheduled entities
+kernel-based virtual machine
+kernel-mode driver framework
+kernel32
+keycreator
+keychain
+keycloak
+keycode
+keyfile
+keyhole markup language
+keymark
+keysight vee
+keyup
+khoros
+kicad
+kixtart
+kibana
+kid pix
+kinaxis
+kinaxis rapidresponse
+kinect
+kinetic monte carlo
+kinvey
+kiosk software
+kismac
+kismet
+kissmetrics
+klaviyo
+klik
+klipfolio
+klocwork
+klystron
+knitr package
+knockout validation
+knockout.js
+knoppix linux
+knowledge management software
+knowledge-based configuration
+knowledge-based systems
+koa.js
+kochava
+kofax
+kohana
+kojo
+kompare
+konqueror
+korg wavestation
+korn shell
+kosmos distributed file system
+kotlin
+kronos
+krugle
+ksoap
+ksoap2
+kubectl
+kubeflow
+kubernetes
+kubuntu
+kusto query language
+kyriba
+l0phtcrack
+l2cap
+l4 microkernel family
+lame
+lamp
+lan manager
+lansa
+lc-3
+ldap admin
+lemp stack
+lftp - sophisticated file transfer program
+lidb
+limdep
+linq to entities
+linq to sql
+linq to xml
+linqpad
+lirc - linux infrared remote control
+listserv
+llblgen pro
+lmms
+lms imagine.lab amesim
+ls-dyna
+lsams
+ltspice
+lusas
+lunix
+lview
+latex
+labview
+labware lims
+labelled transition system analyser
+laboratory information management systems
+laboratory management system
+labwindows/cvi
+lagom
+laminas api tools
+lando
+langchain
+langgraph
+language integrated query
+language interface pack
+lantastic
+laragon
+laravel
+large-scale atomic/molecular massively parallel simulator
+laserfiche
+lasso
+last.fm
+lattice c
+lauterbach
+law practice management software
+layered service provider
+ldap client
+leaflet
+leakcanary
+leankit
+leaner style sheets
+leanplum
+learndash
+learnshare
+learning activity management system
+learning content management systems
+learning management systems
+learning object metadata
+lectora
+ledger applications
+legacy system migration workbench
+leica photogrammetry suite
+leiningen
+lemur project
+lenels2
+less.js
+level editor
+leveldb
+lex
+lexalytics
+lexer
+lexisnexis
+libgdx
+libguides
+libsvm
+libav
+libavcodec
+libev
+libevent
+libjingle
+libjpeg
+libnet
+libpng
+libreoffice
+libreoffice calc
+libreoffice writer
+libstdc++
+libumem
+libvirt
+libx264
+life 70
+lifeimage
+liferay
+liferay 6
+liferay 6.2
+lighttpd
+lighttools
+lightbox
+lightcast
+lightning web components
+lightwave 3d
+lightweight user interface toolkit
+lightweight x11 desktop environment
+lightworks
+lightworks slipstream
+lightwright
+limesurvey
+linaro
+linden scripting language
+line editor
+linear algebra package
+linear search
+lingpipe
+link editors
+link exchange
+linked data
+linkedin api
+linkedin campaign manager
+linkedin recruiter
+linkedin sales navigator
+linkedin talent insights
+linode
+linux
+linux console
+linux desktop testing project
+linux distribution
+linux kernel
+linux kernel api
+linux mint
+linux on system z
+linux packages
+linux programs
+linux security modules
+linux virtual server
+linx
+liquibase
+liquid xml studio
+liquidplanner
+lisp
+list box
+litelement
+litespeed
+lithtech
+litigation support software
+livhome
+live communications server 2005
+live connect
+livechat
+livenote
+livetype
+livelink
+llamaindex
+lojack
+load generator
+loadcomplete
+loadui
+loadable kernel module
+local information systems
+local shared object
+localtalk
+localhost
+localytics
+location apis
+location-based services
+lockscreen
+lodash
+log files
+log viewer
+log4cplus
+log4j
+log4j2
+log4javascript
+log4php
+loglogic
+logback
+logcat
+logfiles
+loggly
+logic express
+logic pro
+logic studio
+logical data models
+logical databases
+logical operators
+logical volume manager
+logility
+logistics software lbase
+logoport
+logparser
+logrotate
+logstash
+lombok
+lomboz
+lonworks
+long short-term memory
+looker analytics
+lookup tables
+loopback
+lottie
+lotus 1-2-3
+lotus sametime
+lotus smartsuite
+lotusscript
+low level virtual machine
+low poly
+low-code development platform
+low-level programming language
+loyalty application
+lsattr
+ltrace
+lua
+luceo
+lucidchart
+lucidpress
+lucidworks
+luigi
+lumension security
+lumion
+lumiscaphe lumis 3d
+luxion keyshot
+lync sdn manager
+lynxos
+lytec
+m
+m0n0wall
+m4 carbine
+mac address
+mamp
+mapics
+mari
+massive
+mathlab
+matlab
+maves
+max msp
+max+plus
+maxqda
+mblex application
+mc4j
+mcu 8051 ide
+mcollective
+mdat
+mdb tools
+mdaemon
+mean.js
+med/fm
+meditech ehr
+mepis
+mern stack
+metriq
+mencoder
+mfg/pro
+midas civil
+miis
+mike 21
+mike 21c
+mike urban
+mimix availability
+mips instruction set
+mips risc/os
+mirc
+misra c
+mitre att&ck framework
+miva script
+mks integrity
+mks toolkits
+ml.net
+mlcad
+mlflow
+mlwin
+mmx
+mnos
+modflow
+modo
+modx
+moderate resolution atmospheric transmission
+molpro
+monyog
+mopac
+moq
+mpeg-2
+mpich
+mpich2
+mplab ide
+mpls vpn
+mpt-1327 standard
+mplayer
+mqx
+mri
+mro software
+ms-dtsx
+msbuild
+msc software
+msconfig
+msdn-the microsoft developer networks
+msew
+mstest
+msys/mingw
+mtp level 3 user adaptation layer
+mud client compression protocol
+mvflex expression language
+mvs
+mx record
+myob
+mac defender
+mac os
+mac os x
+macpaint
+macruby
+macspeech dictate
+mactcp
+macvector
+macwrite
+mach o
+machine code
+machine instruction
+macintosh lc
+macintosh software
+macola
+maconomy
+macrium reflect
+macro express
+macro recorder
+macromedia flex markup language
+macromedia homesite
+macsyma
+macvim
+macworks xl
+madcap flare
+magento
+magento2
+magic radio
+magic workstations
+magiciso
+magicalrecord
+magicjack
+magik
+magisto
+magit
+magix movie edit pro
+magix samplitude
+magmi
+magnific popup
+magnolia
+mailscanner
+mailchimp
+maildir
+mailgun
+mailmerge
+mailsite
+mailx
+mainframe express enterprise edition
+mainsail
+mainspring
+maintenance connection
+majestic
+make
+makedoc
+malicious software removal tool
+maltego
+malwarebytes' anti-malware
+mambo
+man computer interactive data access system
+manageengine assetexplorer
+managed bean
+managed extensibility framework
+mandril
+mandriva linux
+manga studio
+manjaro
+mantis bug tracker
+manychat
+mapbasic
+mapdb
+mapdotnet
+mapguide open source
+mapinfo professional
+mapquest
+mapr
+mapreduce
+mapwindow gis
+mapbox
+mapkit
+maple
+maplesim
+mapping software
+mapserver
+maptitude
+maqetta
+marc standards
+marching cubes
+mariadb
+marinone
+marine corps total force systems
+marine terminal information systems
+marionette.js
+markdown
+market data definition language
+marketing information systems
+marketing software
+marketo
+marklogic
+markup languages
+marmoset toolbag
+marvel app
+masslynx
+massively parallel signature sequencing
+masspay
+masstransit
+masterspec
+mastercam
+matcher
+matching pursuit
+material-ui
+materialized query tables
+materials databases
+materials management information systems
+materials studio
+math kernel libraries
+math kernel library
+mathtype
+mathcad
+mathematical markup language
+mathematical software
+matillion
+matomo
+matplotlib
+mattermost
+mavensmate ide
+maxdb
+maxdiff
+maximizer software
+maxmind
+maxwell render
+maya embedded language
+mayavi
+mbeans
+mbunit
+mcafee endpoint security
+mcafee enterprise security manager
+mcafee epolicy orchestrator
+mcafee firewall
+mcafee groupshield
+mcafee network security
+mcafee siteadvisor
+mcafee stinger
+mcafee virusscan
+mcrypt
+mean stack
+measurement studio
+mechanical electrical plumbing design software
+medallia
+medcomsoft
+medflow emr
+meditouch
+media foundation transforms
+media rss
+media server control markup language
+mediawiki
+median
+mediant amisys advance
+mediant xcelys staffing
+mediator pattern
+medicaid management information systems
+medical markup language
+medical practice management software
+medical reality modeling language
+medical software
+medidata rave
+medisoft
+megamenu
+mekko graphics toolkit
+memcachedb
+memcached
+memoq
+memsql
+mendeley
+mendix low-code platform
+mental ray
+mercurial
+merise
+meshlab
+message broker
+message driven beans
+message handling systems
+message queuing telemetry transport
+message transfer agent
+messagepack
+messages servers
+messaging application programming interface
+messiah
+metacards
+metacrawler
+metamask
+metapost
+metatexis
+metatrader 4
+metabase
+metaclass
+metadata editors
+metadirectory
+metafile
+metafont
+metaio
+metal building software
+metalink
+metasearch engine
+metaserver
+metasploit
+metastorm bpm
+metasys building automation system
+metatrader4
+meteorjs
+method call
+metric studio
+mimic simulation software
+minet protocol
+micro focus
+micro focus alm quality center
+micro focus application lifecycle management
+micro focus performance center
+micro focus stormrunner
+micro focus ucmdb
+microc/os-ii
+microstation
+microstrategy
+microstrategy desktop
+microstrategy intelligence server
+microstrategy object manager
+microstrategy office
+microstrategy reporting suite
+microstrategy software development kit
+microstrategy visual insight
+microstrategy web
+microassemblers
+microcode
+microdata
+microformat
+microfrontend
+micrografx
+micronaut framework
+microsoft 365
+microsoft access
+microsoft adcenter analytics
+microsoft advanced group policy management for windows
+microsoft advertising
+microsoft amalga
+microsoft analysis services
+microsoft antivirus
+microsoft app center
+microsoft app-v
+microsoft assessment and planning toolkit
+microsoft azure
+microsoft azure expressroute
+microsoft azure playfab
+microsoft backoffice servers
+microsoft baseline security analyzer
+microsoft basic data partition
+microsoft blend
+microsoft bookings
+microsoft business intelligence
+microsoft chap
+microsoft calendar
+microsoft cluster server
+microsoft cognitive toolkit
+microsoft comic chat
+microsoft commerce servers
+microsoft compiled html help
+microsoft content management servers
+microsoft copilot
+microsoft copilot studio
+microsoft cryptoapi
+microsoft dns
+microsoft data access components
+microsoft delve
+microsoft deployment toolkit
+microsoft design
+microsoft desktop optimization pack
+microsoft device emulator
+microsoft diagnostics
+microsoft disk operating system
+microsoft distributed transaction coordinator
+microsoft dynamics
+microsoft dynamics 365
+microsoft dynamics 365 business central
+microsoft dynamics 365 field service
+microsoft dynamics 365 for finance and operations
+microsoft dynamics ax
+microsoft dynamics crm
+microsoft dynamics erp
+microsoft dynamics gp
+microsoft dynamics nav
+microsoft dynamics sl
+microsoft edge
+microsoft enterprise library
+microsoft enterprise project management
+microsoft entourage
+microsoft exchange servers
+microsoft expression design
+microsoft expression encoder
+microsoft expression studio
+microsoft expression web
+microsoft fast search
+microsoft family safety
+microsoft file compare
+microsoft forecaster
+microsoft forefront
+microsoft forefront identity manager
+microsoft forefront threat management gateway
+microsoft forefront unified access gateway
+microsoft forms
+microsoft foundation class library
+microsoft framework
+microsoft frontpage
+microsoft gif animator
+microsoft graph
+microsoft groupme
+microsoft host integration servers
+microsoft identity integration servers
+microsoft interface definition language
+microsoft intune
+microsoft java virtual machines
+microsoft luis
+microsoft learning gateway
+microsoft lists
+microsoft lync servers
+microsoft macro assembler
+microsoft management console
+microsoft mappoint
+microsoft message queuing
+microsoft mobile device management
+microsoft mobile internet toolkit
+microsoft modern workplace
+microsoft money
+microsoft netmeeting
+microsoft network monitor
+microsoft networking
+microsoft office 365
+microsoft office accounting
+microsoft office document imaging
+microsoft office live meeting
+microsoft office performancepoint servers
+microsoft office picture management
+microsoft office project
+microsoft office sharepoint server
+microsoft office xml formats
+microsoft onedrive
+microsoft onenote
+microsoft online services
+microsoft operating systems
+microsoft operations framework
+microsoft operations manager
+microsoft posix subsystems
+microsoft paint
+microsoft personal web servers
+microsoft photo editor
+microsoft photodraw
+microsoft planner
+microsoft platform builder
+microsoft power automate
+microsoft power bi embedded
+microsoft power bi report server
+microsoft power fx
+microsoft power pages
+microsoft power platform
+microsoft project
+microsoft project servers
+microsoft publisher
+microsoft query
+microsoft remote web workplace
+microsoft reporting
+microsoft robotics developer studio
+microsoft sql server 2016
+microsoft sql server data engine
+microsoft sql servers
+microsoft scandisk
+microsoft schedule plus
+microsoft script debuggers
+microsoft script editor
+microsoft search servers
+microsoft security essentials
+microsoft sentinel
+microsoft servers
+microsoft sharepoint
+microsoft sharepoint workspace
+microsoft sharepoint designer
+microsoft sharepoint foundation
+microsoft sharepoint migrations
+microsoft silverlight
+microsoft simplygon
+microsoft site servers
+microsoft small business financials
+microsoft solutions framework
+microsoft speech api
+microsoft speech application sdk i
+microsoft speech server
+microsoft stream
+microsoft streets and trips
+microsoft student partners
+microsoft sway
+microsoft sync
+microsoft sync framework
+microsoft sysprep
+microsoft teams
+microsoft terminal server
+microsoft terminal services client
+microsoft test manager
+microsoft transaction servers
+microsoft ui automation
+microsoft vpn
+microsoft virtual servers
+microsoft visio
+microsoft visual c sharp
+microsoft visual opentype layout tool
+microsoft visual programming language
+microsoft visual sourcesafe
+microsoft visual studio
+microsoft visual studio debuggers
+microsoft web platform installer
+microsoft webmatrix
+microsoft windows 10
+microsoft windows 7
+microsoft windows 8
+microsoft windows ce
+microsoft windows me
+microsoft windows nt
+microsoft windows nt workstation
+microsoft windows sdk
+microsoft windows server administration
+microsoft windows vista
+microsoft windows xp
+microsoft windows xp desktop administration
+microsoft windows xp media center edition
+microsoft windows xp professional x64 edition
+microsoft xml
+microsoft xna
+microsoft xp
+microsoft for startups
+microvellum
+midas
+middleware
+mifare
+migration manager
+mikroc
+milkshape 3d
+millennium software
+mimer sql
+mingw
+mind manager
+mindmanager
+mindtouch
+minesight
+mini displayport
+mini sql
+mininet
+mining software repositories
+minitab
+minitest
+minix 3
+miros bsd
+miro
+mirth connect
+misys tiger
+mitmproxy
+mitogen
+mixpanel
+mkannotation
+mload
+mnesia
+mnist
+moengage
+mobx
+mobclix
+mobile 3d graphics api
+mobile edge computing
+mobile enterprise application platform
+mobile ip
+mobile rich media ad interface definitions
+mobile robot programming toolkit
+mobile security
+mobilelabs
+mobileiron
+mocha
+mockk
+mockery
+mockito
+mod rewrite
+modefrontier
+model 204
+modelsim
+modelica
+modeling languages
+modems
+modernizr
+modula
+modula-2
+modula-3
+modular programming in c
+moho
+mojolicious
+moldflow
+molecular query language
+moment.js
+monads
+monday.com
+monetdb
+mongodb
+mongoengine
+mongodump
+mongolab
+mongorestore
+monit
+monkey tests
+monkeyrunner
+monkeytalk
+mono
+monogame
+monolithic software architecture
+monospaced font
+montecarlo
+mootools
+moodle
+moonedit
+moovweb
+mopub
+moshi
+motif toolkits
+motion graphics software
+motion jpeg
+motiva colimo
+motomagx
+motor control software
+mousemove
+movie magic screenwriter
+movilizer
+moz
+mozilla application suite
+mozilla thunderbird
+mp4box
+mpstat
+mrsid
+mrunit
+msdb database
+msdeploy
+msiexec
+mudbox
+muhimbi
+mule
+mulesoft
+mulesoft anypoint
+multer
+multi router traffic grapher
+multi-core software
+multichain
+multidimensional expressions
+multidimensional database management systems
+multifile
+multikey
+multimodal models
+multipeer connectivity
+multiuser dos
+mumble
+munin
+mura cms
+music software
+musicbrainz
+mvc.net
+mvvmcross
+mybatis
+myeclipse
+myhr
+myisam
+mypaint
+mysap all-in-one
+mysql
+mysql workbench
+mysqli
+mysite
+mysql++
+mysql5
+mysqlbinlog
+mysqlimport
+n8n
+namd
+ncar command languages
+ncr virtual resource executive
+ncss
+ncsim
+nclass
+ncover
+ndef
+ndepend
+ngx-translate
+nhibernate
+nhydrate
+ni multisim
+nice
+nis+
+nlin procedure
+nlogit
+nltk
+nlite
+nlog
+nocol
+npapi
+ns basic
+nsat - network security analysis tool
+nsxml
+nsxmlparser
+nt file replication service
+nt file system
+nt lan manager
+nvivo
+nw.js
+nwchem
+nwlink
+nx technology
+nagios
+nagios remote plugin executor
+name server
+namenode
+nanotime
+nashorn
+nastran
+native api
+native sql
+nativescript
+natural language toolkits
+navicat
+navigational database
+navisworks
+nbtstat
+ncache
+ncalc
+nedgraphics
+nemerle
+nemetschek allplan
+neo4j
+neolane
+neoload
+nero burning rom
+nero multimedia software
+nero multimedia suite
+nesl
+nessus
+nestjs
+nested function
+net health optima
+net tcp
+net-snmp
+net.tcp
+net2phone
+netapp applications
+netapp flexpod
+netbios
+netbsd
+netbase quid
+netbeans
+netboot
+netcdf
+netex
+netexpert
+netflow
+netiq
+netiq access manager
+netiq edirectory
+netiq identity manager
+netlogo
+netobjects fusion
+netpoint
+netrexx
+netscreen
+netsim
+netstumbler
+netsuite financials
+netsuite oneworld
+netsupport manager
+netvault backup
+netware
+netware file systems
+netcat
+netconf
+netdisco
+netezza
+netfilter
+netflix eureka
+netlify
+netlink
+netperf
+netscaler
+netscape application server
+netscape enterprise servers
+netscape mail and newsgroups
+netscape navigator
+netscape portable runtime
+netscape server application programming interface
+netsh
+netskope
+netstandard
+netstat
+netsuite
+netty
+netwide assembler
+network based application recognition - cisco
+network file systems
+network information services
+network installation services
+network intrusion detection and prevention
+network load balancing services
+network management system
+network operating system
+network security services
+network security toolkits
+network service
+network utilities
+networkx
+networx
+neural machine translation
+neurosolutions
+nevercenter silo
+nevow
+new database manager
+new executive programming language
+new relic
+newsql
+newlib
+newline
+newman
+newsml
+nexmo
+nexpose
+next jump
+next.js
+nexusdb
+ng controller
+ng grid
+ng view
+ngrx
+ngrx effects
+ngrx store
+ngfor
+nginx
+nhapi
+nibbler
+nielsen netratings
+nielsen netview
+nielsen soundscan
+nightwatch.js
+nikto web scanner
+nimsoft
+ninject
+nintex workflow
+nitro pdf
+nixos
+nmap
+nmock
+nmon
+nmrpipe
+nosql
+node-red
+node.js
+nodemcu
+nodemon
+nodetool
+nodeunit
+nohup
+noise ninja
+non-blocking i/o
+non-fungible tokens
+nonstop
+nonstop sql
+nonvisual desktop access
+nopcommerce
+northstar basic
+norton 360
+norton antivirus
+norton liveupdate
+norton safe web
+nosetest
+notepad
+notepad++
+notion
+novamind
+novell bordermanager
+novell data synchronizer
+novell distributed print services
+novell groupwise
+novell ifolder
+novell netware 6.5 administrator
+novell network
+novell secure login
+novell zenworks
+npoco
+nslookup
+nstimer
+nsubstitute
+ntext
+ntlmv2
+nuget
+nuance mix
+nuance pdf converter
+nuance pdf readers
+nucleo motherboards
+nucleus rtos
+nuemd
+nuix
+nullsoft scriptable install systems
+numpy
+numba
+nunit
+nunjucks
+nuodb
+nusoap
+nutanix
+nutanix ahv
+nutanix calm
+nutanix prism
+nutch
+nuxeo
+nuxt.js
+nvarchar
+nvidia cuda
+nvidia jetson
+nvidia quadro plex
+nvidia system tools
+nvu
+nzsql
+oauth
+obiee answers
+obs studio
+obiba
+object exchange
+oclc connexion
+ocs inventory
+ocunit
+odb++
+ogre
+olap cube
+ole for process control
+oligo primer analysis software
+onesource indirect tax
+opnet
+ops5
+ormlite
+os 2200
+os/vs2
+oscache
+osi models
+osi monarch
+osisoft
+oss through java
+otcl
+oasys gsa
+objdump
+object browsers
+object code
+object constraint language
+object databases
+object file
+object linking and embedding - database
+object manager
+object modeling language
+object oriented programming language
+object pascal
+object query language
+object rexx
+object relational bridge
+object windows library
+object-oriented javascript
+object-relational database
+objectarx
+objectstore
+objective interface systems
+objective portable operating system
+objective-c
+objectivity/db
+objectscript
+obout
+observium
+ocaml
+occam
+ocmock
+octane render
+octave
+octopus deploy
+oculus
+odoo 10
+odp.net
+off-page optimization
+office 2004 for mac
+office 365 admin center
+office 365 exchange online
+office ally
+office app
+office management software
+office online
+office open xml
+okapi framework
+okhttp
+okta
+ollydbg
+oma device management
+omeka
+omgeo oasys
+omnet++
+omnigraffle
+omnimark
+omniorb
+omnipage
+omnipeek
+omniscript
+omnifaces
+omnipay
+omnis studio
+omnitrans
+on-screen takeoff
+one sheet
+onedrive for business
+onefs distributed file systems
+onekey
+onestream
+onetrust
+oneclick
+onelogin
+onepager pro
+onepoint project
+onesignal
+onfocus
+online databases
+online payroll time reporting systems
+onload
+onsen ui
+onshape
+ontraport
+onyx for mac
+ooyala
+opcenter software
+open building information xchange
+open commerce api
+open database connectivity
+open dental
+open document management api
+open dynamics engine
+open esb
+open enterprise server
+open inventor
+open mpi
+open mail relay
+open message queue
+open mind common sense
+open modelsphere
+open object rexx
+open optimization library
+open packaging conventions
+open policy agent
+open programming language
+open reporting applications
+open services for lifecycle collaboration
+open site explorer
+open source cms
+open source host-based intrusion detection systems
+open source information systems
+open source software image map
+open studio
+open systems accounting software
+open telecom platforms
+open threat exchange
+open transport
+open vswitch
+open web application security project
+open wonderland
+open workbench
+open-source programming languages
+open-source software
+open-source ticket request system
+open-xchange
+openacc
+openai gym
+openair
+openal
+openam
+openap
+openapi
+openapi specification
+openbsd
+openbase
+openca
+opencl
+opencv
+opencart
+opencms
+openconnect
+opendj
+opends
+opendaylight
+opendeploy
+opendocument
+opendrive
+openerp
+openedge advanced business language
+openembedded
+openfoam
+openflight
+openflow
+openframeworks
+opengl
+opengl performer
+opengl shading language
+openhire
+openid
+openldap
+openlayers
+openlink endur
+openlink virtuoso universal server
+openmax
+openmp
+openmrs
+openmanage
+openmanage client instrumentation
+openmosix
+openni
+opennms
+opennebula
+openoffice
+openoffice impress
+openpages
+openrefine
+openresty
+openroads
+opensips
+openssh
+openssl
+opensso
+opensta
+opensuse
+openscenegraph
+openshift
+opensky
+openstack
+opentsdb
+opentelemetry
+opentext enterprise security manager
+opentext web solutions
+opentok
+opentracker
+opentype
+openup
+openurl
+openvas
+openvino
+openvms
+openvpn
+openvpx
+openvz
+openvera
+openview operations for unix
+openwfe
+openwindows
+openwrt
+openzeppelin
+openbox
+openbugs
+opendata
+openfaces
+openfiler
+openfire
+opengraph
+opengrok
+openjdk
+openlab
+openocd
+openpgp
+openpyxl
+opensaml
+opensearch
+opensolaris
+openswan
+opensymphony
+opentaps
+openui5
+openwave
+openwhisk
+opera
+opera mail
+opera software
+operating systems
+operational data store
+operational databases
+operational historian
+operations and management platform
+operators in c and c++
+oprofile
+opscenter
+opsview
+optistruct
+optitrack
+optix application acceleration engine
+opticstudio
+optical character recognition
+optical data storage
+optical jukebox
+optimalj
+optimization software
+optimizing compilers
+optitex
+optuminsight
+orcad
+orcad capture
+oracle 11i
+oracle acfs
+oracle advm
+oracle atg web commerce
+oracle access manager
+oracle accounts payable
+oracle adaptive access manager
+oracle adf
+oracle advanced queuing
+oracle advanced security
+oracle agile
+oracle apex
+oracle application development framework
+oracle application express
+oracle application framework
+oracle application server
+oracle application testing suite
+oracle applications
+oracle applications dba
+oracle aq
+oracle argus
+oracle audit vault
+oracle autonomous database
+oracle b2b
+oracle bam
+oracle bi publisher
+oracle bpel process management
+oracle bpm studio
+oracle big data
+oracle billing and revenue management
+oracle bronto
+oracle business intelligence / obia
+oracle business intelligence enterprise edition
+oracle cpq
+oracle crm
+oracle cdc
+oracle clinical
+oracle cloud
+oracle cluster file system
+oracle coherence
+oracle communications messaging server
+oracle configure-price-quote
+oracle customer experience
+oracle data access components
+oracle data guard
+oracle data service integrator
+oracle database administration
+oracle database vault
+oracle databases
+oracle demantra
+oracle designer
+oracle developer suite
+oracle directory server enterprise edition
+oracle discoverer
+oracle documaker
+oracle e-business suite
+oracle eu sovereign cloud
+oracle engineered systems
+oracle enterprise asset management
+oracle enterprise data quality
+oracle enterprise manager
+oracle enterprise pack for eclipse
+oracle essbase
+oracle exadata
+oracle exalogic
+oracle exalytics
+oracle flexcube
+oracle field service
+oracle financial services applications
+oracle fixed assets
+oracle flashback
+oracle forms
+oracle fusion cloud financials
+oracle fusion middleware
+oracle general ledger
+oracle goldengate
+oracle grid engines
+oracle hrms
+oracle health ehr
+oracle home
+oracle human capital management
+oracle hyperion
+oracle hyperion financial management
+oracle hyperion hfm
+oracle hyperion planning
+oracle hyperion reporting
+oracle identity analytics
+oracle identity manager
+oracle inform
+oracle integrated lights out manager
+oracle jdeveloper
+oracle javascript extension toolkit
+oracle learning management
+oracle linux
+oracle manufacturing
+oracle marketing cloud
+oracle olap
+oracle partnernetworks
+oracle payroll
+oracle platform security services
+oracle procurement
+oracle purchasing
+oracle rac
+oracle reports
+oracle responsys
+oracle retail
+oracle rightnow
+oracle soa suite
+oracle sql developer
+oracle sales cloud
+oracle service bus
+oracle service cloud
+oracle smart view
+oracle spatial
+oracle streams
+oracle text
+oracle toad
+oracle transportation management
+oracle unified directory
+oracle vm
+oracle vm server for sparc
+oracle virtual directory
+oracle virtual machine
+oracle warehouse builder
+oracle waveset
+oracle web services manager
+oracle webcenter
+oracle weblogic server
+oracle workflow
+oracle iplanet web server
+oracle iprocurement
+oracle10g
+oracle12c
+orange belt
+orator
+orbcomm
+orbix
+order management systems
+orgvue
+orga systems
+ori file systems
+orientdb
+orkut
+ormlite servicestack
+oscmax
+oscommerce
+osgeo
+osirix
+osmand
+outsystems
+outage management systems
+outline markup language
+outlook add-ins
+outlook web app
+ovirt
+owncloud
+oxmetrics
+oxygen xml editor
+palasm
+pc tools
+pc-lint
+pc/tcp packet drivers
+pci express
+pci geomatica
+pci-x
+pclaw
+pclinuxos
+pdf editors
+pdf readers
+pdf split and merge
+pdf viewer
+pdf writer
+pdf.js
+pdfcreator
+pdfkit
+pdfnet
+pdflib
+pdraw32
+pear - php extension and application repository
+php
+php data objects
+php development
+php development tools
+php editor
+php frameworks
+php-gtk
+php-nuke
+phpedit
+phpexcel
+phpmailer
+phpmyadmin
+phpunit
+phylogeny inference package
+pl/i
+pl/sql
+pl/sql developer
+pl/pgsql
+plink
+pls-cadd
+pls-pole
+pls-tower
+posix threads
+pro/ii
+promal
+prosite
+prtg network monitor
+psort
+psos
+pspp
+ptc creo
+ptc creo elements/view
+ptc creo parametric
+ptc windchill
+ptv vissim
+ptv vistro
+ptv visum
+pvcs version manager
+pvsyst
+pacbase
+packml
+package control
+package management systems
+package.json
+packet generators
+packeteer
+paddlepaddle
+paessler router traffic grapher
+pageplus
+pagespeed
+pagefile
+paging
+paint tool sai
+paint.net
+paintshop pro
+palantir apollo
+palantir foundry
+palantir gotham
+palo alto firewalls
+palo alto wildfire
+pandas
+pango
+panopto
+pantheon platform
+panvalet
+paperport
+paraview
+parallel ata
+parallel linq
+parallel patterns library
+parallel virtual machine
+parallels desktop for mac
+parallels server for mac
+parallels workstations
+paramics
+parasoft concerto
+parasoft soatest
+parasoft virtualize
+parasolid
+pardot
+parse.com
+parsec
+parseint
+parser generators
+parted magic
+partial views
+particle swarm optimization
+partitionmagic
+parts locator
+pascal
+passport.js
+password generator
+password safe
+pastperfect
+path mtu discovery
+pathping
+pathfinder
+pathlore
+patient administration systems
+patient data management systems
+patient management software
+pattern lab
+payxpert
+paychex
+paypal sandbox
+payroll systems
+pbxnsip
+pcanywhere
+pcap
+pchart
+pega prpc
+pega robotics software
+pentaho data integration
+peoplecode
+peoplesoft 8
+peoplesoft accounting
+peoplesoft applications
+peoplesoft billing
+peoplesoft customer relationship management
+peoplesoft distribution
+peoplesoft enterprise contracts
+peoplesoft enterprise manufacturing solution
+peoplesoft enterprise payables
+peoplesoft enterprise pension administration
+peoplesoft enterprise peopletools
+peoplesoft enterprise receivables
+peoplesoft financial management
+peoplesoft payables
+peoplesoft planning and budgeting
+peoplesoft project portfolio management
+peopleclick
+peoplesoft application designer
+peoplesoft application engine
+peoplesoft asset management
+peoplesoft campus solutions
+peoplesoft demand planning
+peoplesoft eprocurement
+peoplesoft enterprise performance management
+peoplesoft erecruit
+peoplesoft expenses
+peoplesoft human resources
+peoplesoft integration broker
+peoplesoft inventory
+peoplesoft order management
+peoplesoft people tools
+peoplesoft query
+peoplesoft resource management
+peoplesoft security
+peoplesoft training
+peoplesoft travel and expense management
+peoplesoft vantive
+peoplesoft nvision
+per-pixel lighting
+perceptron
+percona xtrabackup
+perfectdisk
+perfmon
+perforce
+performance analytics
+performance application programming interface
+periscope
+periscope data
+perl
+perl object environments
+perlbal
+permgen
+permitting software
+persistence framework
+personalized print markup language
+pervasive psql
+petals esb
+petrel
+pfsense
+pfam
+pgbouncer
+pgpool
+pgrouting
+phabricator
+phalcon
+phantomjs
+pharos systems
+phase shift module
+phing
+phoenix liveview
+phonegap
+phonon
+photo story
+photoimpression
+photosynth
+photoworks
+phped
+phpstorm
+phpspec
+phrap
+phreesia
+phusion passenger
+physx
+physical markup language
+physics engine
+pi systems
+picmonkey
+picasa
+pick basic
+pick operating systems
+pictbridge
+pidgin
+piecewise linear electrical circuit simulation
+pikeos
+piktochart
+pilgway 3dcoat
+pilotage
+pimcore
+pinecone
+ping
+pingdom
+pingfederate
+pinksoft fstorm
+pinterest
+pintos
+pip
+pipedrive
+pivotal crm
+pivotal cloud foundry
+pivotal tracker
+pixar renderman
+pixate
+pixel art
+pixelmator
+pixijs
+pixlr
+pixyz
+pjsip
+pkms
+plaid
+planswift
+planisware
+plant design management system
+plant design systems
+plantuml
+planview adaptivework
+plastic scm
+platespin migrate
+platespin protect
+platform as a service
+platform for privacy preferences project
+play framework
+playready
+playwright
+plesk
+plist
+plivo
+plone
+plotly
+plotly.js
+pluggable authentication module
+plunker
+pnuts
+podio
+point cloud library
+pointwise
+polarion alm
+polipo
+politemail software
+polkadot
+poll everywhere
+poloniex
+poltergeist
+polyspace
+polytron version control system
+poppulo
+portable applications
+portable extensible toolkit for scientific computation
+portable flight planning software
+porter stemmer
+portlet
+portmap
+portrait professional
+poser
+postcss
+postgis
+postscript
+postback
+postbooks
+postfix
+postgresql
+postman api platform
+postsharp
+pouchdb
+power bi
+powerbuilder
+powercadd
+powercli
+powerdns
+powerdvd
+powerdesigner
+powerfactory
+powerhouse
+poweriso
+powermill
+powerpoint animation
+powerschool
+powerteacher
+powervm
+powerapps
+powergui
+powermock
+powermockito
+powerpivot
+powerquery
+powtoon
+praat
+practice management software
+practiceworks
+pragmatic marketing framework
+praxis emr
+presonus studio one
+preact
+predictionio
+predictive analytics software
+predictive model markup language
+predix
+prelude hybrid ids
+preprocessor
+presagis creator
+presagis flightsim
+presagis panorama
+presagis vega prime
+presentation software
+prestashop
+prestodb
+prettyphoto
+prevx
+prezi
+primavera
+primerx
+primefaces
+primeng
+primopdf
+prinergy
+print module
+print servers
+printkey 2000
+printmaster
+printer command language
+printstream
+prism
+prisma access
+prisma cloud
+prisma orm
+prisma sase
+prisma sd wan
+private automatic branch exchange
+pro tools
+pro*c
+pro/desktop
+pro/engineer 2000i
+procite
+procoder
+proest
+proftpd
+promed-mail
+prorender
+prostat
+prosystem fx engagement
+proterm
+proc format
+processing.js
+processor resource/system manager
+procmail
+procore
+procreate
+procurement software
+productivity software
+profibus
+profile configuration files
+profile scripting language
+profiling
+profit center accounting
+program database
+program design languages
+program files
+programmable macro language
+programmer's hierarchical interactive graphics system
+programming environments
+programming tools
+progress chef
+progress db
+progress openedge
+progressive web apps
+proguard
+project kickstart
+project management information systems
+project management software
+project seed
+project.net
+projectwise
+projectplace
+projecturf
+prolog
+promela
+promethean planet
+prometheus
+promodel
+prompt engineering
+property management systems
+property specification language
+propertyware
+prophix
+proposal software
+proprietary software
+prosecutor's management information system
+protege
+proteinprophet software
+protel
+proto.io
+protoshare
+protocol analyzer
+prototype javascript framework
+prototype pattern
+prototype.js
+protractor
+provisioning tools
+proxmox
+psake
+psexec
+pspice
+psychopy
+psychtoolbox
+psycopg2
+ptrace
+ptree
+putty
+pubmed
+pubnub
+pugjs
+pulumi
+puppet
+puppeteer
+puppy linux
+pure data
+pushstate
+pwdump
+py.test
+pycaret
+pycharm
+pydev
+pygtk
+pymol
+pymongo
+pypy
+pyqt
+pyscripter
+pyside
+pyspark
+pytables
+pytorch
+pytorch lightning
+pybrain
+pygal
+pylint
+pypi
+pyqtgraph
+pyramid framework
+pyrocms
+python
+python imaging libraries
+python server pages
+python tools for visual studio
+pyunit
+pyxis medstation
+q#
+qad cloud erp
+qarun
+qbasic
+qdb
+qlab
+qnx
+qs/1
+qt creator
+qt quick
+qdrant
+qiskit
+qlik data integration platform
+qlik sense
+qlikmaps
+qlikview
+qooxdoo
+qt
+qt modeling language
+quagga
+qualnet
+qualitative data analysis software
+qualtrics
+qualtrics xm discover
+qualys
+qualysguard
+quantlib
+quantmod
+quantum espresso
+quantum gis
+quark copydesk
+quarkxpress design software
+quarkus
+quartz
+quartz composer
+quartz.net
+quasar
+quattro pro
+query analyzer
+query builder
+query designer
+query hints
+query languages
+querysurge
+querypath
+quest kace
+quest3d
+questa advanced verification
+quick emulator
+quickbasic
+quickbooks
+quickdraw
+quicktime
+quicktime broadcaster
+quicktime streaming servers
+quickview
+quickbase
+quickbuild
+quickc
+quicken
+quickform
+quicknet
+quicksort
+quiesce
+quite universal circuit simulator
+quma version control system
+qumu
+qunit
+quosal
+quotewerks
+r
+r base
+r-smlt
+r.net
+radioss
+ram structural system
+rdf query language
+redhawk sdr
+rest assured
+resteasy
+restful api
+revtex
+risc os
+rkward
+rmi-iiop
+rmx
+rox desktops
+rpl
+rpm package manager
+rpr problem diagnosis
+rrd4j
+rsa
+rsa archer
+rsa bsafe library
+rsa securid
+rsview
+rsx-11
+rstudio
+rtlinux
+rtxc quadros
+rabbitmq
+racket
+rackspace cloud
+ractive.js
+radrails
+radare2
+radeditor
+radgrid
+radian6
+radmin
+radvision
+radware
+railo server
+raima database management
+raincode pl/1
+raiser's edge nxt
+raiserror
+rally software
+rallydev
+ramaze
+ramdisk
+rancher
+rangefinder
+ranorex
+raphael.js
+rapid development and maintenance language
+rapid php editor
+rapid7
+rapidminer
+rapport loan origination system
+raptivity
+rasmol
+raster graphics editor
+rational requisite pro
+rational requisitepro
+rational rhapsody
+rational robot
+rational rose xde
+rational synergy
+ratpack
+rauth
+ravendb
+raw image format
+rbenv
+rcharts
+rdflib
+resharper
+restructuredtext
+retool platform
+rewire
+react hooks
+react jsx
+react native
+react native fbsdk
+react redux
+react router
+react-admin
+react.js
+reactivesearch
+reactivex
+reactstrap
+readyapi
+reaktor
+real time java
+real-time computer graphics
+real-time operating systems
+realflow
+realplayer
+realvideo
+realm-specific ip
+realsense
+reasonable server faces
+reasoning systems
+reaxys
+recharts
+recommender systems
+recordset
+recoverpoint
+recruitment software
+recurly
+recurrent neural network
+recyclerview
+red hat cloudforms
+red hat enterprise linux
+red hat satellite
+red5
+redhat pam
+redactor
+redbooth
+redcarpet
+redgate
+redis
+redline
+redmine
+redo backup and recovery
+redo log
+redraw
+redshift3d
+redux-saga
+refworks
+refal
+reference management software
+registry cleaner
+relational database management systems
+relational databases
+relax ng
+reliability availability maintainability and safety software
+reltio
+remedyforce
+remote administration software
+remote application platform
+remote application platforms
+remote data services
+remote desktop software
+remote graphics software
+remote registry
+remote service software
+remoteview
+renderman shading language
+renderware
+rendezvous routing daemon
+report definition language
+report designer
+report generators
+reportbuilder
+reporting tools
+reportlab
+reportserver
+requirejs
+research electronic data capture
+researchkit
+reshape2
+resilient distributed datasets programming
+resin servers
+resource description framework
+resque
+restify
+restlet
+restsharp
+rethinkdb
+retrieval augmented generation
+retrofit2
+retrospect
+reuters 3000 xtra
+revo uninstaller
+rexml
+rexx
+rfam
+rfc2822
+rfc822
+rfcomm
+rhel5
+rhel6
+rhel7
+rhinoceros 3d
+riak
+rich client platform
+rich internet application
+rich text format
+richcopy
+richfaces
+richtext
+rightfax
+ringcentral
+riot.js
+risa
+risk management information systems
+riverbed
+rjson
+rkhunter
+rmarkdown
+roblox
+robomongo
+robocopy
+roboguice
+robolectric
+robotc
+robotic automation software
+robotium
+rochade
+rocket chat
+rocket u2
+rocks cluster distribution
+rocksdb
+rockwell factorytalk
+rockworks
+rocky mountain basic
+role-based access control
+rollup
+roostify
+roundcube
+rowset
+roxio creator
+roxio toast
+rpmbuild
+rscript
+rspec
+rsync
+rsyslog
+ruby
+ruby on rails
+ruby version management
+rubycocoa
+rubygems
+rubymine
+ruleml
+rundeck
+runit
+runlevel
+rust
+rweka
+rx30
+rxjs
+rxjava
+rxswift
+s voice
+s-plus statistical software
+s/key
+sam learning
+samtools
+sap 2000
+sap 3.x
+sap 4.x
+sap aa
+sap apo
+sap accounts payable
+sap afaria
+sap analytics cloud
+sap applications
+sap ariba
+sap basis
+sap business bydesign
+sap business connector
+sap business intelligence
+sap business one
+sap business planning and consolidation
+sap business planning and simulation
+sap business suite
+sap business workflow
+sap businessobjects
+sap businessobjects analysis
+sap co
+sap crm
+sap cs
+sap composite application frameworks
+sap concur
+sap configuration
+sap connector
+sap contract lifecycle management
+sap dms
+sap devops
+sap ec
+sap ep
+sap erp
+sap ewm
+sap fi
+sap fi/co
+sap fm
+sap fieldglass
+sap financial management
+sap financial services
+sap fiori
+sap frontend
+sap functional
+sap gui
+sap governance risk and compliance analytics software
+sap hana
+sap human resource management software
+sap is retail
+sap is-u
+sap information steward
+sap infrastructure
+sap inventory management software
+sap iot
+sap jam
+sap java connector
+sap knowledge management
+sap knowledge warehouse
+sap logistics
+sap logistics execution system
+sap logistics information system
+sap lumira
+sap manufacturing execution
+sap material management
+sap mobile platform
+sap netweaver
+sap netweaver application servers
+sap netweaver business warehouse
+sap netweaver data management
+sap netweaver development infrastructure
+sap netweaver portals
+sap netweaver visual composer
+sap office
+sap plant maintenance
+sap point of sale
+sap process integration
+sap product lifecycle management
+sap production planning
+sap project management
+sap project system
+sap quality management
+sap r/3
+sap recipe management
+sap resource and portfolio management
+sap s/4hana
+sap sales and distribution
+sap security
+sap service management
+sap solution manager
+sap sovereign cloud
+sap successfactors
+sap supplier relationship management
+sap supply chain management
+sap sybase adaptive server enterprise
+sap sybase sql
+sap sybase sql anywhere
+sap technical architecture
+sap transportation management
+sap treasury and risk management
+sap tutor
+sap universe designer
+sap v3.x
+sap v4.x
+sap warehouse management
+sap xapp
+sars software products
+sas
+sas appdev studio
+sas business intelligence
+sas enterprise miner
+sas forecast servers
+sas integration technologies
+sas macros
+sas management console
+sas metadata servers
+sas olap servers
+sas scalable performance data servers
+sas statistical analysis
+sas text miner
+sas web olap viewer
+sas/iml
+sas/stat
+sass
+sbus
+scim- system for cross-domain identity management
+sco openservers
+scobol
+scorm cloud
+scss mixins
+scons
+sdl multiterm
+sdl trados
+sel acselerator
+semrush
+set language
+shazam
+sicstus prolog
+sim application toolkit
+sim lock
+simatic wincc
+simd
+simion
+simscript
+sinix
+sis advantx
+skm
+sms gateway
+snmp simulator
+soasta cloudtest
+socet set
+sofistik ag
+sonar
+sparql protocol and rdf query language
+spc xl
+spice
+spim
+spitbol compiler
+spss
+spss modeler
+spservices
+sql
+sql and java
+sql anywhere
+sql azure
+sql backup and restore
+sql common language runtime
+sql server agent
+sql server analysis services
+sql server compact
+sql server data tools
+sql server express
+sql server integration services
+sql server management objects
+sql server management studio
+sql server master data services
+sql server notification services
+sql server reporting services
+sql services
+sql*loader
+sql*plus
+sql-2003
+sql/persistent stored modules
+sqlalchemy
+sqldb
+sqlite
+sqlyog
+sqsh
+squirrel sql client
+srh-2d
+ssas 2012
+ssh filesystem
+staad
+statistica
+sudaan
+superantispyware
+suse linux
+suse linux distributions
+suse linux enterprise desktops
+suse linux enterprise servers
+swfobject
+swish
+swish max
+sys/bios
+saas security
+saasops
+sablecc
+sabre
+sabretalk
+saccharomyces genome databases
+safari
+safe modes
+safires
+sage 100 erp
+sage 300 construction and real estate
+sage 50
+sage accounting software
+sage erp
+sage erp accpac
+sage geode
+sage intacct
+sahi
+saiku
+sails.js
+sales automation software
+sales force management systems
+sales intelligence
+salesforce
+salesforce chatter
+salesforce commerce cloud
+salesforce datorama
+salesforce einstein
+salesforce experience cloud
+salesforce journey builder
+salesforce lightning
+salesforce marketing cloud
+salesforce marketing cloud engagement
+salesforce nonprofit cloud
+salesforce object query language
+salesforce object search language
+salesforce sales cloud
+salesforce security
+salesforce service cloud
+salesforce social studio
+salesforce steelbrick
+salesforce1
+salonbiz
+salsify pxm
+salt stack
+sam broadcaster
+samba
+samepage
+samsung kies
+sandcastle
+sandde
+sapui5
+sassy cascading style sheets
+sather
+saucelabs
+saviynt
+sbjson
+scala
+scala.js
+scalatest
+scalatra
+scalaz
+scalding
+scanline
+scapy
+scattered castles
+sceneform
+scenegraph
+scenekit
+schema markup
+schema.org
+schemaless
+schematic editor
+schematron
+scheme
+schoology
+scidb
+scipy
+scichart
+sciencedirect
+sciencelogic
+scientific linux
+scientific vector languages
+scientific workplace
+scientificpython
+sciforma
+scikit-learn
+scilab
+scirus
+scitopia
+scopus
+scorewriter
+scrapy
+scratch live
+scratch programming
+screaming frog
+screenconnect
+screenflow
+script component
+script debuggers
+script.aculo.us
+scriptmanager
+scrollview
+scylladb
+sdwebimage
+seabed
+seaborn
+securom
+secure copy
+secure data recovery
+secure ftp
+secure operating systems
+secure shell protocol
+secure web gateways
+secure/multipurpose internet mail extensions
+securecrt
+security assertion markup language
+security descriptor definition language
+security onion
+security orchestration automation and response
+security software
+security support provider interface
+sed
+sedna
+seetest
+seesaw
+segment
+sekchek local
+select case
+selendroid
+selenide
+selenium
+selenium grid
+selenium webdriver
+selenium2library
+selinux
+semware editor
+semantic application design languages
+semantic interoperability
+semantic kernel
+semantic reasoner
+semantic ui
+semantic web rule language
+semantic web services
+semanticworks
+semaphore
+sencha touch
+sendgrid
+sendmail
+seneca.js
+sensu
+sentry.io
+seq2seq
+sequel pro
+sequelize.js
+sequent
+serde
+serializer
+server pages
+server side includes
+serverspec
+service data objects
+service management facility
+service object
+service provisioning markup language
+servicemax
+servicenow
+servicenow discovery
+servicestack
+servicev
+servicecontract
+servicepacks
+sessionid
+settimeout
+setuptools
+sewercad
+sframe
+sguil
+shading language
+shadow copy
+shadowprotect
+shale
+shapefile
+shard
+sharegate
+shareplex
+sharepoint framework
+sharepoint portal server
+shareaza
+shared objects
+shared variables
+shared web hosting services
+shareware
+sharity
+sharpdevelop
+sharpziplib
+shell commands
+shell script
+shellcode
+shibboleth
+shield ui
+shiny
+shipconstructor
+shiprush
+shipworks
+shogun
+shopify
+shopify app
+shopify templates
+shopping cart software
+shopware
+shorewall
+shortcode
+shoulda
+showit website builder
+sibelius
+sidekiq
+sidra intersection
+siebel crm
+siebel eai
+siebel ecommunications
+siebel eim
+siebel eautomotive
+siebel echannel
+siebel econfigurator
+siebel ecustomer
+siebel eenergy
+siebel efinance
+siebel email response
+siebel epharma
+siebel escript
+siebel eservice
+siebel field services
+siebel finance
+siebel marketing
+siebel remote
+siebel services
+siebel vb
+siebel wireless
+siebel workflow
+siemens apogee
+siemens building automation systems
+siemens capital software
+siemens control systems
+siemens desigo
+siemens invision
+siemens nx
+siemens soarian
+siemens spectrum
+sierra print artist
+sigar
+sigmaplot
+sigmascan
+sigmaxl
+sign in enterprise
+signalr
+signiant
+signtool
+sikuli script
+silex
+silk performer
+silk test
+silverstripe
+simatic s5 plc
+simba
+simcad pro
+simdis
+simics
+simple api for xml
+simple logging facade for java
+simplelegal
+simpletext
+simpletest
+simply accounting
+simscape
+simul8
+simulation software
+simulink
+sinatra
+sinequa
+single sign-on
+single unix specification
+sinon
+sip express router
+sip stack
+sirikit
+sisense
+site studio
+sitecore
+sitefinity
+sitemappath
+sitemaps
+siteminder
+size classes
+sizer
+sizmek
+skai
+sketch
+sketchup
+sketchapp
+sketchflow
+skflow
+skimage
+skrollr
+skykick
+skybox security
+skype for business
+slack
+slackbot
+slackware
+slax
+sleuth kit
+slicehost
+slickedit
+slickgrid
+slideshare
+slim framework
+slurm
+smaart
+small business software
+smallbasic
+smalltalk
+smart objects
+smartbid
+smartclient
+smartdraw
+smartfocus
+smartsketch
+smartspice
+smarttest
+smartgit
+smartgwt
+smartlist
+smartos
+smartsheet
+smartstream
+smarty
+smooks
+smtpclient
+smtpd
+snagit
+snap lens studio
+snaplogic
+snapstream
+snapchat
+snipping tool
+snmpd
+snort
+snow
+snowflake
+soap client
+soapui
+soapsonar
+sobel
+socat
+social crm
+social media apis
+social service payment system
+socialengine
+sockjs
+socket.io
+socrata
+softap
+softdent
+softlayer
+softmed
+softimage 3d
+softrax
+software adapters
+software features
+software modules
+software plus services
+software suite
+software systems
+software testing automation framework
+software testing life cycle
+software updater
+software-defined data center
+solace
+solarwinds
+solaris
+solaris containers
+solaris multiplexed i/o
+solaris trusted extensions
+solaris volume manager
+solarsoft
+solid edge
+solidworks
+solidity
+solrcloud
+sonarqube
+sonatype
+sonic logging
+sonic scenarist
+sonicwall
+sony anycast
+sony vegas movie studio
+sony vegas pro
+sorenson media
+sorenson squeeze
+sort-merge
+sortsite
+sound blaster
+soundedit
+soundboards
+soundcloud
+soundscape
+soundslides
+soundtrack pro
+source
+source code control systems
+source codes
+source depot
+sourcegear vault
+sourcetree
+sourceforge
+sovereign cloud
+spacy
+space communications protocol specifications
+spaceclaim
+spaghetti plot
+spagobi
+spamassassin
+spambayes
+spambot
+spark core
+spark dataframes
+spark framework
+spark view engine
+sparkr
+sparse
+spatial data transfer standards
+spatial databases
+spatialite
+spdy
+spec sharp
+specflow
+specrun
+specs2
+spectre circuit simulator
+spectrum address validation software
+speech recognition software
+speech synthesis markup language
+speedfan
+speedtree
+speex
+spheris
+sphero
+sphinx documentation generator
+sphinx search engine
+sphinx speech recognition
+spiceworks
+spider
+spider project
+spine.js
+spinnaker
+splashtop
+splunk
+splunk enterprise security
+spock
+spoon
+spotfire
+spotify
+spreadsheetml
+spreadsheetgear
+spring aop
+spring batch
+spring boot
+spring cloud
+spring cloud config
+spring cloud gateway
+spring cloud netflix
+spring cloud stream
+spring data
+spring framework
+spring integration
+spring mvc
+spring security
+spring webflux
+spring.net
+springsource
+springboard
+sprinklr
+sprite
+spritekit
+sprout social
+sproutcore
+spry framework
+spy sweeper
+spy++
+spyfu
+spyware
+sql manager
+sql optimization
+sql view
+sqlanywhere
+sqlcipher
+sqlcommand
+sqljdbc
+sqlmap
+sqlmetal
+sqlperformance
+sqlprofiler
+sqlxml
+sqoop
+sqoop2
+squarespace
+squeak
+squid
+squirrelmail
+ssas 2008
+ssas tabular
+ssh keys
+ssrs 2000
+ssrs 2005
+ssrs 2012
+stable diffusion
+stack buffer overflow
+stack overflow
+stack trace
+stackdriver
+staffing software
+standard generalized markup language
+standard sql
+standard template libraries
+standard template library
+standard widget toolkits
+starlan
+starteam
+staruml
+starling framework
+startlogic
+startos
+statplus
+statview
+statxact
+stata
+statamic
+state chart xml
+stateflow
+stateful firewall
+statgraphics
+static files
+static html
+static import
+static library
+static members
+statistical packages
+statistical software
+statsd
+statsmodels
+statspack
+stdin
+steamvr
+steel bank common lisp
+steinberg nuendo
+stencil.js
+stetho
+stimulsoft reports
+stockpile
+stornext file systems
+storagetek automated cartridge system library software
+stored functions
+storekit
+storm botnet
+stormcad
+storymill
+storybookjs
+strace
+strapi
+strategic planning software
+stratosphere
+stratus vos
+streamsets
+streamlit
+stripe connect
+stripe.net
+strongswan
+strongloop
+structural engineering software
+structured query language procedural language
+structured query reporter
+structuremap
+stsadm
+student information systems
+studio webware
+studiometry
+stuffit expander
+stunnel
+stylecop
+styled-components
+stylevision
+stylus
+stylus studio
+subclipse
+subdocuments
+subgit
+sublime text editor
+sublimetext2
+sublimetext3
+substance designer
+substance painter
+sudo
+sugarcrm
+suitecommerce
+suitecrm
+suitescript
+suitetalk
+sumtotal systems
+sumo paint
+sun glassfish enterprise servers
+sun java system web proxy server
+sun java wireless toolkits
+sun microsystems
+sun one
+sun servers
+sun xvm
+sun-1
+sunos
+sunopsis
+sunscreen
+supabase
+supertest
+superwaba
+superb internet
+supernetwork
+supernova
+superscan
+supervisord
+supply chain software
+surfaceflinger
+surfaceview
+surgery simulator
+surround scm
+survey platforms
+surveymonkey
+svelte
+sveltekit
+svn client
+svn repository
+svn server
+swagger ui
+swift
+swift 3d
+swing
+swingworker
+swiper
+swivel
+sybase
+sybase iq
+sybase powerdesigner
+sybase rap
+syclo
+sylius
+syman
+symantec altiris
+symantec backup exec
+symantec endpoint protection
+symantec workspace virtualization
+symbian
+symbian s60
+symbolic link
+symfony
+symfony1
+symfony3
+symmetric hierarchical memory access
+symmetric key
+symmetrix
+sympy
+synapse citrix
+synaptic
+sync
+syncback
+syncada
+syncfusion
+synchro
+synchronized multimedia integration language
+syncsort
+synfig
+synon/2e
+synopsys primetime
+synopsys vcs
+syntaxnet
+syntext serna
+synthesio
+sysmaster
+sysdate
+sysdba
+sysfs
+sysinternals
+syslog
+sysomos
+system 7
+system center configuration manager
+system generator
+system image utilities
+system modification program/extended
+system preferences
+system profiler
+system programming language
+system properties
+system recovery
+system shutdown
+system software
+system status
+system.net.mail
+systemc
+systemjs
+systemverilog
+systemd
+systeme de publication pour l'internet
+systems modeling language
+systems tool kit
+systemtap
+systrace
+systray
+syteline
+t9
+tbox
+tc shell
+tcp wrapper
+tcpware
+thttpd
+ti interactive!
+tibco activematrix
+tibco activeenterprise
+tibco adapters
+tibco business studio
+tibco businessevents
+tibco businessworks
+tibco designer
+tibco ems
+tibco hawk
+tibco rendezvous
+tibco iprocess engine
+tkprof
+tmw systems
+trak
+transyt
+trnsys
+tsis-corsim
+ttcn
+turbomole
+tvml application
+typo3
+tableau
+tableau crm
+tablespace
+tachyon
+taglib
+tagged image file format
+tailwind css
+taishanese
+talend
+talend open studio for data quality
+taleo
+tally erp
+tally system
+tandberg movi
+tandem advanced command language
+tanium
+tao framework
+tap changer
+tape management systems
+targetlink
+targetprocess
+task parallel library
+taskbar
+taskstream
+tastypie
+tax compliance software
+tax software
+taxstream
+taxact
+taxware
+tchar
+tcl
+tclx
+tclsh
+tcpdump
+tcserver
+texworks
+tealeaf
+tealium
+team explorer
+team foundation server
+teamforge
+teamquest
+teamspeak
+teamviewer
+teamcenter
+teamcity
+teamsite
+tebis
+tech genie
+techexcel servicewise
+techsmith capture
+techlog
+technical analysis software
+technical data management systems
+technical translation
+technology cad
+technology compatibility kit
+techsmith morae
+tecnomatix
+tecplot
+teechart
+teiid
+tekla
+teleform
+telenav
+telegraf
+telematics
+telephony
+telephony application programming interface
+telepresence
+teleprocessing networks
+telerik
+telerik mvc
+telerik reporting
+teleview
+telnet
+temenos quantum visualizer
+tempdata
+tempdb
+template function
+template toolkits
+temporal.io
+tendermint
+tensorflow
+tera term
+teratext
+teradata aster
+teradata bi
+teradata fastload
+teradata parallel transporter
+teradata queryman
+teradata sql
+teradata warehouse miner
+term life insurance
+termcap
+terminal access controller access-control system
+terminal emulators
+terracotta
+terraform
+terragen
+terragrunt
+tessent
+tesseract
+tessitura
+test automation management tools
+test kitchen
+test management tools
+test runner
+test studio
+test suite
+testdirector
+testlink
+testng
+testproject
+teststand
+testtrack
+testcafe
+testcomplete
+testdroid
+testflight
+testrail
+tetgen
+texinfo
+text database
+text editor
+text template transformation toolkits
+textedit
+textmate
+textpad
+textfield
+textview
+tfs2008
+tfs2010
+tfs2012
+tfs2013
+tfs2015
+tfsbuild
+tgrid
+the open group architecture framework
+thea render
+theano
+theforeman
+thermal desktop
+thesaurus
+thinkvantage technologies
+thinkific
+thomas register
+thomson reuters eikon
+thread dump analysis
+threadfix
+threadx
+threading building blocks
+threadpool
+threatconnect
+three.js
+thunderhead
+thymeleaf
+tidyr
+tidyverse
+tigervnc
+tigerpaw one
+tightvnc
+tiktok
+tilde
+tilemill
+time servers
+time tracking software
+timeclock plus
+timemap
+timextender
+timeit
+timesten
+tinkercad
+tinkerplots
+tinymce
+tinyurl
+tinyxml
+tippingpoint
+tivoli application dependency discovery manager
+tivoli enterprise console
+tivoli identity manager
+tivoli service automation management
+tizen
+tk
+tkinter
+tlist
+tmux
+tnsnames
+toad data modeler
+toastr
+toggl
+tokbox
+token ring
+tokudb
+tokumx
+tomcat5.5
+tomcat7
+toolbook
+toolchain
+toolkits
+toon boom
+toplink
+topshelf
+topsoil
+tortoisecvs
+tortoisegit
+tortoisehg
+tortoisesvn
+total commander
+total video converter
+totalchrom
+totally integrated automation portal
+touchpoint
+trace32
+tracegains
+tracepro
+traceur
+trackwise
+tradestations
+traefik
+transcad
+transact-sql
+transaction application language
+transaction control language
+transaction processing facility
+transaction processing systems
+transaction signature
+transbase
+translation memory exchange
+transparent languages
+transpiler
+transportation management systems
+trapeze
+travis ci
+tree maps
+tree view
+trello
+trend micro internet security
+trizetto facets
+trizetto qnxt
+tribon
+tricentis tosca
+trichrome
+tridion
+tridion content delivery
+trifacta
+trimble accubid
+trinity rescue kit
+trip rate information computer system
+triplestore
+trixbox
+troux
+tru64 unix
+true basic
+truesight automation for servers
+truffle
+trunks integrated record keeping systems
+truss
+tsclient
+tslint
+tsqlt
+tsung
+tuba
+tuleap
+tumblr
+turbo assembler
+turbo basic
+turbo pascal
+turbocad
+turbogears
+turbosquid
+turbotax
+turnitin
+tuxedo
+tweenmax
+tweepy
+tweetdeck
+twig
+twilio
+twincat
+twinmotion
+twisted
+twitter4j
+typeorm
+typepad
+typescript
+typeahead
+typemock
+typoscript
+u-sql
+ucsc genome browser
+ucsd pascal
+ucsf chimera
+uclibc
+uclinux
+udop
+udig
+ui components
+uicollectionview
+uikit
+uiscrollview
+uistoryboard
+uitableview
+uiviewcontroller
+uiwebview
+uikit
+uml tool
+unigine engine
+univac exec
+url redirection
+uunet
+uxpin
+ubersuggest
+ubercart
+ubuntu
+ucode system
+udeploy
+uipath
+uianimation
+uicontrol
+uiimage
+uitest
+uiview
+ulead dvd moviefactory
+ulead mediastudio pro
+ulead photoimpact
+ultipro
+ultimate packer for executables
+ultimate paint
+ultra 60
+ultraedit
+ultraiso
+ultratax
+ultravnc
+ultragrid
+ultrix
+umask
+umbraco
+umple
+unbounce
+underscore.js
+unica nettracker
+uniflex
+uniprot
+unicode
+uniface
+unified endpoint management
+unified expression languages
+unified messaging
+unified modeling language
+unified parallel c
+unified speech and audio coding
+uniform servers
+unisys dmsii
+unisys mcp programming languages
+unit4 erp
+unitils
+unittest2
+unity container
+unity engine
+unityscript
+universal database
+universal image loader
+universal input method
+universal plug and play
+universal software radio peripherals
+universal windows platform
+unix
+unix commands
+unix file systems
+unix kernel
+unix security
+unix shell
+unix system iii
+unix system services
+unix system v
+unix tools
+unixware
+unmount
+unobtrusive javascript
+unpivot
+unreal blueprint
+unreal development kit
+unreal engine
+unrealscript
+unscrambler
+uptime
+urbansim
+urllib
+urllib2
+usabilityhub
+usenet
+user defined functions
+user interface quartz
+user-mode driver framework
+userform
+usertesting.com
+userzoom
+userzoom go
+usergroups
+userspace
+ustream
+util-linux
+utility software
+utl file
+uwsgi
+v-ray
+vasm
+vbscript
+vcard
+vcarve pro
+vcloud
+vhsic hardware description language
+visi
+vlan hopping
+vlan management policy server
+vlc media player
+vm
+vmware nsx-t
+vmware workspace one
+vmware aria automation
+vmware aria automation orchestrator
+vmware aria operations
+vmware aria operations for logs
+vmware aria suite
+vmware esx servers
+vmware fusion
+vmware horizon view
+vmware infrastructure
+vmware player
+vmware servers
+vmware thinapp
+vmware vmfs
+vmware vrealize orchestrator
+vmware vsphere
+vmware virtual desktop infrastructure
+vmware virtual machine
+vmware virtualization
+vmware workstation
+vmware vcenter
+vmware vrealize suite
+vp/ms
+vpn tunnels
+vpython
+vs code
+vs/9
+vsco app
+vse
+vtex
+vaadin
+vagrant
+valgrind
+validationrule
+valor pbc
+value at risk
+valve hammer editor
+variable data intelligent postscript printware
+varicent
+varray
+vbrick
+vbulletin
+vector database
+vector graphics editor
+vector markup language
+vector nti
+vectorworks
+veeam
+veeva
+veloce
+velocity engine
+venafi
+vendavo
+ventrilo
+ventuz
+veracode
+veradigm
+vercel platform
+vericut
+verifone
+verilator
+verilog
+verisign
+veritas file systems
+veritas netbackup
+veritas software
+veritas storage foundation
+veritas volume manager
+vero data-driven email marketing software
+versant object database
+version 7 unix
+version control software
+vert.x
+vertex ai
+vertex buffer object
+vertica
+vespa
+vhosts
+vhsic
+viber
+video acceleration api
+video calibration software
+video editing software
+video email
+video.js
+videoscribe
+videochat
+videoscape distribution suite
+viewmodel
+viewbag
+viewport
+viewstack
+vim
+vim script
+vimeo
+violin memory
+virsh
+virtual application
+virtual camera systems
+virtual cells
+virtual console
+virtual data room
+virtual disk
+virtual file systems
+virtual firewall
+virtual folder
+virtual hard disks
+virtual keyboard
+virtual lab automation
+virtual learning environments
+virtual machine interface
+virtual machines
+virtual path
+virtual private cloud
+virtual protocol interconnect
+virtual reality modeling language
+virtual routers
+virtual tape libraries
+virtualbox
+virtualdj
+virtualenv
+virtualmin
+virtuozzo
+virustotal
+visibroker
+visier
+vision-something-library
+visionplus
+visme
+vistapro
+visual assist
+visual basic
+visual basic .net
+visual basic for applications
+visual c++
+visual cafe for java
+visual component library
+visual editor
+visual foxpro
+visual interdev
+visual intercept
+visual modflow
+visual mind
+visual molecular dynamics
+visual objects
+visual paradigm for uml
+visual programming language
+visual prolog
+visual search engine
+visual studio extensibility
+visual studio online
+visual studio tools for office
+visualcron
+visualvm
+visualworks
+visualforce
+visualization toolkit
+vite js
+vivavideo
+vivado
+vivex
+vizor.io
+vizrt
+vmstat
+vnext
+vofr
+vocus
+voice browser
+voice search optimization
+voiceflow
+voltdb
+volusion
+vopt
+vorbis
+vowpal wabbit
+voxpro
+vscode
+vsftpd
+vstest
+vtiger crm
+vtigercrm
+vtune
+vue components
+vue router
+vue.js
+vuepress
+vuejs2
+vuetify
+vuex
+vuforia
+vulkan graphics api
+vxworks
+vyond
+vyper
+waterloo fortran iv
+wcf security
+wcf/web api
+wien2k
+wkwebview
+wmlscript
+wms
+wp query
+wpf controls
+wpf toolkit
+ws-security
+wso2 esb
+wacom
+wampserver
+war files
+warehouse management systems
+watchify
+watchkit
+watchman
+watcom c/c++ compilers
+water evaluation and planning system
+watercad
+watin
+watir
+watson conversation
+watson iot
+watson lims
+watson studio
+waveburner
+wavelab
+wavemaker
+wavelet
+waypoint
+wazuh
+wcf 4
+wcf data services
+wcf rest
+webwork
+wepay payments
+wear os
+weatherbug
+weaviate
+web accelerator
+web appbuilder
+web application attack and audit framework
+web application description language
+web application frameworks
+web applications
+web audio api
+web browser engine
+web console
+web container
+web content management systems
+web crawling
+web design programs
+web development tools
+web distributed data exchange
+web dynpro
+web dynproing
+web feature service
+web frameworks
+web graphics
+web ide
+web language
+web ontology language
+web operating systems
+web parts
+web rule languages
+web sql databases
+web search query
+web servers
+web services description language
+web services distributed management
+web services enhancements
+web services test forum
+web tools platform
+web widget
+web worker
+web.xml
+web2go
+web2py
+web3.js
+webcis
+webconfig
+webdev
+webgl
+webgui
+webhost manager
+webkit
+webm
+webmethods
+webmethods flow
+webmethods integration server
+webos
+webobjects
+webql
+webquest
+webrtc
+webscarab
+websocket
+webspeed advanced business language
+websphere optimized local adapters
+webstorm
+webstudy learning lms
+webvr
+webworks
+webalizer
+webapi2
+webapp2
+webcal
+webdav
+webdriverio
+webex teams
+webflow
+webforms
+webgrid
+webhdfs
+webix
+weblogic11g
+weblogic12c
+webmethods glue
+webmin
+webpack
+webpack 2
+webpack 4
+webproxy
+webroot antivirus with spy sweeper
+webseal
+websense
+webservice client
+webshop
+website builder
+webtest
+webtrends
+weebly
+weka
+wercker
+westlaw
+wget
+whatsup gold
+wherescape
+whmcs
+wi-fi direct
+wifi explorer
+wimax
+wideband networking waveform
+widevine
+widget toolkit
+wijmo
+wiki markup
+wiki software
+wikitude
+wildfly
+win32 thread information block
+winautomation
+winbugs
+winbuilder
+wincomm
+wincross
+windbg
+windvd
+windev
+winedt
+wininstall
+winimage
+winjs
+winmerge
+winrar
+winscp
+winzip
+winavr
+winbatch
+wind rose
+window cli
+window managers
+windowblinds
+windowing systems
+windows 2000 security
+windows api
+windows app studio
+windows audio session api
+windows automated installation kit
+windows cardspace
+windows communication foundation
+windows console
+windows controls
+windows dvd maker
+windows defender
+windows desktop
+windows driver foundation
+windows driver kit
+windows embedded
+windows embedded ce 6.0
+windows essential business server 2008
+windows essentials
+windows firewall
+windows forms
+windows identity foundation
+windows image acquisition
+windows imaging components
+windows imaging format
+windows installer
+windows installer xml
+windows interface source environment
+windows internet name services
+windows journal
+windows legacy audio components
+windows live id
+windows live mail
+windows live mesh
+windows live writer
+windows logo kit
+windows mail
+windows management instrumentation
+windows media
+windows media player
+windows messaging
+windows messenger
+windows metafile
+windows mobile
+windows movie maker
+windows multipoint servers
+windows package management
+windows performance analyzer
+windows performance monitor
+windows performance recorder
+windows performance toolkit
+windows photo gallery
+windows powershell
+windows preinstallation environments
+windows presentation foundation
+windows rt
+windows registry
+windows remote assistance
+windows script host
+windows search
+windows security
+windows server update services
+windows server virtualization
+windows servers
+windows service
+windows sharepoint services 3.0
+windows shell
+windows small business servers
+windows software
+windows steadystate
+windows store
+windows support
+windows system recovery
+windows template libraries
+windows user
+windows virtual pc
+windows workflow foundation in .net 4
+windows64
+windward reports
+wing ide
+wings 3d
+winhttp
+winmain
+winpepi
+winrm
+winrs
+winshuttle
+winsock
+winsockets
+wirecast
+wiredtiger
+wireless markup language
+wireless security
+wireless tools for linux
+wiremock
+wireshark
+wise package studio
+wistia
+wit.ai
+wix.com
+wolfram mathematica
+wonderware
+woocommerce
+word vba
+wordbasic
+wordnet
+wordpad
+wordpress
+wordpress admin
+wordpress rest api
+wordfast
+wordmark
+wordpress ecommerce
+workfusion
+worknc
+workamajig
+workbench
+workbooks crm
+workday
+workday adaptive planning
+workflow apis
+workflow engine
+workforce investment act
+workgroup manager
+worksoft certify
+world wide web
+worldpay
+worldwind
+wowza
+wrike
+writenow
+wsadmin
+wspbuilder
+wss4j
+wubi
+wufoo
+wunderlist
+wxglade
+wxpython
+wxwidgets
+wyse management suite
+x bitmaps
+x platform
+x terminals
+x window selection
+x window system
+x++
+x.400
+x/ptr
+x264
+x265
+x86 assembly languages
+xaml browser applications
+xamlpad
+xampp
+xaudio2
+xbrl
+xbase
+xbasic
+xcbl
+xcf
+xcuitest
+xcal
+xcircuits
+xdoclet
+xemacs
+xfa
+xfoil
+xhq
+xhtml mobile profiles
+xldeploy
+xlisp
+xload
+xlstat
+xlink
+xmd
+xml concepts
+xml data package
+xml databases
+xml editor
+xml encryption
+xml firewall
+xml for analysis
+xml information set
+xml interface for network services
+xml libraries
+xml literals
+xml localisation interchange file format
+xml markup languages
+xml notepad
+xml pipeline
+xml schema
+xml schema editor
+xml script
+xml signatures
+xml transformation languages
+xml transition network definition
+xml-based programming languages
+xmlbeans
+xmlspy
+xmlhttprequest
+xmetal
+xoftspy portable anti-spyware
+xoops
+xpc target
+xpediter
+xpages
+xpath
+xplanner-plus
+xpointer
+xquery
+xry
+xstream
+xtk software
+xtalk
+xtree
+xtuple
+xul
+xupdate
+xwiki
+xxgdb
+xacml
+xacta
+xactimate
+xactly
+xajax
+xalan
+xamarin
+xamarin studio
+xamarin.ios
+xamarin.mac
+xamdatagrid
+xara photo and graphic designer
+xargs
+xbox development kit
+xcalibur
+xceed
+xcelerator
+xcelsius
+xcodebuild
+xcopy
+xctest
+xdebug
+xedit
+xen cloud platform
+xen servers
+xendesktop
+xenforo
+xenix
+xenomai
+xerces
+xero
+xeround
+xerox docushare
+xfig
+xfinity streampix
+xforms
+xfs
+xgboost
+xilinx edk
+xilinx ise
+xinetd
+xinu
+xitami
+xmind software
+xml documentation
+xml dtd
+xml generation
+xmldoc
+xmlunit
+xoreax grid engines
+xpdl
+xpedition enterprise
+xperf
+xplenty
+xpress pro
+xsan
+xsens
+xserve
+xtable
+xtend - modernized java
+xtext
+xtradb
+xtrareport
+xtremio
+xtrieve
+xunit.net
+xwork
+xylogics
+xymon
+yaml
+yara
+yui libraries
+yast
+yacc
+yahoo! search marketing
+yahoo! user interface library
+yamaha pro audio
+yammer
+yandex
+yardi
+yellowdog updater modified
+yeoman generator
+yet another flash file system
+yii php framework
+yoast
+yocto project
+yodlee
+yoix
+youtrack
+youtube api
+yourkit
+yslow
+z shell
+z39.50 standard
+zbrush
+zk framework
+zthreads
+zabbix
+zapier
+zen cart
+zen coding
+zenhub
+zend framework
+zend servers
+zend studio
+zendesk
+zendesk api
+zenoss
+zenworks application virtualization
+zenworks patch management
+zeplin
+zepto
+zero-configuration networking
+zeromq
+zeroheight
+zerto
+zetta
+zettabyte file system
+zeus web server
+zigbee
+zikula
+zimbra
+zipkin
+zocdoc
+zoho office suite
+zone file
+zonealarm
+zoom
+zope
+zotero
+zpanel
+zuken
+zuora
+zurb foundation
+zxing
+zypper
+ag-grid
+amcharts
+cadvisor
+curl
+dashdb
+e-builder
+eclinicalworks
+emagic
+etapestry
+fasttext
+getview
+icims
+idefense
+iknowmed ehr
+imessage extension
+inews
+ios charts
+ioffice
+ireport designer
+isqft
+jmock
+jspm
+jsgrid
+libp2p
+macos mojave
+macos sierra
+mlpack
+mod_perl
+mothur
+nant
+npm
+oneapi
+opensmile
+phpbb
+phpdesigner
+phpfox
+phplist
+qtest
+spatialnet
+tvos
+vmix
+watchos
+z/os

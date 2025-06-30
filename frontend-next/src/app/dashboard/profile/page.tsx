@@ -2,18 +2,17 @@
 // Now client side
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client'; // Use client-side Supabase
-import { useAuth } from '@/contexts/AuthContext'; // Assuming you have AuthContext setup
+import { createClient } from '@/utils/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 import type { User } from '@supabase/supabase-js';
 
-// --- Interfaces (can be moved to a types file) ---
 interface UserProfile {
   user_id: string;
   first_name?: string | null;
   middle_name?: string | null;
   last_name?: string | null;
   preferred_name?: string | null;
-  email?: string | null; // This might come from auth.user primarily
+  email?: string | null;
   phone?: string | null;
   address_line1?: string | null;
   address_line2?: string | null;
@@ -144,21 +143,15 @@ export default function ProfilePage() {
           workFromCache = true;
         }
       }
-      // If all data is fresh from cache, we might consider not showing loader or stopping early
-      // For now, we'll always fetch fresh in background to update.
       if (profileFromCache && eduFromCache && workFromCache) {
-        // console.log("All profile data loaded from fresh localStorage cache.");
-        // setIsLoading(false); // Optionally stop loading if all fresh from cache
       }
     } catch (e) {
       console.error("Error reading profile data from localStorage", e);
-      // Clear potentially corrupted items
       localStorage.removeItem(profileKey);
       localStorage.removeItem(educationKey);
       localStorage.removeItem(workExpKey);
     }
 
-    // Fetch fresh data from Supabase
     try {
       const [profileResult, educationResult, workExperienceResult] = await Promise.all([
         supabase.from('user_profile').select('*').eq('user_id', currentUser.id).single<UserProfile>(),

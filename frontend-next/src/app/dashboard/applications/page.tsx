@@ -3,17 +3,16 @@
 // Now client side
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client'; // Client-side Supabase
-import { useAuth } from '@/contexts/AuthContext'; // Assuming you have this from previous setup
+import { createClient } from '@/utils/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 import type { User } from '@supabase/supabase-js';
 
 interface Application {
-  id: string; // or number, ensure this matches your DB schema
+  id: string;
   job_title: string;
   company_name: string;
   application_date: string | null;
   status: string;
-  // Add other fields as needed
 }
 
 interface CachedApplications {
@@ -22,20 +21,19 @@ interface CachedApplications {
 }
 
 const initialApplications: Application[] = [];
-const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION_MS = 60 * 1000; // 5 minutes
 
-// Helper to fetch applications from Supabase
 async function fetchApplicationsFromDB(userId: string, supabaseClient: ReturnType<typeof createClient>): Promise<Application[]> {
-  console.log(`Workspaceing applications for user ${userId} from database`); // For debugging
+  console.log(`Workspaceing applications for user ${userId} from database`);
   const { data, error } = await supabaseClient
-    .from('application') // Ensure 'application' is your correct table name
+    .from('application')
     .select('id, job_title, company_name, application_date, status')
     .eq('user_id', userId)
     .order('application_date', { ascending: false });
 
   if (error) {
     console.error("Error fetching applications from DB:", error.message);
-    throw error; // Throw error to be caught by caller
+    throw error;
   }
   return (data as Application[]) || [];
 }
@@ -52,7 +50,6 @@ export default function ApplicationsPage() {
     setFetchError(null);
     const localStorageKey = `applications-${currentUser.id}`;
 
-    // 1. Try to load from localStorage
     const cachedItem = localStorage.getItem(localStorageKey);
     if (cachedItem) {
       try {
@@ -61,9 +58,8 @@ export default function ApplicationsPage() {
           setApplications(parsedCache.data);
           setIsLoading(false);
           console.log("Loaded applications from fresh localStorage cache.");
-          return; // Data is fresh enough, no need to fetch from DB immediately
+          return;
         }
-        // If cache is stale, we'll still set it for instant UI, then fetch fresh below
         setApplications(parsedCache.data);
         console.log("Loaded applications from stale localStorage cache, will refresh.");
       } catch (e) {
@@ -72,7 +68,6 @@ export default function ApplicationsPage() {
       }
     }
 
-    // 2. Cache miss or stale cache -> fetch from DB
     try {
       const freshApplications = await fetchApplicationsFromDB(currentUser.id, supabase);
       setApplications(freshApplications);
@@ -84,7 +79,6 @@ export default function ApplicationsPage() {
       console.log("Fetched fresh applications and updated localStorage.");
     } catch (error) {
       setFetchError("Could not fetch applications. Please try again later.");
-      // applications will retain stale cache data or be empty if no cache
     } finally {
       setIsLoading(false);
     }
@@ -92,24 +86,21 @@ export default function ApplicationsPage() {
 
   useEffect(() => {
     if (authLoading) {
-      setIsLoading(true); // Keep loading while auth state is being determined
+      setIsLoading(true);
       return;
     }
 
     if (user) {
       loadApplications(user);
     } else {
-      // No user, clear applications and stop loading
       setApplications(initialApplications);
       setIsLoading(false);
-      setFetchError(null); // Or set a "please log in" message
-      // Consider clearing localStorage if you want, though user-specific keys handle separation
+      setFetchError(null);
     }
   }, [user, authLoading, loadApplications]);
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return 'N/A';
-    // Ensure date parsing is robust, consider timezones if they are stored in UTC
     return new Date(dateString).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
   };
 

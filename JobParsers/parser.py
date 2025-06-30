@@ -143,6 +143,8 @@ def parse_job_posting(html_content, skills_set):
     job_data['description_text'] = clean_description
 
     print("-> Starting skill search...")
+    print("Clean Descripton is ")
+    print(clean_description)
     found_skills = set()
     for skill in skills_set:
         # Use a robust regex to find skills as whole words/phrases.

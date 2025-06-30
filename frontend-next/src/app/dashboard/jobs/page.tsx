@@ -17,7 +17,7 @@ interface JobListing {
   apply_url: string;
   created_at: string;
   jd_skills: string[];
-  matchPercentage?: number; // For UI display
+  matchPercentage?: number;
 }
 
 const JOBS_PER_PAGE = 6;
@@ -27,18 +27,9 @@ const SKILL_MATCH_THRESHOLD_PERCENTAGE = 60;
 const DUMMY_USER_SKILLS: string[] = ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"];
 
 const ALL_DUMMY_JOBS_SOURCE: JobListing[] = [
-  { id: '1', job_title: 'Frontend Developer (React)', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Mid-level', description_full: 'Build cutting-edge UIs with React & Next.js. Focus on user experience and responsive design...', date_posted: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "JavaScript", "HTML", "CSS", "Next.js", "TailwindCSS", "Communication", "REST APIs", "Git"] },
-  { id: '2', job_title: 'Senior Backend Engineer (Node.js)', company_name: 'Synergy Corp', location: 'New York, NY', experience_level: 'Senior', description_full: 'Design and implement scalable backend services using Node.js, Express, and PostgreSQL...', date_posted: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Node.js", "Express.js", "PostgreSQL", "API Design", "SQL", "Problem Solving", "TypeScript"] },
-  { id: '3', job_title: 'Access Software Engineer', company_name: 'Cloudflare', location: 'Remote (US Only)', experience_level: 'Entry-level', description_full: 'Create intuitive user experiences. Strong portfolio in Figma/Sketch required.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: 'https://job-boards.greenhouse.io/cloudflare/jobs/6886051?gh_jid=6886051&utm_source=cvrve&ref=cvrve', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
-  { id: '4', job_title: 'Full-Stack Developer (Next.js)', company_name: 'Alpha Solutions', location: 'Austin, TX', experience_level: 'Mid-level', description_full: 'Join a fast-paced team building with Next.js, TypeScript, and Supabase...', date_posted: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Next.js", "React", "TypeScript", "Node.js", "Supabase", "TailwindCSS", "SQL", "Project Management", "REST APIs"] },
-  { id: '5', job_title: 'DevOps Engineer', company_name: 'CloudNetics', location: 'Remote', experience_level: 'Senior', description_full: 'Manage and scale our cloud infrastructure on AWS. CI/CD, Docker, Kubernetes...', date_posted: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
-  { id: '6', job_title: 'Project Manager - Tech', company_name: 'Synergy Corp', location: 'Remote', experience_level: 'Mid-level', description_full: 'Lead agile software projects, manage timelines, and ensure stakeholder communication...', date_posted: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Project Management", "Agile", "Scrum", "Communication", "JIRA"] },
-  { id: '7', job_title: 'Node.js Developer - Junior', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Junior', description_full: 'Focus on backend API development with Node.js and TypeScript. Mentorship provided.', date_posted: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Node.js", "TypeScript", "REST APIs"] },
-  { id: '8', job_title: 'React Developer - Mid', company_name: 'Creative Minds LLC', location: 'Remote', experience_level: 'Mid-level', description_full: 'Develop beautiful user interfaces with React and modern JavaScript.', date_posted: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "JavaScript", "HTML", "CSS", "Communication"] },
-  { id: '9', job_title: 'SQL Database Specialist', company_name: 'Alpha Solutions', location: 'Austin, TX', experience_level: 'Senior', description_full: 'Manage, optimize, and secure our SQL databases. Performance tuning and query optimization.', date_posted: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["SQL", "Database Administration", "PostgreSQL", "MySQL", "Performance Tuning"] },
-  { id: '10', job_title: 'Technical Content Creator', company_name: 'CloudNetics', location: 'Remote', experience_level: 'Mid-level', description_full: 'Create clear and concise technical documentation, tutorials, and blog posts for our software products.', date_posted: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
-  { id: '11', job_title: 'Entry Level Software Engineer', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Entry-level', description_full: 'Exciting opportunity for new graduates to kickstart their career. Work on various projects using modern tech stacks.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
-  { id: '12', job_title: 'Cloud Support Engineer', company_name: 'CloudNetics', location: 'Austin, TX', experience_level: 'Mid-level', description_full: 'Provide technical support for our cloud services. Troubleshoot issues and assist customers.', date_posted: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), apply_url: '#', created_at: new Date().toISOString(), jd_skills: ["Cloud Computing", "AWS", "Azure", "Customer Support", "Communication", "Problem Solving"] },
+  { id: '1', job_title: 'SmartRecuiter Job', company_name: 'Innovatech Solutions', location: 'Remote', experience_level: 'Mid-level', description_full: 'Build cutting-edge UIs with React & Next.js. Focus on user experience and responsive design...', date_posted: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), apply_url: 'https://jobs.smartrecruiters.com/oneclick-ui/company/ServiceNow/publication/d722dc74-a7e2-4a23-b239-08f0c05e1b71?dcr_ci=ServiceNow', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
+  { id: '2', job_title: 'Greenhouse Job', company_name: 'Cloudflare', location: 'Remote (US Only)', experience_level: 'Entry-level', description_full: 'Create intuitive user experiences. Strong portfolio in Figma/Sketch required.', date_posted: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), apply_url: 'https://job-boards.greenhouse.io/cloudflare/jobs/6886051?gh_jid=6886051&utm_source=cvrve&ref=cvrve', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
+  { id: '3', job_title: 'Lever Job', company_name: 'CloudNetics', location: 'Remote', experience_level: 'Senior', description_full: 'Manage and scale our cloud infrastructure on AWS. CI/CD, Docker, Kubernetes...', date_posted: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), apply_url: 'https://jobs.lever.co/plusgrade/9c9728f3-031d-4df5-b3a3-f060e338f684/apply?utm_source=Simplify&ref=Simplify', created_at: new Date().toISOString(), jd_skills: ["React", "TypeScript", "Node.js", "Next.js", "Communication", "Problem Solving", "SQL", "Project Management", "REST APIs", "Git"] },
 ];
 
 const formatDatePosted = (dateString: string) => {
@@ -75,17 +66,14 @@ export default function DiscoverJobsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalAvailableJobsInDB, setTotalAvailableJobsInDB] = useState(0); // Total count of all jobs in DB
 
-  // Placeholder: Function to fetch user's actual skills
   const fetchUserSkills = useCallback(async (userId: string) => {
     console.log(`Placeholder: Fetching skills for user ${userId}...`);
     await new Promise(resolve => setTimeout(resolve, 100));
     return DUMMY_USER_SKILLS;
   }, []);
 
-  // Placeholder: Function to fetch jobs from DB (simulated pagination)
   const fetchJobsPageFromDB = useCallback(async (page: number, limit: number) => {
     console.log(`SIMULATING DB FETCH: Page ${page}, Limit ${limit}`);
-    // In real app, use supabase client here
     await new Promise(resolve => setTimeout(resolve, 500));
     const start = (page - 1) * limit;
     const end = start + limit;
@@ -93,12 +81,9 @@ export default function DiscoverJobsPage() {
     return { jobs: paginatedJobs, totalCount: ALL_DUMMY_JOBS_SOURCE.length };
   }, []);
 
-
-  // Main data loading and filtering logic
   const loadAndFilterJobs = useCallback(async (pageToLoad: number, skillsForMatching: string[], isAppending: boolean) => {
     if (skillsForMatching.length === 0 && pageToLoad === 1) {
         console.log("No user skills to match against, showing all jobs for page " + pageToLoad);
-        // Or decide to show nothing / a message if skills are mandatory for viewing
     }
 
     if (isAppending) setIsLoadingMore(true); else setIsLoading(true);
@@ -126,16 +111,13 @@ export default function DiscoverJobsPage() {
       setIsLoading(false);
       setIsLoadingMore(false);
     }
-  }, [fetchJobsPageFromDB]); // filterAndSetDisplayedJobs removed as its logic is merged
-
-  // Effect 1: Fetch user skills when user is available
+  }, [fetchJobsPageFromDB]);
   useEffect(() => {
     if (user && !authLoading) {
-      setIsLoading(true); // Indicate loading for skills
+      setIsLoading(true);
       fetchUserSkills(user.id)
         .then(skills => {
           setUserSkills(skills);
-          // setIsLoading(false); // Loading for jobs will be handled by the next effect
         })
         .catch(err => {
           console.error("Failed to fetch user skills:", err);

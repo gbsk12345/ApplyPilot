@@ -69,5 +69,5 @@ if __name__ == "__main__":
         "https://jobs.lever.co/appen-2/f5dd3da9-802f-4111-920a-4eb916944c22"
     ]
     # Replace with the path to your skills file
-    skills_file_path = "tech_skills_list.txt"
+    skills_file_path = "LightCast_Skills_Output/software_skills_lowercase.txt"
     process_job_urls(job_urls, skills_file_path)

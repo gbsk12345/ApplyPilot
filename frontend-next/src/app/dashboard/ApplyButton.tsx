@@ -36,7 +36,46 @@ export default function ApplyButton({ jobUrl, jobTitle, onApplySuccess }: ApplyB
       setIsLoading(false);
       return;
     }
-    const userId = session.user.id;
+    const userData = {
+        "First Name": "Aditya",
+        "Last Name": "Jadhav",
+        "Email": "aditya@example.com",
+        "Phone": "+911234567890",
+        "Location (City)": "Tucson, Arizona",
+        "School": "University of Arizona",
+        "Degree": "Bachelors Degree",
+        "Discipline": "Computer Science",
+        "Start date month": "August",
+        "Start date year": "2021",
+        "End date month": "May",
+        "End date year": "2025",
+        "LinkedIn Profile": "https://linkedin.com/in/aditya",
+        "Website": "https://aditya.dev",
+        "How did you hear about this job?": "Referral",
+        "Are you over 18 years of age?": "Yes",
+        "Do you have unlimited and unrestricted authorization to work in the United States?": "Yes",
+        "Will you, now or in the future, require company assistance or sponsorship…?": "No",
+        "Do you currently, or in the past year, work for or with a dealer…?": "No",
+        "Are you currently subject to any restrictive covenant…?": "No"
+      };
+
+      /*
+      // --- FUTURE DATABASE CALL IMPLEMENTATION ---
+      // When you are ready, you can remove the hardcoded object above
+      // and uncomment this section to fetch the data live from Supabase.
+      
+      const { data: userDataFromDB, error: profileError } = await supabase
+        .from('profiles') // IMPORTANT: Replace 'profiles' with your actual table name
+        .select('*')      // Or specify the exact columns you need
+        .eq('id', userId)
+        .single();
+
+      if (profileError || !userDataFromDB) {
+        throw new Error(profileError?.message || 'Could not find your profile data to apply.');
+      }
+      
+      // You would then use `userDataFromDB` in the fetch call's body below.
+      */
     try {
       const response = await fetch(`${backendApiUrl}/api/apply`, { // Use the configured backend URL
         method: 'POST',
@@ -44,7 +83,7 @@ export default function ApplyButton({ jobUrl, jobTitle, onApplySuccess }: ApplyB
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({ jobUrl, userId }),
+        body: JSON.stringify({ jobUrl, userData }),
       });
 
       const responseBody = await response.json();
@@ -70,7 +109,7 @@ export default function ApplyButton({ jobUrl, jobTitle, onApplySuccess }: ApplyB
     <>
       <button
         onClick={handleApply}
-        disabled={isLoading || !!successMessage} // Disable if loading or already successful for this instance
+        disabled={isLoading || !!successMessage}
         className={`w-full sm:w-auto font-semibold py-2.5 px-5 rounded-lg text-sm text-center transition-colors duration-150 whitespace-nowrap shadow-md hover:shadow-lg
                     ${isLoading ? 'bg-gray-500 cursor-not-allowed' : ''}
                     ${!isLoading && !successMessage ? 'bg-purple-600 hover:bg-purple-700 text-white' : ''}
@@ -79,7 +118,7 @@ export default function ApplyButton({ jobUrl, jobTitle, onApplySuccess }: ApplyB
         {isLoading ? 'Applying...' : successMessage ? 'Applied!' : 'Auto-Apply'}
       </button>
       {error && <p className="mt-2 text-xs text-red-400 text-center sm:text-left">{error}</p>}
-      {/* You could clear successMessage after a few seconds if you want the button to be clickable again */}
+      {}
     </>
   );
 }

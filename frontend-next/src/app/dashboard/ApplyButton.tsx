@@ -1,9 +1,9 @@
 // src/components/dashboard/ApplyButton.tsx
 'use client';
 
-import { use, useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useProfile } from '@/contexts/ProfileContext'; // Import the new hook
+import { useAuth } from '@/contexts/AuthContext';     // Still needed for the auth token
 
 interface ApplyButtonProps {
   jobUrl: string;
@@ -12,72 +12,66 @@ interface ApplyButtonProps {
 }
 
 export default function ApplyButton({ jobUrl, jobTitle, onApplySuccess }: ApplyButtonProps) {
-  const supabase = createClient();
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  // --- Consume data from our central contexts ---
+  const { userProfile, educationHistory, isLoading: isProfileLoading } = useProfile();
+  const { session } = useAuth();
+
+  // --- Local state for the button's own process ---
+  const [isApplying, setIsApplying] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const backendApiUrl = process.env.NEXT_PUBLIC_AUTOAPPLY_API_URL;
+
   const handleApply = async () => {
+    // --- Pre-flight checks ---
     if (!backendApiUrl) {
       setError('Auto-apply API URL is not configured.');
+      return;
+    }
+    if (!session) {
+      setError('You must be logged in to apply.');
+      return;
+    }
+    if (isProfileLoading || !userProfile) {
+      setError('Your profile data is still loading or not available. Please wait a moment.');
       return;
     }
 
     setError(null);
     setSuccessMessage(null);
-    setIsLoading(true);
+    setIsApplying(true);
 
-    const { data: { session } } = await supabase.auth.getSession();
+    try {
+      // --- Dynamically assemble userData from the context ---
+      const latestEducation = educationHistory?.[0]; // Get the most recent education record
 
-    if (!session) {
-      setError('You need to be logged in to apply.');
-      setIsLoading(false);
-      return;
-    }
-    const userData = {
-        "First Name": "Aditya",
-        "Last Name": "Jadhav",
-        "Email": "aditya@example.com",
-        "Phone": "+911234567890",
-        "Location (City)": "Tucson, Arizona",
-        "School": "University of Arizona",
-        "Degree": "Bachelors Degree",
-        "Discipline": "Computer Science",
-        "Start date month": "August",
-        "Start date year": "2021",
-        "End date month": "May",
-        "End date year": "2025",
-        "LinkedIn Profile": "https://linkedin.com/in/aditya",
-        "Website": "https://aditya.dev",
+      const userData = {
+        "First Name": userProfile.first_name || '',
+        "Last Name": userProfile.last_name || '',
+        "Email": userProfile.email || '',
+        "Phone": userProfile.phone || '',
+        "Location (City)": userProfile.city ? `${userProfile.city}, ${userProfile.state || ''}`.trim().replace(/,$/, '') : '',
+        "School": latestEducation?.school_name || '',
+        "Degree": latestEducation?.degree_level || '',
+        "Discipline": latestEducation?.major || '',
+        "Start date month": latestEducation?.start_date ? new Date(latestEducation.start_date).toLocaleString('default', { month: 'long' }) : '',
+        "Start date year": latestEducation?.start_date ? new Date(latestEducation.start_date).getFullYear().toString() : '',
+        "End date month": latestEducation?.graduation_date ? new Date(latestEducation.graduation_date).toLocaleString('default', { month: 'long' }) : '',
+        "End date year": latestEducation?.graduation_date ? new Date(latestEducation.graduation_date).getFullYear().toString() : '',
+        "LinkedIn Profile": userProfile.linkedin_url || '',
+        "Website": userProfile.website_url || '',
+        // These fields are often job-specific, so we provide sensible defaults or use profile data.
         "How did you hear about this job?": "Referral",
         "Are you over 18 years of age?": "Yes",
-        "Do you have unlimited and unrestricted authorization to work in the United States?": "Yes",
-        "Will you, now or in the future, require company assistance or sponsorship…?": "No",
+        "Do you have unlimited and unrestricted authorization to work in the United States?": userProfile.authorized_to_work ? "Yes" : "No",
+        "Will you, now or in the future, require company assistance or sponsorship…?": userProfile.needs_sponsorship ? "Yes" : "No",
         "Do you currently, or in the past year, work for or with a dealer…?": "No",
         "Are you currently subject to any restrictive covenant…?": "No"
       };
 
-      /*
-      // --- FUTURE DATABASE CALL IMPLEMENTATION ---
-      // When you are ready, you can remove the hardcoded object above
-      // and uncomment this section to fetch the data live from Supabase.
-      
-      const { data: userDataFromDB, error: profileError } = await supabase
-        .from('profiles') // IMPORTANT: Replace 'profiles' with your actual table name
-        .select('*')      // Or specify the exact columns you need
-        .eq('id', userId)
-        .single();
-
-      if (profileError || !userDataFromDB) {
-        throw new Error(profileError?.message || 'Could not find your profile data to apply.');
-      }
-      
-      // You would then use `userDataFromDB` in the fetch call's body below.
-      */
-    try {
-      const response = await fetch(`${backendApiUrl}/api/apply`, { // Use the configured backend URL
+      // --- Make the API call ---
+      const response = await fetch(`${backendApiUrl}/api/apply`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +86,7 @@ export default function ApplyButton({ jobUrl, jobTitle, onApplySuccess }: ApplyB
         throw new Error(responseBody.error || `Failed to apply (status ${response.status})`);
       }
 
-      setSuccessMessage(`Successfully initiated application for: ${jobTitle || jobUrl}`);
+      setSuccessMessage(`Successfully initiated application for: ${jobTitle || 'this job'}`);
       if (onApplySuccess) {
         onApplySuccess();
       }
@@ -101,24 +95,30 @@ export default function ApplyButton({ jobUrl, jobTitle, onApplySuccess }: ApplyB
       console.error('Error during application process:', err);
       setError(err.message || 'An unexpected error occurred while trying to apply.');
     } finally {
-      setIsLoading(false);
+      setIsApplying(false);
     }
   };
+
+  const buttonDisabled = isApplying || isProfileLoading || !!successMessage;
+  const getButtonText = () => {
+    if (isProfileLoading) return 'Loading Profile...';
+    if (isApplying) return 'Applying...';
+    if (successMessage) return 'Applied!';
+    return 'Auto-Apply';
+  }
 
   return (
     <>
       <button
         onClick={handleApply}
-        disabled={isLoading || !!successMessage}
+        disabled={buttonDisabled}
         className={`w-full sm:w-auto font-semibold py-2.5 px-5 rounded-lg text-sm text-center transition-colors duration-150 whitespace-nowrap shadow-md hover:shadow-lg
-                    ${isLoading ? 'bg-gray-500 cursor-not-allowed' : ''}
-                    ${!isLoading && !successMessage ? 'bg-purple-600 hover:bg-purple-700 text-white' : ''}
-                    ${successMessage ? 'bg-green-600 text-white cursor-not-allowed' : ''}`}
+                    ${buttonDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-purple-600 hover:bg-purple-700 text-white'}
+                    ${successMessage ? 'bg-green-600 text-white' : ''}`}
       >
-        {isLoading ? 'Applying...' : successMessage ? 'Applied!' : 'Auto-Apply'}
+        {getButtonText()}
       </button>
       {error && <p className="mt-2 text-xs text-red-400 text-center sm:text-left">{error}</p>}
-      {}
     </>
   );
 }

@@ -6,6 +6,7 @@ import Topbar from '@/app/dashboard/Topbar';
 import React, { useEffect, useState } from 'react';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext'; // Adjust path if needed
 import { useRouter } from 'next/navigation';
+import { ProfileProvider } from '@/contexts/ProfileContext';
 import { createClient } from '@/utils/supabase/client'; // Client-side client
 
 interface UserProfileLayoutData {
@@ -88,7 +89,9 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
-      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+      <ProfileProvider>
+        <DashboardLayoutContent>{children}</DashboardLayoutContent>
+      </ProfileProvider>
     </AuthProvider>
   );
 }

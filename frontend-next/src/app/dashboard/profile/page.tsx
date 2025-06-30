@@ -1,69 +1,11 @@
 'use client';
-// Now client side
-import React, { useState, useEffect, useCallback } from 'react';
+
+import React from 'react';
 import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import type { User } from '@supabase/supabase-js';
-
-interface UserProfile {
-  user_id: string;
-  first_name?: string | null;
-  middle_name?: string | null;
-  last_name?: string | null;
-  preferred_name?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  address_line1?: string | null;
-  address_line2?: string | null;
-  country?: string | null;
-  state?: string | null;
-  city?: string | null;
-  postal_code?: string | null;
-  linkedin_url?: string | null;
-  website_url?: string | null;
-  github_url?: string | null;
-  authorized_to_work?: boolean | null;
-  needs_sponsorship?: boolean | null;
-  visa_status?: string | null;
-  desired_salary?: string | null;
-  willing_to_relocate?: boolean | null;
-  interest_statement?: string | null;
-  additional_info?: string | null;
-  gender?: string | null;
-  race?: string | null;
-  veteran_status?: string | null;
-  disability_status?: string | null;
-}
-
-interface Education {
-  id: number;
-  user_id: string;
-  school_name?: string | null;
-  degree_level?: string | null;
-  major?: string | null;
-  start_date?: string | null;
-  graduation_date?: string | null;
-}
-
-interface WorkExperience {
-  id: number;
-  user_id: string;
-  job_title?: string | null;
-  company_name?: string | null;
-  company_location?: string | null;
-  start_date?: string | null;
-  end_date?: string | null;
-  current_job?: boolean | null;
-  job_description?: string | null;
-}
-
-interface CachedData<T> {
-  timestamp: number;
-  data: T;
-}
-
+import { useProfile } from '@/contexts/ProfileContext';
 // --- Helper Components & Functions (can be moved to utils) ---
+// These helpers can stay as they are purely for display logic.
 const ProfileFieldDisplay = ({ label, value }: { label: string; value?: React.ReactNode | null }) => {
   if (value === null || typeof value === 'undefined' || (typeof value === 'string' && value.trim() === '')) {
     return null;
@@ -92,139 +34,22 @@ const formatDate = (dateStr: string | null | undefined, includeDay: boolean = fa
   }
 };
 
-const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes for example
 
 // --- Main Page Component ---
 export default function ProfilePage() {
-  const { user, loading: authLoading } = useAuth();
-  const supabase = createClient();
-
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [educationHistory, setEducationHistory] = useState<Education[]>([]);
-  const [workExperiences, setWorkExperiences] = useState<WorkExperience[]>([]);
+  // All data and loading/error states now come directly from the shared context.
+  const { 
+    userProfile, 
+    educationHistory, 
+    workExperiences, 
+    isLoading, 
+    error: fetchError 
+  } = useProfile();
   
-  const [isLoading, setIsLoading] = useState(true);
-  const [fetchError, setFetchError] = useState<string | null>(null);
-
-  const loadProfileData = useCallback(async (currentUser: User) => {
-    setIsLoading(true);
-    setFetchError(null);
-
-    const profileKey = `userProfile-${currentUser.id}`;
-    const educationKey = `educationHistory-${currentUser.id}`;
-    const workExpKey = `workExperiences-${currentUser.id}`;
-
-    // Attempt to load from localStorage
-    try {
-      const cachedProfileRaw = localStorage.getItem(profileKey);
-      const cachedEducationRaw = localStorage.getItem(educationKey);
-      const cachedWorkExpRaw = localStorage.getItem(workExpKey);
-
-      let profileFromCache = false, eduFromCache = false, workFromCache = false;
-
-      if (cachedProfileRaw) {
-        const cache: CachedData<UserProfile> = JSON.parse(cachedProfileRaw);
-        if (Date.now() - cache.timestamp < CACHE_DURATION_MS) {
-          setUserProfile(cache.data);
-          profileFromCache = true;
-        }
-      }
-      if (cachedEducationRaw) {
-        const cache: CachedData<Education[]> = JSON.parse(cachedEducationRaw);
-        if (Date.now() - cache.timestamp < CACHE_DURATION_MS) {
-          setEducationHistory(cache.data);
-          eduFromCache = true;
-        }
-      }
-      if (cachedWorkExpRaw) {
-        const cache: CachedData<WorkExperience[]> = JSON.parse(cachedWorkExpRaw);
-        if (Date.now() - cache.timestamp < CACHE_DURATION_MS) {
-          setWorkExperiences(cache.data);
-          workFromCache = true;
-        }
-      }
-      if (profileFromCache && eduFromCache && workFromCache) {
-      }
-    } catch (e) {
-      console.error("Error reading profile data from localStorage", e);
-      localStorage.removeItem(profileKey);
-      localStorage.removeItem(educationKey);
-      localStorage.removeItem(workExpKey);
-    }
-
-    try {
-      const [profileResult, educationResult, workExperienceResult] = await Promise.all([
-        supabase.from('user_profile').select('*').eq('user_id', currentUser.id).single<UserProfile>(),
-        supabase.from('education').select('*').eq('user_id', currentUser.id).order('graduation_date', { ascending: false }).returns<Education[]>(),
-        supabase.from('work_experience').select('*').eq('user_id', currentUser.id).order('end_date', { ascending: false, nullsFirst: false }).order('start_date', { ascending: false }).returns<WorkExperience[]>()
-      ]);
-
-      if (profileResult.error && profileResult.error.code !== 'PGRST116') { // PGRST116: single row not found
-        throw new Error(`Profile fetch: ${profileResult.error.message}`);
-      }
-      if (educationResult.error) throw new Error(`Education fetch: ${educationResult.error.message}`);
-      if (workExperienceResult.error) throw new Error(`Work Experience fetch: ${workExperienceResult.error.message}`);
-      
-      const fetchedProfile = profileResult.data;
-      const fetchedEducation = educationResult.data || [];
-      const fetchedWorkExp = workExperienceResult.data || [];
-
-      if (!fetchedProfile) {
-        // User exists from auth, but no profile - might be an onboarding issue not caught by layout
-        // For now, we'll just show empty, but you might redirect or show a specific message
-        console.warn(`ProfilePage: No profile data found for user ${currentUser.id}, though user is authenticated.`);
-        setUserProfile(null); // Or some default empty profile structure
-        // Potentially redirect to onboarding if layout didn't catch it:
-        // import { useRouter } from 'next/navigation'; const router = useRouter(); router.replace('/onboarding');
-      } else {
-        setUserProfile(fetchedProfile);
-        localStorage.setItem(profileKey, JSON.stringify({ timestamp: Date.now(), data: fetchedProfile }));
-      }
-
-      setEducationHistory(fetchedEducation);
-      localStorage.setItem(educationKey, JSON.stringify({ timestamp: Date.now(), data: fetchedEducation }));
-      
-      setWorkExperiences(fetchedWorkExp);
-      localStorage.setItem(workExpKey, JSON.stringify({ timestamp: Date.now(), data: fetchedWorkExp }));
-
-    } catch (error: any) {
-      console.error("Error loading profile page data:", error);
-      setFetchError(error.message || "Could not load profile data.");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [supabase]);
-
-  useEffect(() => {
-    if (authLoading) {
-      setIsLoading(true);
-      return;
-    }
-    if (user) {
-      loadProfileData(user);
-    } else {
-      // No user, clear data and stop loading (should be redirected by layout typically)
-      setUserProfile(null);
-      setEducationHistory([]);
-      setWorkExperiences([]);
-      setIsLoading(false);
-      setFetchError("Please log in to view your profile.");
-    }
-  }, [user, authLoading, loadProfileData]);
-
-  // This effect handles re-fetching data if the user navigates back to this page
-  // and the data might have been updated (e.g., after an edit).
-  // It checks if the revalidateProfile flag is set in sessionStorage.
-  useEffect(() => {
-    const revalidateFlag = sessionStorage.getItem(`revalidateProfile-${user?.id}`);
-    if (revalidateFlag === 'true' && user) {
-      sessionStorage.removeItem(`revalidateProfile-${user?.id}`); // Clear the flag
-      loadProfileData(user); // Force re-fetch
-    }
-  }, [user, loadProfileData]);
-
+  const { user } = useAuth();
 
   if (isLoading) {
+    // A simple loading state. You can keep your more detailed skeleton loader here.
     return (
       <div className="space-y-10 text-gray-100 animate-pulse">
         <div className="flex flex-wrap justify-between items-center gap-4">
@@ -248,15 +73,10 @@ export default function ProfilePage() {
     return <p className="text-red-400 bg-red-900/30 p-3 rounded-md">{fetchError}</p>;
   }
   
-  // Redirect to onboarding if profile is still null after loading and no error (should be caught by layout typically)
-  // This check might be redundant if your DashboardLayout already handles it robustly.
-  if (!userProfile && !authLoading && user) { 
-    // import { useRouter } from 'next/navigation'; const router = useRouter(); router.replace('/onboarding');
-    return <p className="text-yellow-400">Profile not found. Redirecting to onboarding...</p>;
-  }
-  
-  if (!userProfile) { // If still no userProfile (e.g. after logout or error before redirect)
-    return <p className="text-gray-400">Please log in to view your profile.</p>;
+  if (!userProfile) {
+    // This case now cleanly handles when a user is logged in but has no profile data,
+    // or when the user is logged out.
+    return <p className="text-gray-400">No profile data found. Please complete your profile.</p>;
   }
   
   const fullName = [userProfile.first_name, userProfile.middle_name, userProfile.last_name].filter(Boolean).join(' ') || userProfile.preferred_name || 'User';
@@ -270,6 +90,8 @@ export default function ProfilePage() {
           Edit Profile
         </Link>
       </div>
+
+      {/* The rest of your JSX remains exactly the same, as it already uses the correct variable names */}
 
       {/* Section 1: Personal Information */}
       <section id="personal-information" className="scroll-mt-24 p-6 bg-gray-700/50 rounded-lg shadow-lg">

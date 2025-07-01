@@ -54,14 +54,16 @@ def fetch_html(url):
 
 def get_clean_description(soup, json_ld_data):
     description_text = ''
-    potential_selectors = [
-        {'id': 'content'},
-        {'id': 'app_body'},
-        {'class': 'content-container'},
-        {'class': 'job-description'},
-        {'id': 'job-description'},
-        {'class': 'job-details'}
-    ]
+    # potential_selectors = [
+    #     {'id': 'content'},
+    #     {'id': 'app_body'},
+    #     {'class': 'content-container'},
+    #     {'class': 'job-description'},
+    #     {'id': 'job-description'},
+    #     {'class': 'job-details'}
+    # ]   // For smartrecruiter.
+
+    potential_selectors = []
     for selector in potential_selectors:
         desc_area = soup.find(attrs=selector)
         if desc_area:
@@ -165,7 +167,10 @@ def main():
     job_urls = [
         "https://job-boards.greenhouse.io/greenhouse/jobs/6605179?gh_jid=6605179",
         "https://jobs.lever.co/appen-2/d68f2b43-5413-480d-8cb0-b14d4fafde0e",
-        "https://jobs.lever.co/appen-2/f5dd3da9-802f-4111-920a-4eb916944c22"
+        "https://jobs.lever.co/appen-2/f5dd3da9-802f-4111-920a-4eb916944c22",
+        "https://job-boards.greenhouse.io/cloudflare/jobs/6886051?gh_jid=6886051",
+        "https://jobs.lever.co/plusgrade/9c9728f3-031d-4df5-b3a3-f060e338f684",
+        "https://jobs.smartrecruiters.com/Playtech/744000068174146-software-developer-backend-content",
     ]
 
     for url in job_urls:

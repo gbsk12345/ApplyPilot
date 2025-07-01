@@ -18,6 +18,7 @@ const { URL } = require('url'); // Using the native URL module for robust parsin
 const { applyToJob } = require('./services/autoApply'); // Assumed to be for Greenhouse
 const { applyToLeverJob } = require('./services/leverApply');
 const { applyToSmartRecruiters } = require('./services/autoApplySmartRecruiters');
+const { applyToAshbyJob } = require('./services/autoApplyAshby');
 
 // --- Express App Setup ---
 const app = express();
@@ -64,7 +65,13 @@ app.post('/api/apply', async (req, res) => {
       await applyToSmartRecruiters(jobUrl, userData);
       res.json({ success: true, message: 'Successfully applied to SmartRecruiters job.' });
 
-    } else {
+    }
+    else if (hostname.includes('ashbyhq.com')) {
+      console.log('Routing to Ashby application service.');
+      await applyToAshbyJob(jobUrl, userData);
+      res.json({ success: true, message: 'Successfully applied to Ashby job.' }); 
+    }
+     else {
       // If the URL doesn't match any supported platform, return an error.
       console.warn(`Unsupported job platform for hostname: ${hostname}`);
       return res.status(400).json({ 

@@ -17,6 +17,33 @@ function normalize(str) {
     : '';
 }
 
+// --- NEW: Keyword Aliasing Map ---
+// This map contains common variations for standard application fields.
+// The key is our standard, internal name, and the value is an array of aliases.
+const fieldAliases = {
+  'name': ['first and last name', 'full name'],
+  'linkedin profile': ['linkedin url', 'linkedin', 'professional profile url'],
+  'website': ['website url', 'personal website', 'portfolio url', 'portfolio'],
+  'github profile': ['github url', 'github'],
+  'phone': ['phone number', 'mobile phone'],
+  'location': ['current location', 'city'],
+  'resume': ['resume', 'cv', 'resume cv'],
+  'cover letter': ['cover letter', 'cover letter optional'],
+  'sponsorship': ['require sponsorship', 'visa sponsorship', 'require visa sponsorship'],
+  'authorized to work': ['work authorization', 'eligible to work']
+};
+
+// --- NEW: Helper function to find the standard key using the alias map ---
+function findDataKeyByAlias(normalizedLabel) {
+    for (const standardKey in fieldAliases) {
+        if (fieldAliases[standardKey].includes(normalizedLabel)) {
+            return standardKey;
+        }
+    }
+    return null; // Return null if no alias matches
+}
+
+
 /**
  * applyToAshbyJob
  * Automates filling out job application forms on the Ashby platform.
@@ -29,46 +56,43 @@ async function applyToAshbyJob(url, userData) {
     throw new Error('Missing OPENAI_API_KEY');
   }
 
-  // Initialize the LLM and the HyperAgent for browser automation
-  const llm = new ChatOpenAI({
-    openAIApiKey: process.env.OPENAI_API_KEY,
-    modelName: 'gpt-4o-mini'
-  });
+  const llm = new ChatOpenAI({ openAIApiKey: process.env.OPENAI_API_KEY, modelName: 'gpt-4o-mini' });
   const agent = new HyperAgent({ llm });
-
-  // Open a new page and navigate to the job application URL
   const page = await agent.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
 
-  // Create a normalized map of the user's data for easy lookups
   const userMap = {};
   for (const key in userData) {
     const norm = normalize(key);
     if (norm) userMap[norm] = userData[key];
   }
-  // Combine first and last name for single "Full Name" or "Name" fields
   if (userMap['first name'] && userMap['last name']) {
       const fullName = `${userMap['first name']} ${userMap['last name']}`;
-      userMap['first and last name'] = fullName;
-      userMap['name'] = fullName; // Cover both "Name" and "First and Last Name"
+      userMap['name'] = fullName;
   }
 
+  const resumePath = path.resolve(__dirname, 'resume.pdf');
+  if (!fs.existsSync(resumePath)) {
+    throw new Error(`Resume file not found at: ${resumePath}`);
+  }
 
-  // --- Automation Step 1: Upload Resume ---
-  // The resume input is consistently identified by a system-level ID.
-  const resumeInput = await page.$('input[type="file"][id="_systemfield_resume"]');
-  if (resumeInput) {
-    const resumePath = path.resolve(__dirname, 'resume.pdf');
-    if (!fs.existsSync(resumePath)) {
-      throw new Error(`Resume file not found at: ${resumePath}`);
+  const resumeContainer = await page.$('div[class*="_fieldEntry_"]:has(label:text-matches("Resume", "i"))');
+  if (resumeContainer) {
+    const uploadButton = await resumeContainer.$('button:has(span:text-is("Upload File"))');
+    if (uploadButton) {
+      const fileChooserPromise = page.waitForEvent('filechooser');
+      await uploadButton.click();
+      const fileChooser = await fileChooserPromise;
+      await fileChooser.setFiles(resumePath);
+      console.log('✅ Resume uploaded successfully.');
+      await page.waitForTimeout(2000);
+    } else {
+      console.log('⚠️ Could not find the "Upload File" button inside the resume container.');
     }
-    await resumeInput.setInputFiles(resumePath);
-    console.log('✅ Resume uploaded successfully.');
-    await page.waitForTimeout(1500);
+  } else {
+    console.log('⚠️ Could not find the resume upload container, skipping resume upload.');
   }
 
-  // --- Automation Step 2: Fill Form Fields with Playwright ---
-  // Generalize selectors by looking for partial class names that denote function.
   const fieldContainers = await page.$$('div[class*="_fieldEntry_"]');
   const unfilled = [];
 
@@ -79,14 +103,21 @@ async function applyToAshbyJob(url, userData) {
     const rawLabel = await labelEl.innerText();
     const labelText = rawLabel.replace('*', '').trim();
     const normLabel = normalize(labelText);
-    if (!normLabel) continue;
+    if (!normLabel || normLabel.includes('resume')) continue;
 
-    // Find the corresponding value from the user's data
-    let value = userMap[normLabel] || '';
-    if (!value) {
-      const key = Object.keys(userMap).find(k => normLabel.includes(k) || k.includes(normLabel));
-      if (key) value = userMap[key];
+    // --- MODIFIED: Value lookup logic with aliasing ---
+    let value = '';
+    // 1. Try a direct match with the normalized label.
+    if (userMap[normLabel]) {
+        value = userMap[normLabel];
+    } else {
+        // 2. If no direct match, try finding a standard key via our alias map.
+        const standardKey = findDataKeyByAlias(normLabel);
+        if (standardKey && userMap[standardKey]) {
+            value = userMap[standardKey];
+        }
     }
+
     if (!value) {
       unfilled.push({ labelText, normLabel });
       continue;
@@ -94,9 +125,6 @@ async function applyToAshbyJob(url, userData) {
     
     console.log(`Attempting to fill: "${labelText}" with value: "${value}"`);
 
-    // --- Handle different types of input fields using generalized selectors ---
-
-    // Standard text, email, tel inputs
     const input = await container.$('input[type="text"], input[type="email"], input[type="tel"], textarea');
     if (input) {
       await input.fill(String(value));
@@ -104,7 +132,6 @@ async function applyToAshbyJob(url, userData) {
       continue;
     }
 
-    // Location Combobox
     const combobox = await container.$('input[role="combobox"]');
     if (combobox) {
         await combobox.click({ force: true });
@@ -116,7 +143,6 @@ async function applyToAshbyJob(url, userData) {
         continue;
     }
 
-    // Radio button groups
     const radioGroup = await container.$('fieldset');
     if (radioGroup) {
       const optionLabel = await radioGroup.$(`label:text-matches("${value}", "i")`);
@@ -127,47 +153,35 @@ async function applyToAshbyJob(url, userData) {
       }
     }
 
-    // Yes/No button groups
     const yesNoGroup = await container.$('div[class*="_yesno_"]');
     if (yesNoGroup) {
       const answer = String(value).toLowerCase();
-      const buttonToClick = answer.includes('yes') ? 'button:text-is("Yes")' : 'button:text-is("No")';
-      await yesNoGroup.click(buttonToClick);
-      await page.waitForTimeout(200);
-      continue;
+      const buttonSelector = answer.includes('yes') ? 'button:text-is("Yes")' : 'button:text-is("No")';
+      const buttonElement = await yesNoGroup.$(buttonSelector);
+      if (buttonElement) {
+        await buttonElement.click();
+        await page.waitForTimeout(200);
+        continue;
+      }
     }
 
     unfilled.push({ labelText, normLabel });
   }
 
-  // --- Automation Step 3: LLM Fallback for Unfilled Fields ---
-  if (unfilled.length > 0) {
-    console.log('⚠️ Using LLM fallback for the following fields:', unfilled.map(u => u.labelText));
-    let prompt = 'Please fill the following remaining fields on this application form with the given values. For dropdowns or comboboxes, type the value, wait 1.5 seconds, then press the down arrow key and the enter key to select the first suggestion. For radio buttons or Yes/No questions, click the option that best matches the value.\n';
-    for (const { labelText, normLabel } of unfilled) {
-      const fillValue = userMap[normLabel] || 'Not applicable';
-      prompt += `- For the question "${labelText}", the answer is: "${fillValue}"\n`;
-    }
-    await page.ai(prompt);
-  }
+//   if (unfilled.length > 0) {
+//     console.log('⚠️ Using LLM fallback for the following fields:', unfilled.map(u => u.labelText));
+//     let prompt = 'Please fill the following remaining fields on this application form with the given values. For dropdowns or comboboxes, type the value, wait 1.5 seconds, then press the down arrow key and the enter key to select the first suggestion. For radio buttons or Yes/No questions, click the option that best matches the value.\n';
+//     for (const { labelText, normLabel } of unfilled) {
+//       // For the LLM, we still try to find the best possible value, even if it wasn't a perfect match
+//       const fillValue = userMap[normLabel] || userMap[findDataKeyByAlias(normLabel)] || 'Not applicable';
+//       prompt += `- For the question "${labelText}", the answer is: "${fillValue}"\n`;
+//     }
+//     await page.ai(prompt);
+//   }
 
-  // --- Automation Step 4: Submit the Form ---
-  // Uncomment to enable submission. The submit button class is also generalized.
-  /*
-  const submitButton = await page.$('button[class*="_submitButton_"]');
-  if (submitButton) {
-    await submitButton.click();
-    console.log('✅ Form submitted successfully.');
-    await page.waitForNavigation({ waitUntil: 'networkidle' });
-    console.log('Navigated to confirmation page:', page.url());
-  } else {
-    console.error('Could not find the submit button.');
-  }
-  */
-
-  // --- Cleanup ---
-  // await agent.close();
+  // --- Submit and Cleanup ---
   console.log('Application process finished.');
+  // await agent.close();
 }
 
 module.exports = { applyToAshbyJob };

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/app/calsans_b1a8718c.module.css"],"sourcesContent":["@font-face {\n    font-family: 'calSans';\n    src: url('@vercel/turbopack-next/internal/font/local/font?{%22path%22:%22../../public/fonts/CalSans-Regular.ttf%22,%22preload%22:true,%22has_size_adjust%22:true}') format('truetype');\n    font-display: swap;\n    font-weight: 400;font-style: normal;\n}\n\n@font-face {\n    font-family: 'calSans Fallback';\n    src: local(\"Arial\");\n    ascent-override: 98.60%;\ndescent-override: 29.58%;\nline-gap-override: 0.00%;\nsize-adjust: 101.42%;\n\n}\n\n.className {\n    font-family: 'calSans', 'calSans Fallback';\n    \n}\n\n"],"names":[],"mappings":"AAAA;;;;;;;;AAOA;;;;;;;;;AAUA"}}]
+}

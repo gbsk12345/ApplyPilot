@@ -1,0 +1,23 @@
+/* [project]/src/app/calsans_b1a8718c.module.css [app-client] (css) */
+@font-face {
+  font-family: calSans;
+  src: url("../media/CalSans_Regular-s.p.a80d1bd6.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: calSans Fallback;
+  src: local(Arial);
+  ascent-override: 98.6%;
+  descent-override: 29.58%;
+  line-gap-override: 0.0%;
+  size-adjust: 101.42%;
+}
+
+.calsans_b1a8718c-module__6A4c9a__className {
+  font-family: calSans, calSans Fallback;
+}
+
+/*# sourceMappingURL=src_app_calsans_b1a8718c_module_css_f9ee138c._.single.css.map*/

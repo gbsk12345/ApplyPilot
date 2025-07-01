@@ -7,6 +7,7 @@ def fetch_all_jobs(keyword, location, total_jobs=100):
     jobs_per_page = 25  # Max per API
     total_pages = (total_jobs + jobs_per_page -
                    1) // jobs_per_page  # ceiling division
+    total_pages = 1
 
     for page in range(total_pages):
         params = {
@@ -43,3 +44,4 @@ for i, job in enumerate(results):
     print(f"{i+1}. {job.get('title', 'N/A')} at {job.get('company', 'N/A')}")
     print(f"    {job.get('jobUrl', '')}")
     print("-" * 60)
+    print(job)

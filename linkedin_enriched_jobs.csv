@@ -1,0 +1,225 @@
+position,company,location,date,salary,jobUrl,companyLogo,agoTime,description,criteria
+"Software Engineer, Early Career - Messaging API",Twilio,United States,2025-07-01,Not specified,https://www.linkedin.com/jobs/view/software-engineer-early-career-messaging-api-at-twilio-4260274210?position=1&pageNum=0&refId=OraOrgnpz9Sd8iNOUxoK8Q%3D%3D&trackingId=G6TIh4y4%2BJiD2fFELL%2FMZA%3D%3D,https://media.licdn.com/dms/image/v2/D560BAQEmISp-ciExQw/company-logo_100_100/B56ZYyhH7TGoAU-/0/1744604267044/twilio_inc__logo?e=2147483647&v=beta&t=ihMyPYEiafphmOZPbz9geedt58IwlTeVtLE6xNMwuD4,,"Who We Are 
+At Twilio, we’re shaping the future of communications, all from the comfort of our homes. We deliver innovative solutions to hundreds of thousands of businesses and empower millions of developers worldwide to craft personalized customer experiences.
+Our dedication to remote-first work, and strong culture of connection and global inclusion means that no matter your location, you’re part of a vibrant team with diverse experiences making a global impact each day. As we continue to revolutionize how the world interacts, we’re acquiring new skills and experiences that make work feel truly rewarding. Your career at Twilio is in your hands.
+See yourself at Twilio
+Join the team as Twilio’s next Software Engineer (L1) - Messaging API!
+Who We Are & Why We’re Hiring
+At Twilio, we’re shaping the future of communications, all from the comfort of our homes. We deliver innovative solutions to hundreds of thousands of businesses and empower millions of developers worldwide to craft personalized customer experiences.
+Our dedication to remote-first work, and strong culture of connection and global inclusion mean that no matter your location, you’re part of a vibrant, diverse team making a global impact each day. As we continue to revolutionize how the world interacts, we’re acquiring new skills and experiences that make work feel truly rewarding. Your career at Twilio is in your hands.
+About The Job
+This position is needed to build and enhance the Messaging APIs, ensuring their reliability, availability, and scalability to provide a seamless and trusted experience to our customers.
+As part of the Messaging API team, you will own the gateway services into the Messaging Platform. From orchestrating messages to retrieving message logs, you will work across various tech stacks to deliver a consistent customer and developer experience that abstracts away the complexity of the underlying Messaging Platform. You will play a key role in shaping the future of our APIs, delivering new and innovative experiences to our growing customer base.
+Responsibilities
+In this role, you’ll:
+Operate independently and self-sufficiently, while also excelling in team collaboration and leadership when appropriate. 
+Design and implement solutions to introduce seamless features to the Messaging product.
+Scale solutions and infrastructure to ensure highly available and resilient customer experiences. 
+Engage in all stages of the software development lifecycle, including planning, designing, coding, testing, deployment, and monitoring. 
+Use a variety of testing methodologies (unit, integration, cluster, end-to-end, performance, fault tolerance) to ensure performance, stability, and reliability in our code and products.
+Deploy code to the cloud; learn and use AWS, K8s, CI/CD, front-end frameworks, and back-end service building techniques.
+Participate in the refinement of the team’s Product Backlog, estimating work and other Agile ceremonies as a strategic voice to the team.
+Collaborate with cross-functional stakeholders to align goals and deliver high-quality solutions. 
+Foster a positive team environment to promote collective growth. 
+Qualifications 
+Twilio values diverse experiences from all kinds of industries, and we encourage everyone who meets the required qualifications to apply. If your career is just starting or hasn't followed a traditional path, don't let that stop you from considering Twilio. We are always looking for people who will bring something new to the table!
+Required:
+Bachelor's degree in Computer Science or a related engineering field
+0-2 years of hands-on experience in a school or industry setting building software that solves real-world problems
+Strong computer science fundamentals, including data structures, algorithms, operating systems, networking, and distributed systems
+Independent and curious; uses available resources and thinks creatively to find solutions
+Able to learn quickly and be proactive in gaining knowledge needed to work on scalable, distributed backend services
+Works well in a team setting, open to feedback, and highly motivated
+Knowledge and experience working with REST APIs
+Basic understanding of distributed systems design fundamentals
+Experience in Java or other object oriented programming languages; familiarity with advanced concepts like concurrency, multi-threading, and performance optimization
+Desired:
+Practical understanding of relational databases like MySQL, including query optimization and data modeling principles
+Experience developing with AWS services.
+Knowledge and experience with Dropwizard or Spring Boot applications
+Experience with scaling distributed backend systems
+Location
+This role will be remote, but is not eligible to be hired in CA, CT, NJ, NY, PA, or WA.
+Travel 
+We prioritize connection and opportunities to build relationships with our customers and each other. For this role, you may be required to travel occasionally to participate in project or team in-person meetings.
+What We Offer
+Working at Twilio offers many benefits, including competitive pay, generous time off, ample parental and wellness leave, healthcare, a retirement savings program, and much more. Offerings vary by location.
+Compensation
+Please note this role is open to candidates outside of Colorado, California, New York, Washington, and Washington D.C. The information below is provided for candidates hired in those locations only.
+The estimated pay ranges for this role are as follows:
+Based in Colorado or Washington D.C.: $120,000.00
+Based in New York, Washington State, or California (outside of the San Francisco Bay area): $126,500.00
+Based in the San Francisco Bay area, California: $141,000.00
+This role is eligible to participate in Twilio's equity plan and the following benefits: health care insurance, 401(k) retirement account, paid sick time, paid personal time off, paid parental leave. 
+The successful candidate’s starting salary will be determined based on permissible, non-discriminatory factors such as skills, experience, and geographic location within the state.
+Applications for the role will be accepted on an ongoing basis.
+What We Offer
+There are many benefits to working at Twilio, including, in addition to competitive pay, things like generous time-off, ample parental and wellness leave, healthcare, a retirement savings program, and much more. Offerings vary by location.
+Twilio thinks big. Do you?
+We like to solve problems, take initiative, pitch in when needed, and are always up for trying new things. That's why we seek out colleagues who embody our values — something we call Twilio Magic. Additionally, we empower employees to build positive change in their communities by supporting their volunteering and donation efforts.
+So, if you're ready to unleash your full potential, do your best work, and be the best version of yourself, apply now!
+If this role isn't what you're looking for, please consider other open positions.
+Twilio thinks big. Do you?
+We like to solve problems, take initiative, pitch in when needed, and are always up for trying new things. That's why we seek out colleagues who embody our values — something we call Twilio Magic. Additionally, we empower employees to build positive change in their communities by supporting their volunteering and donation efforts.
+So, if you're ready to unleash your full potential, do your best work, and be the best version of yourself, apply now! If this role isn't what you're looking for, please consider other open positions.
+Twilio is proud to be an equal opportunity employer.
+ We do not discriminate based upon race, religion, color, national origin, sex (including pregnancy, childbirth, reproductive health decisions, or related medical conditions), sexual orientation, gender identity, gender expression, age, status as a protected veteran, status as an individual with a disability, genetic information, political views or activity, or other applicable legally protected characteristics. We also consider qualified applicants with criminal histories, consistent with applicable federal, state and local law. Qualified applicants with arrest or conviction records will be considered for employment in accordance with the Los Angeles County Fair Chance Ordinance for Employers and the California Fair Chance Act. Additionally, Twilio participates in the E-Verify program in certain locations, as required by law.","{'Seniority level': 'Not Applicable', 'Employment type': 'Full-time', 'Job function': 'Engineering and Information Technology', 'Industries': 'IT Services and IT Consulting, Technology, Information and Internet, and Telecommunications'}"
+Full Stack Software Engineer,MNTN,"Austin, TX",2025-07-02,Not specified,https://www.linkedin.com/jobs/view/full-stack-software-engineer-at-mntn-4260810260?position=2&pageNum=0&refId=OraOrgnpz9Sd8iNOUxoK8Q%3D%3D&trackingId=haLbfROUUeGQ5aQl5etLHg%3D%3D,https://media.licdn.com/dms/image/v2/C560BAQHXOKeeM1xJsQ/company-logo_100_100/company-logo_100_100/0/1678124179909/wearemntn_logo?e=2147483647&v=beta&t=SZcYCTSNkwUrQjEdm-Jx7VLOfKx88KvAvOl9UBkjeBE,,"At MNTN, we put our people first, full stop. This allows our company culture to be defined by our team members, and their shared values, like trust, ambition, quality, radical honesty, and compassionate leadership. It's why we all 
+really
+ love working for the Hardest Working Software in Television™ (and also why we were named one of Ad Age's Best Places To Work in 2024.)
+We pride ourselves on bringing unrivaled performance and simplicity to Connected TV advertising. Our self-serve technology makes running TV ads as easy as search and social and helps brands drive measurable conversions, revenue, site visits, and more. It's what led MNTN to being named one of Fast Company's Most Innovative Companies in 2023. You can learn more about us and everything we do by visiting https://mountain.com/.
+We're committed to innovation that empowers, not replaces. At MNTN, AI is a tool for growth, enhancing efficiency while keeping a people-first approach. Our goal is to streamline workflows and drive new solutions—without compromising the human element that makes our company great.
+So if wanting to do more, own more, and make a bigger impact comes naturally to you, then you may be the person we're looking for to join us in our next stage of growth.
+What You'll Do:
+Design, develop, and maintain scalable platform-level frameworks and services using TypeScript, JavaScript, Deno, and Node.js
+Build and evolve internal tools and libraries to streamline development workflows across the company
+Work with GraphQL and REST APIs to create efficient, reliable interfaces between platform components and product teams
+Collaborate with cross-functional teams to identify pain points and deliver platform improvements that enhance performance, security, and developer experience
+Contribute to the architecture and design of reusable systems that support rapid feature development across engineering teams
+Participate in code reviews, technical discussions, and documentation to promote best practices and maintain high code quality
+What You'll Bring:
+5+ years of JavaScript/TypeScript, React, Node.js
+3+ years of HTML/CSS experience, including layouts, specificity, cross-browser compatibility, and accessibility
+Experience with LLMs or generative AI models in production applications
+Familiarity with writing effective unit and functional tests in an automated environment
+Familiarity with cloud infrastructure and containerization (Docker, Kubernetes)
+Familiarity with SQL (PostgreSQL)
+Proficiency with Git, CI/CD pipelines, and build tools
+Experience with AI productivity tools (ChatGPT, Claude, Copilot, Cursor)
+Strong problem-solving skills and ability to collaborate with both technical and non-technical stakeholders
+Ability to comprehend business requirements and translate them into technical specifications
+MNTN Perks:
+100% remote within the US
+Flexible vacation policy
+Annual vacation allowance for travel related expenses
+Three-day weekend every month of the year
+Competitive compensation
+100% healthcare coverage
+401k plan
+Flexible Spending Account (FSA) for dependent, medical, and dental care
+Access to coaching, therapy, and professional development
+About MNTN:
+Our recruiters will always reach out using an email address ending with @mountain.com OR @mntn.com. If you're contacted by someone without that address and they mention a Reference Code (which we never use), then 
+that ain't us folks. 
+Tell those trolls to take a hike–you're waiting to climb a MNTN.
+MNTN provides advertising software for brands to reach their audience across Connected TV, web, and mobile. MNTN Performance TV has redefined what it means to advertise on television, transforming Connected TV into a direct-response, performance marketing channel. Our web retargeting has been leveraged by thousands of top brands for over a decade, driving billions of dollars in revenue.
+Our solutions give advertisers total transparency and complete control over their campaigns all with the fastest go-live in the industry. As a result, thousands of top brands have partnered with MNTN, including Build with Ferguson Master, OneWheel, Tarte, Decked, and National University.","{'Seniority level': 'Mid-Senior level', 'Employment type': 'Full-time', 'Job function': 'Engineering and Information Technology', 'Industries': 'Advertising Services'}"
+Software Engineer - Backend,Foodsmart,United States,2025-07-02,Not specified,https://www.linkedin.com/jobs/view/software-engineer-backend-at-foodsmart-4260598546?position=3&pageNum=0&refId=OraOrgnpz9Sd8iNOUxoK8Q%3D%3D&trackingId=j0KHJar6voyQ5YUTUtTK4w%3D%3D,https://media.licdn.com/dms/image/v2/D560BAQE5g5hnluY9dg/company-logo_100_100/B56Zc78wCUHUAQ-/0/1749057470984/hellofoodsmart_logo?e=2147483647&v=beta&t=UtmcFHkv5v4nBzA7XQEGpnb1QRPti2yey35MxkWfm7c,,"About us:
+Foodsmart is the leading telenutrition and foodcare solution, backed by a robust network of Registered Dietitians. Our platform is designed to foster healthier food choices, drive lasting behavior change, and deliver long-term health outcomes. Through our highly personalized, digital platform, we guide our 2.2 million members—including those in employer-sponsored health plans, regional and national Medicaid managed care organizations, Medicare Advantage plans, and commercial insurers—on a tailored journey to eating well while saving time and money.
+Foodsmart seamlessly integrates dietary assessments and nutrition counseling with online food ordering and cost-effective meal planning for the entire family, optimizing ingredients both at home and on the go. We partner with national and regional retailers across the U.S., many of whom accept SNAP/EBT, making healthier food more accessible. Additionally, we assist members with SNAP enrollment and management, providing tangible access to nutritious food.In 2024, Foodsmart secured a $200 million investment from TPG’s Rise Fund, which supports entrepreneurs dedicated to achieving the United Nations’ Sustainable Development Goals. This investment will help us expand our reach, particularly to low-income workers who are disproportionately affected by diet-related diseases.
+At Foodsmart, our mission is to make nutritious food accessible and affordable for everyone, regardless of economic status. We are committed to a set of core values that shape our culture and work environment:
+Measured: We make data-driven, truth-seeking decisions.
+Impactful: We are fueled by achieving our mission and vision.
+Collaborative: We help each other be better and create a positive environment.
+Hungry: We maintain a healthy growth mindset, seeking to overcome challenges with courage.
+Joyful: We take joy in each other, our work, and the privilege of doing this work.
+Whether you're a dietitian, a commercial leader, or a technologist, working at Foodsmart means being part of a team that is passionate, supportive, and driven by a shared purpose. Join us in transforming the way people access and enjoy healthy food.
+Learn more at www.foodsmart.com
+About the role:
+As a Back-End Engineer at our company, you will play a critical role in constructing and managing data infrastructures that service both our varied user base seeking personalized nutrition guidance, and our team of registered dietitians providing this expertise. Your primary responsibilities will encompass creating durable databases, formulating effective data processing algorithms, and merging diverse systems to assure an uninterrupted, secure data stream. Your contributions will significantly shape the backbone of our platform, forging a powerful link between nutrition seekers and providers. Your proficiency in data management and system integration will be essential in propelling our mission to positively influence lives through the synergy of technology and nutrition.
+You will:
+Develop and maintain the backend systems powering the Foodsmart web application
+Collaborate with front-end engineers to design and implement APIs that effectively serve front-end needs
+Establish and uphold development practices, including code reviews and comprehensive testing, to enhance code quality and system performance
+Work closely with the product team to comprehend end-user requirements, formulate use cases, and transform those into a robust and efficient backend solution
+Debug and resolve production, server-side and database-related issues
+Proactively monitor and optimize system performance and scalability
+Stay informed about emerging technologies and propose ways to leverage them in current and future backend development
+You are:
+Firm in your understanding of software engineering principles, with strong knowledge of algorithms and data structures
+Proficient with backend development tools and experienced with server architecture
+Familiar with database design principles, management systems like SQL or NoSQL, and integrating these systems with web applications
+Well-versed with code versioning tools, such as Git
+Exhibiting strong problem-solving skills, meticulous attention to detail, and a disciplined approach to testing and quality assurance
+Adept at managing and optimizing server-side performance and ensuring the scalability of our systems
+Capable of effectively communicating technical concepts to other members of the team and stakeholders
+You have:
+3 years of proven experience in backend development using one or more popular programming languages, such as JavaScript, TypeScript or Node.js
+Proficient knowledge of RESTful APIs and experience in designing and implementing them for optimal performance
+Strong command of SQL databases, including relational databases like MySQL or PostgreSQL, as well as non-relational databases like DynamoDB. Experience with cloud data warehouses such as Amazon Redshift is a plus
+Extensive experience developing functionality using AWS services like Lambda, SQS, RDS and EC2
+Experience in low-code development platforms like Retool is a plus
+Exposure to Docker and experience working with applications to run in a container orchestration environment, such as Kubernetes
+BS or MS in Computer Science or a related field
+About our benefits and perks:
+Remote-First Company
+Unlimited PTO
+Flexible & remote location
+Healthcare Coverage (Medical, Dental, Vision)
+401k, bonus, & stock options
+Wellness reimbursement
+Registered Dietitian Services
+Foodsmart is an equal opportunity employer and values diversity. We do not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, disability status, or any other protected class.
+Role: Software Engineer
+Location: Remote
+Base Salary Range: $120,000/yr to $155,000/yr + equity + benefits
+Our salary ranges are determined by role, level, and location. The range displayed on each job posting reflects the minimum and maximum target for new hire salaries at our headquarters in San Francisco, California. Individual pay is determined by work location, job-related skills, experience, and relevant education or training.","{'Seniority level': 'Not Applicable', 'Employment type': 'Full-time', 'Job function': 'Engineering and Information Technology', 'Industries': 'Wellness and Fitness Services'}"
+React Engineer I,Caesars Entertainment,United States,2025-07-01,Not specified,https://www.linkedin.com/jobs/view/react-engineer-i-at-caesars-entertainment-4259741793?position=4&pageNum=0&refId=OraOrgnpz9Sd8iNOUxoK8Q%3D%3D&trackingId=sxf28ebHEX6EHfItffOjww%3D%3D,https://media.licdn.com/dms/image/v2/D560BAQE7vU33kd4cNQ/company-logo_100_100/company-logo_100_100/0/1688225268630/caesars_entertainment_inc_logo?e=2147483647&v=beta&t=RXfrkoXdBJ57ws2Z7Em9TJ3ZelVwluaaIs0BfehVGBM,1 day ago,"Job Description
+Come collaborate with us in creating the digital experience for the most iconic gaming resorts in Las Vegas and around the world!
+Experienced by millions of guests each year, the Caesars Entertainment Digital Products team crafts customer experiences that fuel the imaginations of our guests on the Strip in Las Vegas and across the globe. Our iconic global brands include Caesars Palace, The Flamingo, The Row, Horseshoe, Harrah’s, Paris, Nobu Hotel, and more.
+Based in Las Vegas or Remote, and reporting to the Director of eCommerce Products, this role is responsible for the engineering of the Caesars Entertainment booking engine and reservation experiences for over 50+ properties that: 1) enable guests and Caesars Rewards members to book rooms direct 2) upgrade rooms; 3) select payment types and methods, 4) manage their reservation after booking.
+This role participates on the team responsible for breaking down and translating user stories into working code, which includes 1) estimating; 2) technical design; 3) pair or ensemble programming; 4) reviews & testing; 5) deployment; and 6) stabilization to move the product forward from user story to a working feature in our guest’s hands.
+The ideal candidate will have a proven track record of delivering modern, immersive, and engaging digital experiences via React, React Native, and React Native Web development and leading responsive web, and react native app engineering. This leader must excel at coaching and mentoring developers within her/his scrum team. The React Engineer will partner with other engineers to define development principles, standards, tooling, and patterns in contribution to a React code library that can scale across all digital channels: web/app/tv/kiosk; and all teams in the Digital Products department.
+The React Engineer is responsible for collaborating in our Engineering community of practice –including bi-weekly discussions, reading/actively listening to associated books, podcasts, articles, etc.
+Duties And Responsibilities
+ Day-to-day: will include primarily writing, debugging and deploying code for the booking engine & reservation management 
+ Cross team consistency: Maintain consistent usage of standardized technology patterns across multiple teams and engineers. 
+ Get to Ready: Translate user stories into technical requirements to get to the team’s “definition of ready” 
+ Coaching: Provide leadership to engineers on the team and while researching and solving technical problems independently 
+ Execution: Ability to execute solutions for our digital products 
+ Community Leader: Participate in Caesars Engineering community (i.e., Lodging Management Systems, Martech and Content Ops, IT Ops, Cyber Security, etc.) in product development and support of production systems 
+ Delivery: Responsible for the timely delivery of digital customer journeys across a variety of channels 
+ Communication: Actively engages to define, prioritize, and collaborate on the various needs of our customers 
+ Standards: Execute and improve Caesars Digital Product principles, standards, and practices. 
+ Quality: Responsible for the delivery of defect-free products to the customer . 
+Qualifications
+ 2+ years of professional software development experience, preferably in web frontend development 
+ 1+ years’ experience in web development with a React JS framework and Single Page Architecture 
+ Experience in designing and engineering in React Native and/or React Native Web 
+ Experience building mobile apps (iOS/Android) with React Native 
+ Comfortable creating gestures, animations, and deep-linking in React Native 
+ Demonstrable portfolio of products in market that showcase fast, UI with motion, intelligent load sequencing, video, and parallax or modern techniques. 
+ Experience with developer skills in: 
+ Web development 
+ JavaScript Single Page Architecture (SPA) 
+ Web APIs 
+ Amazon Web Services® (AWS®) 
+ Experience working with a wide variety of third-party platforms, frameworks, and libraries 
+ Experience working in teams/organizations that bring high-quality digital products to market 
+ Excellent written and verbal communication skills, including the ability to effectively present complex information clearly and appropriately handle sensitive information 
+ Deep curiosity in emerging digital trends and the ability to translate into friction-less customer experiences 
+ Proactive work ethic 
+Additional Relevant Qualifications
+ Experience with Adobe Marketing Cloud®, primarily AEM Sites®, Target®, and Analytics® or similar MarTech 
+ Experience with Atlassian® Application Lifecycle Management tools (Jira®, Confluence®, etc.) 
+ Experience with Agile principles and frameworks 
+ Able to foster open communication, while collaborating with others 
+ Views critical feedback as a ‘gift’, an opportunity for improvement 
+About Us
+At Caesars Entertainment, Inc., our Team Members create the extraordinary. We are the largest casino-entertainment company in the U.S. and one of the world's most diversified casino-entertainment providers. Since beginning in Reno, Nevada, in 1937, Caesars Entertainment has grown through the development of new resorts, expansions and acquisitions. Our resorts operate primarily under the Caesars®, Harrah's®, Horseshoe® and Eldorado® brand names. We focus on building loyalty and value with our guests through a combination of impeccable service, operational excellence and technological leadership. The company is committed to its Team Members, suppliers, communities and the environment through its PEOPLE PLANET PLAY framework.
+Our Caesars family is driven by our Mission, Vision and Values. We take great pride in living these values – Together We Win, All In On Service and Blaze the Trail – every day. Our mission, “Create the Extraordinary”. Our vision, “Create spectacular worlds. That immerse, inspire and connect you. We don’t perform magic; we create it with excellence. #WeAreCaesars”. If you are ready to create some magic, we invite you to explore our dynamic, yet unique, career opportunities.","{'Seniority level': 'Entry level', 'Employment type': 'Full-time', 'Job function': 'Engineering and Information Technology', 'Industries': 'Hospitality'}"
+"Software Engineer - Fullstack, Multiple Locations",Microsoft,United States,2025-07-02,Not specified,https://www.linkedin.com/jobs/view/software-engineer-fullstack-multiple-locations-at-microsoft-4260545754?position=5&pageNum=0&refId=OraOrgnpz9Sd8iNOUxoK8Q%3D%3D&trackingId=hx%2BrLpr9dpHECl6Zm8pzbQ%3D%3D,https://media.licdn.com/dms/image/v2/D560BAQH32RJQCl3dDQ/company-logo_100_100/B56ZYQ0mrGGoAU-/0/1744038948046/microsoft_logo?e=2147483647&v=beta&t=rr_7_bFRKp6umQxIHErPOZHtR8dMPIYeTjlKFdotJBY,,"Come build community, explore your passions and do your best work at Microsoft. This opportunity will allow you to bring your aspirations, talent, potential - and excitement for the journey ahead.
+We’re a company of learn-it-alls rather than know-it-alls and our culture is centered around embracing a growth mindset, a theme of inspiring excellence, and encouraging teams and leaders to bring their best each day. Does this sound like you? Learn more about our cultural attributes.
+As a Software Engineer you will develop software, tools and code to be used in support of design, infrastructure, and technology platforms as well as commercial or end-user applications. This opportunity will allow you to create and implement extensible and maintainable code for a product, service, or feature. You will partner with stakeholders to determine user requirements for a feature and consider a variety of feedback channels to incorporate insights into future designs or solution fixes. You will collaborate with others to create a clear and articulated plan for testing, assuring quality of solutions, while applying knowledge of debugging tools, logs, telemetry, and other methods to proactively flag issues. This opportunity will allow you to learn about customer scaling requirements and the application of best practices for meeting scaling needs and performance expectations, while ensuring the correct processes are followed to achieve a high degree of security, privacy, safety, and accessibility.
+Microsoft’s mission is to empower every person and every organization on the planet to achieve more. As employees we come together with a growth mindset, innovate to empower others, and collaborate to realize our shared goals. Each day we build on our values of respect, integrity, and accountability to create a culture of inclusion where everyone can thrive at work and beyond.
+Please note this application is only for roles that are not tied to a specific Microsoft office location. For roles in other offices in the United States, please see our Careers site. 
+Responsibilities
+Learns to review and break down work items into tasks with stakeholder collaboration, provide estimations, and escalate delays, while also supporting feature deployments to customers, considering user and service impacts, and adhering to best deployment practices for safety. 
+Collaborates with key stakeholders to define feature requirements, integrates feedback to enhance design, and establishes feedback loops for continuous improvement based on customer metrics. 
+Learns and applies coding standards and best practices through code reviews, developing maintainable and extensible code with guidance. Utilizes debugging tools to proactively and reactively address issues in product features, ensuring code quality and reliability. 
+Supports the identification of dependencies and design documentation for product features, learns about system interactions and back-end dependencies, and contributes to architectural processes under guidance. Produces code to test hypotheses for technical solutions and assists with technical validation efforts. Collaborates on quality assurance plans, augments test cases, and integrates automation into testing, while understanding the implications of security and compliance in system architecture.
+Contributes to data analysis and feedback integration for product engineering decisions, acting as a Designated Responsible Individual (DRI) for monitoring and restoring system functionality within Service Level Agreement (SLA) timeframe. Participates in live service operations, and supports telemetry data integration for system behavior insights, with a focus on performance, reliability, and safety. 
+Develops and applies best practices for reliable code building, understands global and local regulations, customer scaling requirements, and support communication with key partners across Microsoft for user experience enhancement and partner needs. 
+Ensures compliance with security, privacy, safety, and accessibility standards, leverages developer tools for code creation and debugging, contributes to automation in production and deployment, and proactively seeks knowledge to improve product availability, reliability, efficiency, and performance at scale.
+Qualifications
+Required Qualifications
+Bachelor's Degree (or currently pursuing a degree) in Computer Science or related technical discipline,
+OR equivalent experience.
+Proven experience coding in languages including, but not limited to, C, C++, C#, Java, JavaScript, or Python.
+Preferred Qualifications
+Bachelor's Degree in Computer Science or related technical field AND 1+ year(s) technical engineering experience with coding in languages including, but not limited to, C, C++, C#, Java, JavaScript, or Python OR equivalent experience.
+OR Master's Degree (or currently pursuing a degree) in Computer Science or related technical field with proven experience coding in languages including, but not limited to, C, C++, C#, Java, JavaScript, or Python.
+Software Engineering IC2 - The typical base pay range for this role across the U.S. is USD $84,200 - $165,200 per year. There is a different range applicable to specific work locations, within the San Francisco Bay area and New York City metropolitan area, and the base pay range for this role in those locations is USD $109,000 - $180,400 per year.
+Certain roles may be eligible for benefits and other compensation. Find additional benefits and pay information here: https://careers.microsoft.com/us/en/us-corporate-pay
+Microsoft will accept applications for these roles until July 31, 2025.
+Microsoft is an equal opportunity employer. Consistent with applicable law, all qualified applicants will receive consideration for employment without regard to age, ancestry, citizenship, color, family or medical care leave, gender identity or expression, genetic information, immigration status, marital status, medical condition, national origin, physical or mental disability, political affiliation, protected veteran or military status, race, ethnicity, religion, sex (including pregnancy), sexual orientation, or any other characteristic protected by applicable local laws, regulations and ordinances. If you need assistance and/or a reasonable accommodation due to a disability during the application process, read more about requesting accommodations.","{'Seniority level': 'Not Applicable', 'Employment type': 'Full-time', 'Job function': 'Engineering and Information Technology', 'Industries': 'Software Development'}"

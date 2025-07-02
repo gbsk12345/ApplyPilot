@@ -154,7 +154,7 @@ if __name__ == "__main__":
     # Example usage
     keyword = "software engineer"
     location = "United States"
-    total_jobs = 100
+    total_jobs = 5
 
     job_list = fetch_job_urls(keyword, location, total_jobs)
     print("No of jobs fetched ", len(job_list))

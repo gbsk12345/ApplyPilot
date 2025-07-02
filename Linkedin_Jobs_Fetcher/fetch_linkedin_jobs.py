@@ -113,11 +113,14 @@ def fetch_all_jobs(keyword, location, total_jobs=100):
 
 # Run example
 if __name__ == "__main__":
-    results = fetch_all_jobs("data scientist", "United States", total_jobs=50)
+    results = fetch_all_jobs(
+        "software engineer", "United States", total_jobs=200)
 
     for i, job in enumerate(results):
         print(f"{i+1}. {job.get('position', 'N/A')} at {job.get('company', 'N/A')}")
         print(f"    {job.get('jobUrl', '')}")
-        print(f"    Description: {job.get('description', '')[:200]}...\n")
+        # print(f"    Description: {job.get('description', '')[:200]}...\n")
+        desc = job.get('description') or ""
+        print(f"    Description: {desc[:200]}...\n")
         print(f"    Criteria: {job.get('criteria', {})}")
         print("-" * 60)

@@ -1,0 +1,7 @@
+[!] Failed for 4260274210: 429
+	•	429 is the HTTP error code for:
+🚫 Too Many Requests – LinkedIn has rate-limited you (temporarily blocked further scraping).
+
+[!] 500 Server Error
+
+LinkedIn’s server might be overloaded or rejecting specific job IDs temporarily.

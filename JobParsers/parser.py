@@ -148,7 +148,8 @@ def parse_job_posting(html_content, skills_set):
 
 def main():
     skill_dir = Path("LightCast_Skills_Output")
-    skill_file = skill_dir / "software_skills_lowercase.txt"
+    # skill_file = skill_dir / "software_skills_lowercase.txt"
+    skill_file = skill_dir / "new_skills.txt"
 
     if not skill_file.exists():
         print(

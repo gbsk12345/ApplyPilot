@@ -1,29 +1,47 @@
-# fetch_linkedin_jobs.py
-# This script contacts a local LinkedIn Jobs API server, then enriches each job with full description and metadata
+# ----------------------------- fetch_linkedin_jobs.py -----------------------------
+# ⛳ GOAL: Fetch job listings from LinkedIn Jobs API + enrich with full job description + metadata.
+# 🔗 Architecture:
+#   1. Pull listings from local Node.js server (running on localhost:3000)
+#   2. Extract Job ID from each listing's LinkedIn URL
+#   3. Call LinkedIn's public "jobs-guest" API to get full job description and metadata
+#   4. Output enriched jobs list (can be printed, exported to JSON, etc.)
 
 import requests
 from bs4 import BeautifulSoup
 import time
 from urllib.parse import urlparse
 import re
+import pandas as pd
+from typing import List, Dict, Any
 
-# Extract jobId from jobUrl
+# ------------------------ 1. Extract LinkedIn Job ID from URL -----------------------
 
 
-def extract_job_id(job_url):
+def extract_job_id(job_url: str) -> str:
+    """
+    Extracts the numeric job ID from the LinkedIn job posting URL.
+    Example URL: https://www.linkedin.com/jobs/view/software-engineer-at-google-4260274210
+    Returns: 4260274210
+    """
     try:
         if not job_url:
             return None
         path = urlparse(job_url).path
-        matches = re.findall(r'-(\d+)$', path)
-        return matches[0] if matches else None
+        match = re.findall(r'-(\d+)$', path)
+        return match[0] if match else None
     except Exception:
         return None
 
-# Fetch full job description + job criteria
+# --------------------- 2. Get Full Job Description and Job Criteria ------------------
 
 
-def fetch_job_details(job_id):
+def fetch_job_details(job_id: str) -> Dict[str, Any]:
+    """
+    Scrapes the job's full detail page using LinkedIn's public jobs-guest API.
+    Returns:
+        - description: Text of the job description
+        - criteria: Dictionary with fields like Employment type, Industries, etc.
+    """
     try:
         headers = {
             "User-Agent": "Mozilla/5.0",
@@ -31,18 +49,23 @@ def fetch_job_details(job_id):
         }
         url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
         response = requests.get(url, headers=headers, timeout=10)
-        if response.status_code != 200:
+
+        if response.status_code == 429:
+            print(f"[429 TOO MANY REQUESTS] Backing off for jobId {job_id}")
+            time.sleep(5)
+            return None
+        elif response.status_code >= 400:
             print(f"[!] Failed for {job_id}: {response.status_code}")
             return None
 
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # --- Description section ---
+        # Description block
         desc_div = soup.select_one('[class*=description] > section > div')
         description = desc_div.get_text(
             separator='\n').strip() if desc_div else ""
 
-        # --- Job Criteria (Employment type, Seniority, etc.) ---
+        # Job Criteria
         criteria = {}
         for li in soup.select('.description__job-criteria-list > li'):
             label = li.select_one('.description__job-criteria-subheader')
@@ -52,21 +75,23 @@ def fetch_job_details(job_id):
                 criteria[label.get_text(strip=True)
                          ] = value.get_text(strip=True)
 
-        return {
-            "description": description,
-            "criteria": criteria
-        }
+        return {"description": description, "criteria": criteria}
 
     except Exception as e:
-        print(f"[ERROR] {job_id}: {e}")
+        print(
+            f"[ERROR] Fetching job details failed for job_id={job_id}:\n    {e}")
         return None
 
-# Fetch job listings and enrich them
+# ----------------------- 3. Stage 1: Fetch Job Listings -----------------------------
 
 
-def fetch_all_jobs(keyword, location, total_jobs=100):
+def fetch_job_urls(keyword: str, location: str, total_jobs: int = 50) -> List[Dict[str, Any]]:
+    """
+    Contacts the local Node.js server (Linkedin_Jobs_server.js) to fetch job listings.
+    Returns a list of jobs, each with basic fields like position, company, jobUrl, etc.
+    """
     all_jobs = []
-    jobs_per_page = 25  # Max per API
+    jobs_per_page = 25
     total_pages = (total_jobs + jobs_per_page - 1) // jobs_per_page
 
     for page in range(total_pages):
@@ -77,50 +102,81 @@ def fetch_all_jobs(keyword, location, total_jobs=100):
             "page": str(page)
         }
 
-        print(f"🔄 Fetching page {page + 1}...")
-        response = requests.get("http://localhost:3000/jobs", params=params)
-        if response.status_code != 200:
-            print("❌ Error:", response.status_code, response.text)
+        print(f"🔄 Fetching job page {page + 1}...")
+        try:
+            response = requests.get(
+                "http://localhost:3000/jobs", params=params)
+            response.raise_for_status()
+            jobs = response.json()
+            if not jobs:
+                break
+            all_jobs.extend(jobs)
+        except Exception as e:
+            print(f"❌ Failed to fetch job page {page + 1}: {e}")
             break
 
-        jobs = response.json()
-        if not jobs:
-            break
+        time.sleep(1)  # polite delay
 
-        for job in jobs:
-            job_id = extract_job_id(job.get("jobUrl", ""))
-            if not job_id:
-                job["description"] = None
-                job["criteria"] = {}
-                continue
+    return all_jobs[:total_jobs]
 
-            details = fetch_job_details(job_id)
-            if details:
-                job["description"] = details.get("description", "")
-                job["criteria"] = details.get("criteria", {})
-            else:
-                job["description"] = None
-                job["criteria"] = {}
-
-            time.sleep(1.5)
-
-        all_jobs.extend(jobs)
-        time.sleep(1)
-
-    print(f"✅ Fetched and enriched total {len(all_jobs)} jobs.")
-    return all_jobs[:total_jobs]  # in case fewer than expected returned
+# ------------------- 4. Stage 2: Enrich with Descriptions & Metadata -------------------
 
 
-# Run example
+def enrich_jobs_with_details(jobs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Loops through the raw job list and appends 'description' and 'criteria' fields
+    by calling LinkedIn's jobs-guest API per job.
+    """
+    for job in jobs:
+        job_url = job.get("jobUrl", "")
+        job_id = extract_job_id(job_url)
+        if not job_id:
+            job["description"] = ""
+            job["criteria"] = {}
+            continue
+
+        details = fetch_job_details(job_id)
+        if details:
+            job["description"] = details["description"]
+            job["criteria"] = details["criteria"]
+        else:
+            job["description"] = ""
+            job["criteria"] = {}
+
+        time.sleep(1.5)  # avoid getting 429 errors
+
+    return jobs
+
+# ---------------------------- 5. Execution Block ---------------------------------------
+
+
 if __name__ == "__main__":
-    results = fetch_all_jobs(
-        "software engineer", "United States", total_jobs=200)
+    # Example usage
+    keyword = "software engineer"
+    location = "United States"
+    total_jobs = 100
 
-    for i, job in enumerate(results):
+    job_list = fetch_job_urls(keyword, location, total_jobs)
+    print("No of jobs fetched ", len(job_list))
+
+    print(f"\n🧾 Fetched {len(job_list)} job listings.")
+    print("📎 Job URLs:")
+    for i, job in enumerate(job_list, 1):
+        print(f"{i:2}. {job.get('jobUrl', 'N/A')}")
+    print("=" * 80)
+
+    enriched_jobs = enrich_jobs_with_details(job_list)
+
+    # Output a quick preview
+    for i, job in enumerate(enriched_jobs):
         print(f"{i+1}. {job.get('position', 'N/A')} at {job.get('company', 'N/A')}")
-        print(f"    {job.get('jobUrl', '')}")
-        # print(f"    Description: {job.get('description', '')[:200]}...\n")
-        desc = job.get('description') or ""
-        print(f"    Description: {desc[:200]}...\n")
+        print(f"    URL: {job.get('jobUrl', '')}")
+        print(
+            f"    Description Preview: {(job.get('description') or '')[:200]}...")
         print(f"    Criteria: {job.get('criteria', {})}")
-        print("-" * 60)
+        print("-" * 70)
+
+    # Save to CSV
+    df = pd.DataFrame(enriched_jobs)
+    df.to_csv("linkedin_enriched_jobs.csv", index=False)
+    print("📄 Saved to linkedin_enriched_jobs.csv")

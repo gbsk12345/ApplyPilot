@@ -43,7 +43,7 @@ app.post('/api/apply', async (req, res) => {
     // Use the URL object to reliably parse the hostname from the jobUrl
     const parsedUrl = new URL(jobUrl);
     const hostname = parsedUrl.hostname;
-
+    console.log('Received userData:', userData);
     console.log(`Processing application for URL: ${jobUrl}`);
     console.log(`Detected hostname: ${hostname}`);
 

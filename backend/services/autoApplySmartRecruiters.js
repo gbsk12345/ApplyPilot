@@ -6,7 +6,7 @@ try { require('@img/sharp-libvips-darwin-arm64'); } catch {}
 require('dotenv').config();
 
 const { ChatOpenAI } = require('@langchain/openai');
-const { HyperAgent } = require('@hyperbrowser/agent');
+const { HyperAgent }  = require('@hyperbrowser/agent');
 const path = require('path');
 const fs   = require('fs');
 
@@ -14,34 +14,94 @@ const fs   = require('fs');
 const rnd   = (a, b)  => Math.floor(Math.random() * (b - a + 1)) + a;
 const delay = (p,a,b) => p.waitForTimeout(rnd(a, b));
 
+
+const srMaps = {
+  veteran(v){
+    switch((v||'').toLowerCase()){
+      case 'protected_veteran': return 'Yes';
+      case 'not_veteran':       return 'No';
+      default:                  return 'Prefer not to answer';
+    }
+  },
+  disability(v){
+    switch((v||'').toLowerCase()){
+      case 'yes_disability': return 'Yes, I have a disability, or have had one in the past.';
+      case 'no_disability':  return 'No, I do not have a disability and have not had one in the past.';
+      default:               return 'I do not want to answer.';
+    }
+  },
+  gender(v){
+    const g=(v||'').toLowerCase();
+    if(g==='male')       return 'Male';
+    if(g==='female')     return 'Female';
+    if(g==='nonbinary')  return 'Non-binary/ third gender';
+    return 'Prefer not to answer';
+  },
+  race(v){
+    const r=(v||'').toLowerCase();
+    if(r==='asian') return 'Asian';
+    /* add more as desired */
+    return 'Prefer not to answer';
+  }
+};
+
 /* reach into a host’s shadow DOM and return the native input / textarea */
-async function native(frame, host){
+async function native(frame,host){
   if(!host) return null;
   for(let i=0;i<10;i++){
-    const h  = await host.evaluateHandle(el => (el.shadowRoot || el).querySelector('input,textarea'));
-    const el = h.asElement();
+    const h=await host.evaluateHandle(el=>(el.shadowRoot||el).querySelector('input,textarea'));
+    const el=h.asElement();
     if(el && await el.isVisible()) return el;
     await delay(frame,300,300);
   }
   return null;
 }
 
-/* full “deep click” (oc-button → spl-button → <button>) */
-async function clickDeep(frame, sel){
+/* full “deep click” helper … (unchanged) */
+async function clickDeep(frame,sel){
   const oc  = await frame.$(sel);
-  const spl = oc  && await oc.evaluateHandle(el => el.shadowRoot?.querySelector('spl-button')).then(h => h.asElement());
-  const btn = spl && await spl.evaluateHandle(el => el.shadowRoot?.querySelector('button')).then(h => h.asElement());
+  const spl = oc  && await oc.evaluateHandle(el=>el.shadowRoot?.querySelector('spl-button')).then(h=>h.asElement());
+  const btn = spl && await spl.evaluateHandle(el=>el.shadowRoot?.querySelector('button')).then(h=>h.asElement());
   const tap = async el=>{
     await el.scrollIntoViewIfNeeded();
     await el.dispatchEvent('pointerdown');
     await el.dispatchEvent('pointerup');
-    await el.dispatchEvent('click', { bubbles:true });
+    await el.dispatchEvent('click',{bubbles:true});
   };
-  if(btn){await tap(btn); return true;}
-  if(spl){await tap(spl); return true;}
-  if(oc) {await tap(oc);  return true;}
+  if(btn){await tap(btn);return true;}
+  if(spl){await tap(spl);return true;}
+  if(oc ){await tap(oc); return true;}
   return false;
 }
+
+
+
+
+/* ── tick “I currently work here / attend” ── */
+async function tickCheckbox(frame, hostSelector) {
+  const host = await frame.$(hostSelector);
+  if (!host) return false;
+
+  const real = await native(frame, host);   // <input type="checkbox">
+  if (!real) return false;
+
+  const isChecked = await real.isChecked(); // Playwright helper
+  if (isChecked) return true;
+
+  // 1️⃣  toggle the DOM property so Lit/Angular observe the change
+  await real.evaluate(el => { el.checked = true });
+
+  // 2️⃣  mirror attribute for any attribute-bindings
+  await real.evaluate(el => el.setAttribute('aria-checked', 'true'));
+
+  // 3️⃣  fire the same events the component attaches to
+  await real.dispatchEvent('input');        // bubbles by default
+  await real.dispatchEvent('change', { bubbles: true });
+
+  return true;
+}
+
+
 
 /* generic helper for spl-autocomplete */
 async function fillAutoComplete(frame, host, value){
@@ -62,56 +122,57 @@ async function fillAutoComplete(frame, host, value){
   return true;
 }
 
-async function fillDate(frame, host, month = '', year = '') {
-  if (!host || !(month || year)) return false;
 
-  /* 1⃣  Grab the visible <input> inside the component */
-  const inp = await host.evaluateHandle(el =>
-    el.shadowRoot?.querySelector('input[data-input]') ||
-    el.shadowRoot?.querySelector('input')
-  ).then(h => h.asElement());
-  if (!inp) return false;
 
-  /* 2⃣  Build both strings we need */
-  const m      = month || 'Jan';
-  const y      = year  || new Date().getFullYear();
-  const typed  = `${m} ${y}`;                  // what we TYPE
-  const stored = new Date(`${m} 1, ${y}`).toString(); // what SR expects
+/* ── improved flat-pickr “month-year” helper (no more crash) ─────── */
+async function fillDate(frame, dateFieldHost, month, year) {
+  if (!(month || year) || !dateFieldHost) return false;
 
-  /* 3⃣  Let flatpickr do its thing via typing */
-  await inp.click({ clickCount: 3 });
-  await inp.type(typed, { delay: 40 });
-  await inp.press('Enter');
-  await delay(frame, 300, 450);                // wait for picker to settle
+  /* 1⃣ dive two shadow layers to reach <input.flatpickr-input> */
+  const input = await dateFieldHost.evaluateHandle(el => {
+    const picker = el.shadowRoot?.querySelector('spl-date-picker');
+    return picker?.shadowRoot?.querySelector('input.flatpickr-input[data-input]');
+  }).then(h => h.asElement());
+  if (!input) {
+    console.log('[DEBUG] fillDate › NO inner input found');
+    return false;
+  }
 
-  /* 4⃣  Make 100 % sure SR’s form model sees the value */
-  await frame.evaluate((field, input, val) => {
-    // 4a) set on <spl-date-field>
-    field.value = val;
-    field.setAttribute('value', val);
+  /* 2⃣ compose e.g. “Jan 2024” */
+  const m   = month || 'Jan';
+  const y   = year  || new Date().getFullYear();
+  const text = `${m} ${y}`;
 
-    // 4b) set on inner <input>
-    input.value = val;
+  /* 3⃣ type → flatpickr parses & closes on Enter */
+  await input.click({ clickCount: 3 });
+  await input.type(text, { delay: 40 });
+  await input.press('Enter');
+  await delay(frame, 300, 450);
 
-    // 4c) fire events on BOTH
-    const evOpts = { bubbles: true };
-    input.dispatchEvent(new Event('input',  evOpts));
-    input.dispatchEvent(new Event('change', evOpts));
-    field.dispatchEvent(new Event('input',  evOpts));
-    field.dispatchEvent(new Event('change', evOpts));
-  }, host, inp, stored);
+  /* 4⃣ bubble events so Angular form control updates */
+  await frame.evaluate(el => {
+    ['input', 'change', 'blur'].forEach(ev =>
+      el.dispatchEvent(new Event(ev, { bubbles: true, composed: true })));
+  }, input);
+
+  /* 5⃣ debug: show stored value (safe – won’t crash) */
+  try {
+    console.log('[DEBUG] fillDate › value after type:', await input.inputValue());
+  } catch { /* ignore */ }
 
   return true;
 }
 
 
+
+
 function dateInFuture(month, year){
   if(!year) return false;
-  const cmp = new Date(`${month||'January'} 1, ${year}`);
+  const cmp   = new Date(`${month||'Jan'} 1, ${year}`);
   return cmp > new Date();
 }
 
-/* ────────────────── EXPERIENCE pop-up ───────────────────────────── */
+/* ────────────────── EXPERIENCE pop-up ──────────────────────────── */
 async function addExperiences(frame, page, exps=[]){
   if(!exps.length) return;
   console.log(`[INFO] Adding ${exps.length} experience entr${exps.length===1?'y':'ies'}`);
@@ -122,7 +183,6 @@ async function addExperiences(frame, page, exps=[]){
     const form = await frame.$('oc-experience-edit-form');
     await delay(frame,800,1000);
 
-    /* title / company / location autocompletes */
     await fillAutoComplete(frame,
       await form.$('spl-autocomplete[data-test="job-title-autocomplete"]'),
       exp.job_title);
@@ -133,36 +193,35 @@ async function addExperiences(frame, page, exps=[]){
       await form.$('spl-autocomplete[data-test="location-autocomplete"]'),
       exp.company_location);
 
-    /* description textarea (native) */
     if(exp.job_description){
       const descHost = await form.$('spl-textarea[id^="exp-desc"]');
       const desc     = await native(frame,descHost);
       if(desc) await desc.fill(exp.job_description);
     }
 
-    /* dates */
+    /* ── dates ───────────────────────────────────────────── */
     const fromHost = await form.$('spl-date-field[label="From"]');
     const toHost   = await form.$('spl-date-field[label="To"]');
+    console.log('[DEBUG] From host?',!!fromHost,'To host?',!!toHost);
 
     await fillDate(frame, fromHost, exp.start_month, exp.start_year);
     await fillDate(frame,   toHost, exp.end_month,   exp.end_year);
 
-    /* handle “I currently work here” */
-    const markCurrent = exp.current_job || !(exp.end_month||exp.end_year);
-    if(markCurrent){
-      const chk = await form.evaluateHandle(el=>{
-        const host = el.querySelector('oc-checkbox[data-test="experience-current"]');
-        return host?.shadowRoot?.querySelector('spl-checkbox')?.shadowRoot?.querySelector('input');
-      }).then(h=>h?.asElement());
-      if(chk && !(await chk.isChecked())) await chk.click({force:true});
+    const markCurrentJob = exp.current_job || !(exp.end_month || exp.end_year);
+    if (markCurrentJob) {
+      await tickCheckbox(frame,
+        'oc-checkbox[data-test="experience-current"] spl-checkbox');
     }
+
+
+
 
     await clickDeep(form,'oc-button[data-test="experience-save"]');
     await delay(frame,1600,2000);
   }
 }
 
-/* ─────────────────── EDUCATION pop-up ───────────────────────────── */
+/* ─────────────────── EDUCATION pop-up ─────────────────────────── */
 async function addEducations(frame, page, edus=[]){
   if(!edus.length) return;
   console.log(`[INFO] Adding ${edus.length} education entr${edus.length===1?'y':'ies'}`);
@@ -173,35 +232,39 @@ async function addEducations(frame, page, edus=[]){
     const form = await frame.$('oc-education-edit-form');
     await delay(frame,800,1000);
 
-    /* institution / degree / major (all simple spl-inputs) */
     await fillAutoComplete(frame,
       await form.$('spl-input[label="Institution"]'),
       edu.school_name);
 
-    const degreeInput = await native(frame, await form.$('spl-input[label="Degree"]'));
-    if(degreeInput) await degreeInput.fill(edu.degree_level || '');
+    const degreeInput = await native(frame,
+      await form.$('spl-input[label="Degree"]'));
+    if(degreeInput) await degreeInput.fill(edu.degree_level||'');
 
-    const majorInput  = await native(frame, await form.$('spl-input[label="Major"]'));
-    if(majorInput)  await majorInput.fill(edu.major || '');
-    
+    const majorInput = await native(frame,
+      await form.$('spl-input[label="Major"]'));
+    if(majorInput) await majorInput.fill(edu.major||'');
 
-    /* dates */
+    await fillAutoComplete(frame,
+      await form.$('spl-autocomplete[data-test="location-autocomplete"]'),
+      edu.school_location);
+
+    /* ── dates ───────────────────────────────────────────── */
     const fromHost = await form.$('spl-date-field[label="From"]');
     const toHost   = await form.$('spl-date-field[label="To"]');
+    console.log('[DEBUG] EDU From?',!!fromHost,'To?',!!toHost);
 
     await fillDate(frame, fromHost, edu.start_month, edu.start_year);
     await fillDate(frame,   toHost, edu.end_month,   edu.end_year);
 
-    /* “I currently attend” checkbox */
-    const markCurrent = !(edu.end_month||edu.end_year) ||
-                        dateInFuture(edu.end_month, edu.end_year);
-    if(markCurrent){
-      const chk = await form.evaluateHandle(el=>{
-        const host = el.querySelector('oc-checkbox[data-test="education-current"]');
-        return host?.shadowRoot?.querySelector('spl-checkbox')?.shadowRoot?.querySelector('input');
-      }).then(h=>h?.asElement());
-      if(chk && !(await chk.isChecked())) await chk.click({force:true});
+    
+
+    const markCurrentEdu = !(edu.end_month || edu.end_year) ||
+                       dateInFuture(edu.end_month, edu.end_year);
+    if (markCurrentEdu) {
+      await tickCheckbox(frame,
+        'oc-checkbox[data-test="education-current"] spl-checkbox');
     }
+
 
     await clickDeep(form,'oc-button[data-test="education-save"]');
     await delay(frame,1600,2000);
@@ -287,146 +350,259 @@ async function handleFirstPage(frame, page, u){
   await delay(frame,4200,4600);
 }
 
-/* ───────────── SCREENING page helpers (unchanged) ───────────────── */
-function buildScreening(u){
-  const def=v=>u[v]||'No';
+
+/* translate various boolean / string inputs → "Yes" | "No" ------------- */
+function yesNo(v) {
+  if (typeof v === 'boolean') return v ? 'Yes' : 'No';
+  const s = String(v ?? '').trim().toLowerCase();
+  if (['yes', 'y', 'true',  '1'].includes(s)) return 'Yes';
+  if (['no',  'n', 'false', '0'].includes(s)) return 'No';
+  return '';                     // "prefer not to answer" / empty
+}
+
+function buildScreening(u) {
   const today = new Date().toLocaleDateString('en-US');
-  const sig   = `${u['First Name']||''} ${u['Last Name']||''}`.trim();
+  const sig   = `${u['First Name'] || ''} ${u['Last Name'] || ''}`.trim();
+
+  /* we accept either the simple camel-case keys or the long labels
+     that come through in baseData -------------------------------- */
+  const authorizedRaw  =
+        u.authorized_to_work ??
+        u['Do you have unlimited and unrestricted authorization to work in the United States?'];
+
+  const sponsorRaw     =
+        u.needs_sponsorship ??
+        u['Will you, now or in the future, require company assistance or sponsorship…?'];
+
   return {
-    'Have you ever worked at ServiceNow in any capacity': def('Worked at ServiceNow'),
-    'If applicable, would you consider relocating for a role with ServiceNow?': u['Consider relocating']||'Yes',
-    'Is your current employer a customer of ServiceNow?': def('Employer customer'),
-    'Are you legally authorized to work in the country in which you are applying for a role?': u['Authorized to work']||'Yes',
-    'Do you now, or will you in the future, require visa sponsorship to work for ServiceNow in the country of hire?': u['Need sponsorship']||'No',
-    'Are you currently employed or have you ever been employed by PwC?': def('Worked at PwC'),
-    'Are you a citizen or lawful permanent resident of Cuba, Syria, Iran, North Korea, or the Crimea, Donetsk, or Luhansk regions of Ukraine?': def('Citizen restricted'),
-    'A. Have you ever been an employee of the U.S. Federal Government?': def('Fed employee'),
-    'B. Are you a current employee of the U.S. Federal Government': def('Current fed'),
-    'C. Have you ever been an employee of a state, local, or municipal government entity': def('State employee'),
-    'D. Has a member of your Immediate Family': def('Immediate family gov'),
-    'E. Are you currently, or have you been previously, suspended': def('Suspended'),
-    'Name (Signature Field):': sig,
-    "Today's date": today,
-    Gender           : u.Gender            || 'Prefer not to answer',
-    'Race/Ethnicity' : u.Race              || 'Prefer not to answer',
-    'Do you have (or have a history/record of having) a disability?':
-      u['Disability Status']               || 'I do not want to answer.',
-    'Are you a protected veteran?': u['Veteran Status'] || 'Prefer not to answer'
+    'Are you legally authorized to work in the country in which you are applying for a role?':
+        yesNo(authorizedRaw),
+
+    'Do you now, or will you in the future, require visa sponsorship to work for ServiceNow in the country of hire?':
+        yesNo(sponsorRaw),
+
+    /* --- everything below is exactly the same as before ---------- */
+    'Name (Signature Field):' : sig,
+    "Today's date"            : today,
+    Gender                    : srMaps.gender(u.Gender),
+    'Race/Ethnicity'          : srMaps.race(u.Race),
+    'Do you have (or have a history/record of having) a disability?' :
+        srMaps.disability(u['Disability Status']),
+    'Are you a protected veteran?' :
+        srMaps.veteran(u['Veteran Status'])
   };
 }
 
-async function fillCombo(frame, placeholder, value){
-  if(!value) return;
-  const inp = await frame.$(`input[placeholder="${placeholder}"]`);
-  if(!inp) return;
-  await inp.fill(value);
-  await delay(frame,900,1100);
-  await frame.keyboard.press('ArrowDown');
-  await frame.keyboard.press('Enter');
+
+
+
+
+
+
+/* overwrite the old helper ---------------------------------------- */
+async function fillCombo(frame, placeholder, value) {
+  if (!value) return;
+
+  // 1⃣  locate the host <spl-autocomplete … placeholder="…"> or fallback <input>
+  const host = await frame.$(
+    `spl-autocomplete[placeholder="${placeholder}"], input[placeholder="${placeholder}"]`
+  );
+  if (!host) return;
+
+  // 2⃣  drill into the real <input> (two shadow layers for spl-autocomplete)
+  const input =
+    (await host.evaluateHandle(el => {
+      if (el.tagName.toLowerCase() === 'input') return el;          // simple case
+      const splInput =
+        el.shadowRoot?.querySelector('spl-input')?.shadowRoot?.querySelector('input') ||
+        el.shadowRoot?.querySelector('input');
+      return splInput;
+    })).asElement();
+  if (!input) return;
+
+  // 3⃣  type the value
+  await input.click({ clickCount: 3 });
+  await input.type(value, { delay: 35 });
+  await delay(frame, 800, 1000);          // give the dropdown time to populate
+
+  /* 4⃣  try to pick the exact option from the dropdown panel -------- */
+  // every suggestion is rendered as an <spl-option> element inside a
+  // floating panel attached to <body>.  We look for the exact match.
+  const optSelector = `//spl-option[normalize-space(text()) = "${value}"]`;
+  const option = await frame.$(optSelector);
+  if (option) {
+    await option.click({ force: true });
+  } else {
+    /* fallback: just press Enter → flatpickr keeps the typed text     */
+    await input.press('Enter');
+  }
+
+  await delay(frame, 300, 500);           // allow Angular to register the change
 }
 
-async function handleScreening(frame,page,u){
-  await frame.waitForSelector('sr-screening-questions-form',{timeout:30_000});
+
+const norm = s => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+
+
+/* ───────────────── helper: pick a <spl-radio> by its visible label ── */
+async function chooseRadioByLabel(frame, block /* the question container */, wanted) {
+  if (!block || !wanted) return false;
+  const target = norm(wanted);                 // e.g. “no”, “yes”, “prefer…”
+  const radios = await block.$$('[role="radio"], spl-radio');
+  for (const r of radios) {
+    const outer = (await r.getAttribute('label') || '').trim();
+    const inner = (await r.innerText() || '').trim();
+    const cand  = norm(outer || inner);
+    if (!cand) continue;
+    if (cand === target || cand.startsWith(target)) {
+      /* visual click */
+      await r.click({ force: true });
+
+      /* tick the real <input> inside the shadow-root so Angular sees it */
+      await r.evaluate(el => {
+        const real = el.shadowRoot?.querySelector('input[type=radio]');
+        if (real) {
+          real.checked = true;
+          real.setAttribute('aria-checked', 'true');
+          ['input', 'change'].forEach(ev =>
+            real.dispatchEvent(new Event(ev, { bubbles: true })));
+        }
+        el.setAttribute('checked', '');
+      });
+      return true;
+    }
+  }
+  return false;
+}
+
+
+
+
+/* ---------------------------------------------------------------
+   Helper — handle any <spl-autocomplete> living inside a question
+---------------------------------------------------------------- */
+async function fillAutoCompleteInBlock(frame, block, value) {
+  if (!value) return false;
+  const host = await block.$('spl-autocomplete');
+  if (!host) return false;
+  await fillAutoComplete(frame, host, value);   // ← our proven helper
+  return true;                                  // we’re done
+}
+
+/* ----------------------------------------------------------------
+   NEW handleScreening (replaces your existing one 1-for-1)
+---------------------------------------------------------------- */
+async function handleScreening(frame, page, u) {
+  await frame.waitForSelector('sr-screening-questions-form',
+                              { timeout: 30_000 });
 
   const answers = buildScreening(u);
-  const norm = s=>s.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
-  const blocks = await frame.$$('[data-test="screening-questions-form"] [data-test^="question"]');
+  const blocks  = await frame.$$(
+    '[data-test="screening-questions-form"] [data-test^="question"]'
+  );
+  const misses  = [];
 
-  const unfilled = [];
+  for (const block of blocks) {
+    /* 🅰  resolve label → answer ---------------------------------- */
+    const labelRaw = (await block.innerText())
+                       .split('\n')[0]
+                       .replace('*', '')
+                       .trim();
+    if (!labelRaw) continue;                     // skip empty dividers
 
-  for(const b of blocks){
-    const raw   = await b.innerText();
-    const label = raw.split('\n')[0].replace('*','').trim();
-    let val     = '';
-    for(const k in answers){
-      if(norm(k).includes(norm(label))||norm(label).includes(norm(k))){
-        val = answers[k]; break;
+    let val = '';
+    for (const k in answers) {
+      if (norm(k).includes(norm(labelRaw)) ||
+          norm(labelRaw).includes(norm(k))) {
+        val = answers[k];
+        break;
       }
     }
-    if(!val){unfilled.push(label); continue;}
+    if (!val) { misses.push(labelRaw); continue; }
 
-    const field = await b.$('input,textarea,select,[role="combobox"]');
-    if(!field){unfilled.push(label); continue;}
+    /* 🅱  1st attempt: radio by label ----------------------------- */
+    if (await chooseRadioByLabel(frame, block, val)) continue;
 
-    const tag  = await field.evaluate(el=>el.tagName.toLowerCase());
-    const type = (await field.getAttribute('type')||'').toLowerCase();
+    /* 🅲  2nd attempt: <spl-autocomplete> combobox ---------------- */
+    if (await fillAutoCompleteInBlock(frame, block, val)) continue;
+
+    /* 🅳  3rd attempt: regular <select>/<input> ------------------- */
+    let field = await block.$('input,textarea,select,[role="combobox"]');
+    if (!field) { misses.push(labelRaw); continue; }
+
+    const tag  = await field.evaluate(el => el.tagName.toLowerCase());
+    const type = (await field.getAttribute('type') || '').toLowerCase();
     const role = await field.getAttribute('role');
 
-    try{
-      if(tag==='textarea') await field.fill(val);
-      else if(tag==='select'){
-        await field.selectOption({ label:val }).catch(async()=>{
-          await field.click();
-          await delay(frame,800,1000);
-          await frame.keyboard.press('ArrowDown'); await frame.keyboard.press('Enter');
-        });
-      }else if(tag==='input' && ['radio','checkbox'].includes(type)){
-        const opt = await b.$(`label:text-is("${val}")`);
-        if(opt) await opt.click({force:true}); else await field.check({force:true});
-      }else if(role==='combobox' || (tag==='input'&&type==='text')){
+    try {
+      if (tag === 'textarea') {
         await field.fill(val);
-        await delay(frame,800,1000);
+
+      } else if (tag === 'select') {
+        await field.selectOption({ label: val }).catch(async () => {
+          await field.click();
+          await delay(frame, 800, 1000);
+          await frame.keyboard.press('ArrowDown');
+          await frame.keyboard.press('Enter');
+        });
+
+      } else if (tag === 'input' && ['radio', 'checkbox'].includes(type)) {
+        await field.check({ force: true });
+
+      } else if (role === 'combobox' || (tag === 'input' && type === 'text')) {
+        await field.fill(val);
+        await delay(frame, 800, 1000);
         await frame.keyboard.press('ArrowDown');
         await frame.keyboard.press('Enter');
-      }else unfilled.push(label);
-    }catch{unfilled.push(label);}
+      }
+
+    } catch { misses.push(labelRaw); }
   }
 
-  await fillCombo(frame,'Gender',         answers.Gender);
-  await fillCombo(frame,'Race/Ethnicity', answers['Race/Ethnicity']);
+  /* explicit autocompletes that sit *outside* normal blocks ------ */
+  await fillCombo(frame, 'Gender',         answers.Gender);
+  await fillCombo(frame, 'Race/Ethnicity', answers['Race/Ethnicity']);
 
-  if(unfilled.length){
-    console.log('[INFO] LLM fallback for screening:',unfilled);
-    let prompt='Fill remaining required questions and press **Submit**:\n';
-    for(const l of unfilled) prompt+=`- ${l}: ${answers[l]||'No'}\n`;
+  /* any stragglers → GPT fallback -------------------------------- */
+  if (misses.length) {
+    console.log('[INFO] LLM fallback for screening:', misses);
+    let prompt = 'Fill the remaining required questions and press **Submit**:\n';
+    for (const m of misses) prompt += `- ${m}: ${answers[m] || ''}\n`;
     await page.ai(prompt);
-    await delay(frame,2000,2500);
+    await delay(frame, 2200, 2600);
   }
 
-  const cb = await frame.$('oc-checkbox[data-test="consent-box"]');
-  if(cb){
-    const real = await cb.evaluateHandle(el=>
-      el.shadowRoot?.querySelector('spl-checkbox')?.shadowRoot?.querySelector('input')
-    ).then(h=>h.asElement());
-    if(real && !(await real.isChecked())) await real.click({force:true});
-  }
-  await clickDeep(frame,'oc-button[data-test="footer-submit"]');
-  await delay(frame,4800,5200);
+  /* privacy checkbox + submit ------------------------------------ */
+  await tickCheckbox(frame,
+    'oc-checkbox[data-test="consent-box"] spl-checkbox');
+
+  await clickDeep(frame, 'oc-button[data-test="footer-submit"]');
+  await delay(frame, 4800, 5200);
 }
 
-/* ─────────────────── MAIN EXPORT ───────────────────────────────── */
+
+
+
+
+
+
 async function applyToSmartRecruiters(url,userData){
   if(!process.env.OPENAI_API_KEY) throw new Error('Missing OPENAI_API_KEY');
-
-  const agent = new HyperAgent({
-    llm: new ChatOpenAI({
-      modelName:'gpt-4o-mini',
-      openAIApiKey:process.env.OPENAI_API_KEY
-    })
-  });
-  const page = await agent.newPage();
-
+  const agent=new HyperAgent({ llm:new ChatOpenAI({
+      modelName:'gpt-4o-mini', openAIApiKey:process.env.OPENAI_API_KEY })});
+  const page=await agent.newPage();
   try{
-    console.log(`[INFO] Navigating to ${url}`);
+    console.log('[INFO] Navigating to',url);
     await page.goto(url,{waitUntil:'load',timeout:60_000});
-
-    let frame = page;
-    const iframe = await page.$('iframe[src*="smartrecruiters.com"]');
-    if(iframe){
-      const f=await iframe.contentFrame();
-      if(f){frame=f; console.log('[INFO] Switched into SmartRecruiters iframe');}
-    }
-
+    let frame=page;
+    const iframe=await page.$('iframe[src*="smartrecruiters.com"]');
+    if(iframe){const f=await iframe.contentFrame();if(f){frame=f;console.log('[INFO] in iframe');}}
     await frame.waitForSelector('oc-personal-information',{state:'visible',timeout:30_000});
     await delay(frame,600,900);
-
-    await handleFirstPage(frame,page,userData);   // personal + exp/edu + next
-    await handleScreening(frame,page,userData);   // screening + submit
-
-    console.log('✅ SmartRecruiters automation complete!');
-  }finally{
-    await agent.closeAgent();
-  }
+    await handleFirstPage(frame,page,userData);
+    await handleScreening(frame,page,userData);
+    console.log('✅ SmartRecruiters automation complete');
+  }finally{ await agent.closeAgent(); }
 }
-
 module.exports = { applyToSmartRecruiters };

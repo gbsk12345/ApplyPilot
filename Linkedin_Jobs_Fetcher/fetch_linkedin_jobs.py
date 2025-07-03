@@ -178,5 +178,6 @@ if __name__ == "__main__":
 
     # Save to CSV
     df = pd.DataFrame(enriched_jobs)
+
     df.to_csv("linkedin_enriched_jobs.csv", index=False)
     print("📄 Saved to linkedin_enriched_jobs.csv")

@@ -14,6 +14,9 @@ import re
 import pandas as pd
 from typing import List, Dict, Any
 
+import matplotlib.pyplot as plt
+from collections import Counter
+
 # ------------------------ 1. Extract LinkedIn Job ID from URL -----------------------
 
 
@@ -148,36 +151,31 @@ def enrich_jobs_with_details(jobs: List[Dict[str, Any]]) -> List[Dict[str, Any]]
     return jobs
 
 # ---------------------------- 5. Execution Block ---------------------------------------
+# ---------------------------- 5. Execution Block ---------------------------------------
 
 
 if __name__ == "__main__":
     # Example usage
     keyword = "software engineer"
     location = "United States"
-    total_jobs = 5
+    total_jobs = 900
 
+    # Step 1: Fetch job listings
     job_list = fetch_job_urls(keyword, location, total_jobs)
-    print("No of jobs fetched ", len(job_list))
+    print("✅ No of jobs fetched:", len(job_list))
 
-    print(f"\n🧾 Fetched {len(job_list)} job listings.")
-    print("📎 Job URLs:")
+    # Step 2: Extract and print job URLs
+    print(f"\n🔗 Job URLs:")
+    job_urls = []
     for i, job in enumerate(job_list, 1):
-        print(f"{i:2}. {job.get('jobUrl', 'N/A')}")
+        url = job.get('jobUrl', 'N/A')
+        job_urls.append(url)
+        print(f"{i:3}. {url}")
+
     print("=" * 80)
 
-    enriched_jobs = enrich_jobs_with_details(job_list)
-
-    # Output a quick preview
-    for i, job in enumerate(enriched_jobs):
-        print(f"{i+1}. {job.get('position', 'N/A')} at {job.get('company', 'N/A')}")
-        print(f"    URL: {job.get('jobUrl', '')}")
-        print(
-            f"    Description Preview: {(job.get('description') or '')[:200]}...")
-        print(f"    Criteria: {job.get('criteria', {})}")
-        print("-" * 70)
-
-    # Save to CSV
-    df = pd.DataFrame(enriched_jobs)
-
-    df.to_csv("linkedin_enriched_jobs.csv", index=False)
-    print("📄 Saved to linkedin_enriched_jobs.csv")
+    # Step 3: Save job URLs to a file (text or CSV)
+    with open("linkedin_job_urls.txt", "w", encoding="utf-8") as f:
+        for url in job_urls:
+            f.write(url + "\n")
+    print("📁 Saved all job URLs to 'linkedin_job_urls.txt'")

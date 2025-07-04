@@ -1,4 +1,4 @@
-# ✅ process_jobs.py (with batching and improved output)
+# ✅ process_jobs.py (with start/end range and job numbers)
 import json
 import time
 import re
@@ -45,6 +45,7 @@ def start_browser():
     """Starts and returns a Selenium Chrome browser instance."""
     chrome_options = Options()
     chrome_options.page_load_strategy = "eager"
+    # To see the browser in action, comment out the next line
     chrome_options.add_argument("--headless")
     chrome_options.add_experimental_option("detach", True)
     chrome_options.add_argument("--start-maximized")
@@ -69,10 +70,8 @@ def get_job_id_from_url(url):
 def get_apply_info(driver, job_url):
     """
     Visits a job URL and returns the external apply link or 'Easy Apply' status.
-    This function now minimizes console output, leaving it to the main loop.
     """
     clean_job_url = job_url.split('?')[0]
-
     try:
         driver.get(clean_job_url)
         time.sleep(random.uniform(4, 7))
@@ -83,7 +82,6 @@ def get_apply_info(driver, job_url):
     try:
         apply_button = driver.find_element(
             By.CSS_SELECTOR, ".jobs-apply-button--top-card .jobs-apply-button")
-
         if "easy apply" in apply_button.text.strip().lower():
             return "Easy Apply", "Easy Apply"
 
@@ -93,7 +91,6 @@ def get_apply_info(driver, job_url):
 
         new_window = next(
             (handle for handle in driver.window_handles if handle != original_window), None)
-
         if new_window:
             try:
                 driver.switch_to.window(new_window)
@@ -107,21 +104,24 @@ def get_apply_info(driver, job_url):
             return "External Link", external_link
         else:
             return "Error", "New tab did not open"
-
     except (NoSuchElementException, TimeoutException):
         return "Error", "Apply button not found (job may have expired)"
     except Exception as e:
         return "Error", str(e)
 
 
-# ------------------------- MAIN EXECUTION (with self-healing and batching) --------------------------------------
+# ------------------------- MAIN EXECUTION (with all features) --------------------------------------
 if __name__ == "__main__":
+    # --- ⚙️ 1. USER CONFIGURATION ---
+    # Set the starting job number (e.g., if you want to resume from job 100, set this to 100)
+    START_JOB = 1
+    # Set the ending job number (e.g., to process jobs 100-150). Set to None to process all.
+    END_JOB = None
+
     # --- Constants for Batch Processing ---
     JOBS_PER_BATCH = 10
-    SHORT_SLEEP_MIN = 2
-    SHORT_SLEEP_MAX = 5
-    LONG_SLEEP_MIN = 25
-    LONG_SLEEP_MAX = 40
+    SHORT_SLEEP_MIN, SHORT_SLEEP_MAX = 2, 5
+    LONG_SLEEP_MIN, LONG_SLEEP_MAX = 25, 40
 
     # --- File Configuration ---
     INPUT_FILE = "linkedin_job_urls.txt"
@@ -130,10 +130,11 @@ if __name__ == "__main__":
 
     print("\n================= LINKEDIN JOB PROCESSOR =================\n")
 
+    # --- 2. SETUP ---
     try:
         with open(INPUT_FILE, 'r') as f:
             job_urls = [line.strip() for line in f if line.strip()]
-        print(f"INFO: Found {len(job_urls)} URLs in '{INPUT_FILE}'.")
+        print(f"INFO: Found {len(job_urls)} total URLs in '{INPUT_FILE}'.")
     except FileNotFoundError:
         print(
             f"FATAL: Input file '{INPUT_FILE}' not found. Please create it and add job URLs.")
@@ -147,6 +148,9 @@ if __name__ == "__main__":
     except (FileNotFoundError, json.JSONDecodeError):
         results = {}
 
+    end_job_display = END_JOB if END_JOB is not None else len(job_urls)
+    print(f"INFO: Will process jobs from {START_JOB} to {end_job_display}.\n")
+
     driver = start_browser()
     print("INFO: Attempting to load cookies to establish initial session...")
     if not load_cookies(driver, COOKIE_FILE):
@@ -154,87 +158,97 @@ if __name__ == "__main__":
         exit()
     print("SUCCESS: Initial session cookies loaded successfully.\n")
 
-    # --- Counters for Final Summary ---
+    # --- 3. MAIN PROCESSING LOOP ---
     processed_in_session = 0
     processed_since_break = 0
 
-    urls_to_process = list(job_urls)
-    while urls_to_process:
-        url = urls_to_process[0]
+    for job_number, url in enumerate(job_urls, 1):
+        # --- Range and Skip Logic ---
+        if job_number < START_JOB:
+            continue
+        if END_JOB is not None and job_number > END_JOB:
+            print("INFO: Reached the specified END_JOB. Stopping.")
+            break
 
-        try:
-            job_id = get_job_id_from_url(url)
-            if not job_id or job_id in results:
-                urls_to_process.pop(0)
-                continue
-
-            processed_in_session += 1
-            processed_since_break += 1
+        job_id = get_job_id_from_url(url)
+        if not job_id:
             print(
-                f"▶️  Processing Job {processed_in_session} (ID: {job_id})...")
-
-            status, data = get_apply_info(driver, url)
-
-            if "Error" not in status:
-                print(f"   ✅  [{status.upper()}] Succeeded for Job {job_id}.")
-            else:
-                print(
-                    f"   ❌  [{status.upper()}] Failed for Job {job_id}: {data}")
-
-            results[job_id] = {"url": url, "status": status, "apply_link": data if status ==
-                               "External Link" else "N/A", "timestamp": time.ctime()}
-
-            with open(OUTPUT_FILE, 'w') as f:
-                json.dump(results, f, indent=4)
-            urls_to_process.pop(0)
-
-            # --- Smart Sleeping Logic ---
-            if processed_since_break >= JOBS_PER_BATCH:
-                sleep_time = random.uniform(LONG_SLEEP_MIN, LONG_SLEEP_MAX)
-                print(
-                    f"\n--- Batch of {JOBS_PER_BATCH} complete. Taking a long break for {sleep_time:.1f}s. ---\n")
-                time.sleep(sleep_time)
-                processed_since_break = 0
-            else:
-                time.sleep(random.uniform(SHORT_SLEEP_MIN, SHORT_SLEEP_MAX))
-
-        except InvalidSessionIdException:
-            print("\n🚨 WARNING: Browser session became invalid. Restarting session...")
-            if driver:
-                try:
-                    driver.quit()
-                except Exception:
-                    pass
-
-            driver = start_browser()
-            if not load_cookies(driver, COOKIE_FILE):
-                print("FATAL: Failed to load cookies on restart. Aborting.")
-                break
-            print("   ✅  Browser restarted successfully. Resuming...\n")
-            processed_since_break = 0  # Reset batch counter after a crash
-            time.sleep(5)
-
-        except Exception as e:
-            print(
-                f"💥 FATAL: An unexpected critical error occurred for URL {url}: {e}")
-            urls_to_process.pop(0)
+                f"⚠️  Skipping Job {job_number}: Invalid URL (no job ID found).")
+            continue
+        if job_id in results:
             continue
 
+        retries = 3
+        while retries > 0:
+            try:
+                processed_in_session += 1
+                processed_since_break += 1
+                print(f"▶️  Processing Job {job_number} (ID: {job_id})...")
+
+                status, data = get_apply_info(driver, url)
+
+                if "Error" not in status:
+                    print(
+                        f"   ✅  [{status.upper()}] Succeeded for Job {job_id}.")
+                else:
+                    print(
+                        f"   ❌  [{status.upper()}] Failed for Job {job_id}: {data}")
+
+                results[job_id] = {
+                    "job_number": job_number,  # <-- Added job number here
+                    "url": url,
+                    "status": status,
+                    "apply_link": data if status == "External Link" else "N/A",
+                    "timestamp": time.ctime()
+                }
+
+                with open(OUTPUT_FILE, 'w') as f:
+                    json.dump(results, f, indent=4)
+
+                # --- Smart Sleeping Logic ---
+                if processed_since_break >= JOBS_PER_BATCH:
+                    sleep_time = random.uniform(LONG_SLEEP_MIN, LONG_SLEEP_MAX)
+                    print(
+                        f"\n--- Batch of {JOBS_PER_BATCH} complete. Taking a long break for {sleep_time:.1f}s. ---\n")
+                    time.sleep(sleep_time)
+                    processed_since_break = 0
+                else:
+                    time.sleep(random.uniform(
+                        SHORT_SLEEP_MIN, SHORT_SLEEP_MAX))
+
+                break  # Success, exit retry loop
+
+            except InvalidSessionIdException:
+                retries -= 1
+                print(
+                    f"\n🚨 WARNING: Browser session crashed. Retries left: {retries}. Restarting session...")
+                if driver:
+                    try:
+                        driver.quit()
+                    except Exception:
+                        pass
+
+                driver = start_browser()
+                if not load_cookies(driver, COOKIE_FILE):
+                    print("FATAL: Failed to load cookies on restart. Aborting.")
+                    exit()  # Exit the whole script if cookies can't be reloaded
+                print("   ✅  Browser restarted successfully. Resuming...\n")
+                processed_since_break = 0
+                if retries == 0:
+                    print(
+                        f"   ❌  Failed to process Job {job_number} after multiple retries.")
+
+            except Exception as e:
+                print(
+                    f"💥 FATAL: An unexpected critical error occurred for URL {url}: {e}")
+                retries = 0  # Stop retrying for this job
+                break
+
+    # --- 4. FINAL SUMMARY ---
     if driver:
         driver.quit()
-
-    # --- Final Summary ---
-    total_processed = len(results)
-    success_count = len([r for r in results.values()
-                        if r["status"] == "External Link"])
-    easy_apply_count = len(
-        [r for r in results.values() if r["status"] == "Easy Apply"])
-    error_count = len([r for r in results.values() if r["status"] == "Error"])
-
     print("\n\n===================== FINAL SUMMARY =====================\n")
     print(f"Total URLs in file: {len(job_urls)}")
-    print(f"Total Jobs Processed: {total_processed}")
-    print(f"   🔗 External Links: {success_count}")
-    print(f"   ✅ Easy Apply: {easy_apply_count}")
-    print(f"   ❌ Errors: {error_count}")
+    print(f"Total Jobs Processed in this run: {processed_in_session}")
+    print(f"Total Jobs in results file: {len(results)}")
     print(f"\nAll tasks complete. Final results are in '{OUTPUT_FILE}'.")

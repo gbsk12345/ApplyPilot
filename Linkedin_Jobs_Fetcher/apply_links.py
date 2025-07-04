@@ -32,6 +32,10 @@ def start_browser():
 
 # --------------------- EXTRACT APPLY LINK OR EASY APPLY ------------------------
 
+# --------------------- EXTRACT APPLY LINK OR EASY APPLY ------------------------
+
+
+# --------------------- EXTRACT APPLY LINK OR EASY APPLY ------------------------
 
 def get_apply_info(driver, job_url):
     print(f"\n🔗 Visiting: {job_url}")
@@ -40,26 +44,45 @@ def get_apply_info(driver, job_url):
     time.sleep(2)
     load_cookies(driver, "www.linkedin.com_cookies.json")
     driver.get(job_url)
-    time.sleep(3)
+    # Increased sleep time to ensure all dynamic elements load
+    time.sleep(5)
 
     try:
-        # Wait for job topcard
-        apply_section = driver.find_element(
-            By.CLASS_NAME, "jobs-apply-button--top-card")
-        button = apply_section.find_element(By.TAG_NAME, "button")
+        # Find the main apply button at the top of the page
+        apply_button = driver.find_element(
+            By.CSS_SELECTOR, ".jobs-apply-button--top-card .jobs-apply-button")
 
-        if button.text.strip().lower().startswith("apply"):
-            href = button.get_attribute("href")
-            if href:
-                print(f"🔗 External Apply Link: {href}")
-            else:
-                print("✅ Easy Apply available (no external link)")
-        else:
-            print("❌ Found button but not Apply")
+        # If the button's text contains "Easy Apply", it's not an external link.
+        if "easy apply" in apply_button.text.strip().lower():
+            print("✅ Easy Apply available.")
+            return
+
+        # --- This is the new logic for handling external links in a new tab ---
+
+        # 1. Get the current window's handle before clicking
+        original_window = driver.current_window_handle
+
+        # 2. Click the button, which should open a new tab
+        apply_button.click()
+        time.sleep(3)  # Wait for the new tab to fully open
+
+        # 3. Loop through all open windows and find the new one
+        for handle in driver.window_handles:
+            if handle != original_window:
+                driver.switch_to.window(handle)
+                break
+
+        # 4. Get the URL from the new tab
+        print(f"🔗 External Apply Link: {driver.current_url}")
+
+        # 5. Close the new tab and switch back to the original LinkedIn tab
+        driver.close()
+        driver.switch_to.window(original_window)
 
     except Exception as e:
-        print("❌ Apply button section not found.")
-
+        print("❌ Apply button or section not found on the page.")
+        # Uncomment the line below for detailed error messages during debugging
+        # print(e)
 # ------------------------- MAIN EXECUTION --------------------------------------
 
 

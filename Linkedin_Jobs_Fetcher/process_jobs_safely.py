@@ -7,6 +7,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, InvalidSessionIdException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # -------------------- LOAD COOKIES (with fix for sameSite) ---------------------
 
@@ -87,7 +89,12 @@ def get_apply_info(driver, job_url):
 
         original_window = driver.current_window_handle
         apply_button.click()
-        time.sleep(random.uniform(4, 6))
+
+        # --- FIXED: Use an explicit wait for the new tab to open ---
+        try:
+            WebDriverWait(driver, 15).until(EC.number_of_windows_to_be(2))
+        except TimeoutException:
+            return "Error", "New tab did not open within the time limit"
 
         new_window = next(
             (handle for handle in driver.window_handles if handle != original_window), None)
@@ -103,7 +110,9 @@ def get_apply_info(driver, job_url):
                 driver.switch_to.window(original_window)
             return "External Link", external_link
         else:
-            return "Error", "New tab did not open"
+            # This case should be rare now with the explicit wait
+            return "Error", "Could not identify the new tab"
+
     except (NoSuchElementException, TimeoutException):
         return "Error", "Apply button not found (job may have expired)"
     except Exception as e:
@@ -125,7 +134,7 @@ if __name__ == "__main__":
 
     # --- File Configuration ---
     INPUT_FILE = "linkedin_job_urls.txt"
-    OUTPUT_FILE = "job_results.json"
+    OUTPUT_FILE = "job_results_2.json"
     COOKIE_FILE = "linkedin_incognito_cookies.json"
 
     print("\n================= LINKEDIN JOB PROCESSOR =================\n")

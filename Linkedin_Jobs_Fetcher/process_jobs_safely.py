@@ -46,7 +46,7 @@ def start_browser():
     """Starts and returns a Selenium Chrome browser instance."""
     chrome_options = Options()
     chrome_options.page_load_strategy = "eager"
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_experimental_option("detach", True)
     chrome_options.add_argument("--start-maximized")
     chrome_options.add_argument(
@@ -198,9 +198,9 @@ if __name__ == "__main__":
             print(f"💾 Progress saved to '{OUTPUT_FILE}'.")
 
             urls_to_process.pop(0)
-            sleep_time = random.uniform(7, 15)
-            print(f"😴 Sleeping for {sleep_time:.2f} seconds to be safe...")
-            time.sleep(sleep_time)
+            # sleep_time = random.uniform(7, 15)
+            # print(f"😴 Sleeping for {sleep_time:.2f} seconds to be safe...")
+            # time.sleep(sleep_time)
 
         except InvalidSessionIdException:
             print(

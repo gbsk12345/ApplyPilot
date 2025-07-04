@@ -90,7 +90,8 @@ if __name__ == "__main__":
     print("\n================= APPLY LINK FETCHER =================\n")
     job_urls = [
         "https://www.linkedin.com/jobs/view/software-engineer-at-microsoft-4261014219",
-        "https://www.linkedin.com/jobs/view/full-stack-software-engineer-at-atlassian-4261304015"
+        "https://www.linkedin.com/jobs/view/full-stack-software-engineer-at-atlassian-4261304015",
+        "https://www.linkedin.com/jobs/collections/recommended/?currentJobId = 4256531468",
     ]
 
     driver = start_browser()

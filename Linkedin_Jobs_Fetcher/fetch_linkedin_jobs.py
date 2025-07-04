@@ -6,6 +6,17 @@
 #   3. Call LinkedIn's public "jobs-guest" API to get full job description and metadata
 #   4. Output enriched jobs list (can be printed, exported to JSON, etc.)
 
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+import requests
+from bs4 import BeautifulSoup
+import time
+
+
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -13,9 +24,6 @@ from urllib.parse import urlparse
 import re
 import pandas as pd
 from typing import List, Dict, Any
-
-import matplotlib.pyplot as plt
-from collections import Counter
 
 # ------------------------ 1. Extract LinkedIn Job ID from URL -----------------------
 
@@ -40,11 +48,16 @@ def extract_job_id(job_url: str) -> str:
 
 def fetch_job_details(job_id: str) -> Dict[str, Any]:
     """
-    Scrapes the job's full detail page using LinkedIn's public jobs-guest API.
-    Returns:
-        - description: Text of the job description
-        - criteria: Dictionary with fields like Employment type, Industries, etc.
+    Uses LinkedIn's jobs-guest API + Selenium to extract:
+    - description (from LinkedIn jobs-guest API)
+    - criteria (from LinkedIn jobs-guest API)
+    - applyUrl (via Selenium from full LinkedIn job page)
     """
+
+    # --------- PART 1: jobs-guest API (description + criteria) ----------
+    description = ""
+    criteria = {}
+
     try:
         headers = {
             "User-Agent": "Mozilla/5.0",
@@ -56,34 +69,59 @@ def fetch_job_details(job_id: str) -> Dict[str, Any]:
         if response.status_code == 429:
             print(f"[429 TOO MANY REQUESTS] Backing off for jobId {job_id}")
             time.sleep(5)
-            return None
         elif response.status_code >= 400:
-            print(f"[!] Failed for {job_id}: {response.status_code}")
-            return None
+            print(f"[!] Failed API for {job_id}: {response.status_code}")
+        else:
+            soup = BeautifulSoup(response.text, 'html.parser')
 
-        soup = BeautifulSoup(response.text, 'html.parser')
+            desc_div = soup.select_one('[class*=description] > section > div')
+            description = desc_div.get_text(
+                separator='\n').strip() if desc_div else ""
 
-        # Description block
-        desc_div = soup.select_one('[class*=description] > section > div')
-        description = desc_div.get_text(
-            separator='\n').strip() if desc_div else ""
-
-        # Job Criteria
-        criteria = {}
-        for li in soup.select('.description__job-criteria-list > li'):
-            label = li.select_one('.description__job-criteria-subheader')
-            value = li.select_one(
-                'span:not(.description__job-criteria-subheader)')
-            if label and value:
-                criteria[label.get_text(strip=True)
-                         ] = value.get_text(strip=True)
-
-        return {"description": description, "criteria": criteria}
+            for li in soup.select('.description__job-criteria-list > li'):
+                label = li.select_one('.description__job-criteria-subheader')
+                value = li.select_one(
+                    'span:not(.description__job-criteria-subheader)')
+                if label and value:
+                    criteria[label.get_text(strip=True)
+                             ] = value.get_text(strip=True)
 
     except Exception as e:
-        print(
-            f"[ERROR] Fetching job details failed for job_id={job_id}:\n    {e}")
-        return None
+        print(f"[ERROR] LinkedIn API failed for job_id={job_id}:\n    {e}")
+
+    # --------- PART 2: Real Apply Button via Selenium ----------
+    apply_url = None
+    try:
+        job_view_url = f"https://www.linkedin.com/jobs/view/{job_id}"
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")  # Run in background
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
+        driver = webdriver.Chrome(options=chrome_options)
+        driver.get(job_view_url)
+
+        time.sleep(3)  # Wait for content to load
+
+        # Try common apply button selectors
+        try:
+            apply_btn = driver.find_element(
+                By.CSS_SELECTOR, 'a[data-tracking-control-name*="public_jobs_topcard"]')
+            apply_url = apply_btn.get_attribute('href')
+        except NoSuchElementException:
+            apply_url = job_view_url  # fallback
+
+        driver.quit()
+
+    except Exception as e:
+        print(f"[ERROR] Selenium failed for job_id={job_id}:\n    {e}")
+        apply_url = f"https://www.linkedin.com/jobs/view/{job_id}"
+
+    return {
+        "description": description,
+        "criteria": criteria,
+        "applyUrl": apply_url
+    }
 
 # ----------------------- 3. Stage 1: Fetch Job Listings -----------------------------
 
@@ -126,31 +164,78 @@ def fetch_job_urls(keyword: str, location: str, total_jobs: int = 50) -> List[Di
 
 
 def enrich_jobs_with_details(jobs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """
-    Loops through the raw job list and appends 'description' and 'criteria' fields
-    by calling LinkedIn's jobs-guest API per job.
-    """
     for job in jobs:
         job_url = job.get("jobUrl", "")
         job_id = extract_job_id(job_url)
         if not job_id:
             job["description"] = ""
             job["criteria"] = {}
+            job["applyUrl"] = ""
             continue
 
         details = fetch_job_details(job_id)
+
         if details:
             job["description"] = details["description"]
             job["criteria"] = details["criteria"]
+            job["applyUrl"] = details["applyUrl"]
         else:
             job["description"] = ""
             job["criteria"] = {}
+            job["applyUrl"] = job.get("jobUrl", "")
 
-        time.sleep(1.5)  # avoid getting 429 errors
+        time.sleep(1.5)
 
     return jobs
 
-# ---------------------------- 5. Execution Block ---------------------------------------
+
+def get_real_apply_link(job_id: str) -> str:
+    try:
+        job_view_url = f"https://www.linkedin.com/jobs/view/{job_id}"
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+
+        driver = webdriver.Chrome(options=chrome_options)
+        driver.get(job_view_url)
+
+        # Wait max 10 seconds for page to load
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
+        )
+
+        time.sleep(3)  # let JS finish loading
+
+        apply_url = None
+
+        # 1. Try known apply button class
+        try:
+            apply_btn = driver.find_element(
+                By.CSS_SELECTOR, "a.topcard__apply-button")
+            apply_url = apply_btn.get_attribute("href")
+        except:
+            pass
+
+        # 2. Fallback: try any link that says “Apply”
+        if not apply_url:
+            try:
+                all_links = driver.find_elements(By.TAG_NAME, "a")
+                for link in all_links:
+                    if "apply" in link.text.lower():
+                        apply_url = link.get_attribute("href")
+                        break
+            except:
+                pass
+
+        driver.quit()
+
+        return apply_url if apply_url else job_view_url
+
+    except Exception as e:
+        print(
+            f"[Selenium ERROR] Failed to fetch apply link for job_id={job_id}\n{e}")
+        return f"https://www.linkedin.com/jobs/view/{job_id}"
 # ---------------------------- 5. Execution Block ---------------------------------------
 
 
@@ -158,24 +243,30 @@ if __name__ == "__main__":
     # Example usage
     keyword = "software engineer"
     location = "United States"
-    total_jobs = 900
+    total_jobs = 5
 
-    # Step 1: Fetch job listings
     job_list = fetch_job_urls(keyword, location, total_jobs)
-    print("✅ No of jobs fetched:", len(job_list))
+    print("No of jobs fetched ", len(job_list))
 
-    # Step 2: Extract and print job URLs
-    print(f"\n🔗 Job URLs:")
-    job_urls = []
+    print(f"\n🧾 Fetched {len(job_list)} job listings.")
+    print("📎 Job URLs:")
     for i, job in enumerate(job_list, 1):
-        url = job.get('jobUrl', 'N/A')
-        job_urls.append(url)
-        print(f"{i:3}. {url}")
-
+        print(f"{i:2}. {job.get('jobUrl', 'N/A')}")
     print("=" * 80)
 
-    # Step 3: Save job URLs to a file (text or CSV)
-    with open("linkedin_job_urls.txt", "w", encoding="utf-8") as f:
-        for url in job_urls:
-            f.write(url + "\n")
-    print("📁 Saved all job URLs to 'linkedin_job_urls.txt'")
+    enriched_jobs = enrich_jobs_with_details(job_list)
+
+    for i, job in enumerate(enriched_jobs):
+        print(f"{i+1}. {job.get('position', 'N/A')} at {job.get('company', 'N/A')}")
+        print(f"    URL: {job.get('jobUrl', '')}")
+        print(f"    APPLY LINK: {job.get('applyUrl', 'N/A')}")
+        print(
+            f"    Description Preview: {(job.get('description') or '')[:200]}...")
+        print(f"    Criteria: {job.get('criteria', {})}")
+        print("-" * 70)
+
+    # Save to CSV
+    df = pd.DataFrame(enriched_jobs)
+
+    df.to_csv("linkedin_enriched_jobs.csv", index=False)
+    print("📄 Saved to linkedin_enriched_jobs.csv")

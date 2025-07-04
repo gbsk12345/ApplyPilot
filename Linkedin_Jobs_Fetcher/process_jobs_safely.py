@@ -1,4 +1,4 @@
-# ✅ process_jobs.py (with safety features)
+# ✅ process_jobs.py (with hang protection)
 import json
 import time
 import re
@@ -22,7 +22,6 @@ def load_cookies(driver, cookie_file):
                 return False
             cookies = json.loads(file_content)
 
-        # Load base domain before adding cookies for the session
         driver.get("https://www.linkedin.com")
         time.sleep(1)
         for cookie in cookies:
@@ -78,7 +77,6 @@ def get_apply_info(driver, job_url):
 
     try:
         driver.get(clean_job_url)
-        # Increased sleep time slightly for page elements
         time.sleep(random.uniform(5, 8))
     except TimeoutException:
         print("⚠️ Page took too long to load, but continuing anyway.")
@@ -94,25 +92,40 @@ def get_apply_info(driver, job_url):
 
         original_window = driver.current_window_handle
         apply_button.click()
-        time.sleep(random.uniform(3, 5))
+        time.sleep(random.uniform(4, 6))  # Wait for tab to open
 
+        new_window = None
         for handle in driver.window_handles:
             if handle != original_window:
-                driver.switch_to.window(handle)
+                new_window = handle
                 break
 
-        external_link = driver.current_url
-        print(f"🔗 Found: External Link")
+        external_link = "Error: Could not get URL from new tab"
+        if new_window:
+            try:
+                driver.switch_to.window(new_window)
+                # --- NEW FIX: Stop the page load to prevent hangs ---
+                driver.execute_script("window.stop();")
 
-        driver.close()
-        driver.switch_to.window(original_window)
+                time.sleep(1)  # Give command time to execute
+                external_link = driver.current_url
+                print(f"🔗 Found: External Link")
+            except Exception as e:
+                print(f"❌ Error while processing new tab: {e}")
+            finally:
+                # Ensure we always close the new tab and switch back
+                if driver.current_window_handle == new_window:
+                    driver.close()
+                driver.switch_to.window(original_window)
+        else:
+            print("❌ Error: New tab did not open.")
+            external_link = "Error: New tab did not open"
 
         return "External Link", external_link
 
     except (NoSuchElementException, TimeoutException):
         print("❌ Error: Apply button not found. The job may have expired or is no longer accepting applications.")
         return "Error", "Apply button not found"
-    # Do not catch the InvalidSessionIdException here, let the main loop handle it
     except Exception as e:
         print(f"❌ An unexpected error occurred in get_apply_info: {e}")
         return "Error", str(e)
@@ -153,7 +166,7 @@ if __name__ == "__main__":
     urls_to_process = list(job_urls)
 
     while urls_to_process:
-        url = urls_to_process[0]  # Always process the first item
+        url = urls_to_process[0]
 
         try:
             job_id = get_job_id_from_url(url)
